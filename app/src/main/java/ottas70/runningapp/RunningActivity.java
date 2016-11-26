@@ -1,102 +1,169 @@
 package ottas70.runningapp;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
-import com.google.android.gms.fitness.data.Value;
-import com.google.android.gms.fitness.request.OnDataPointListener;
-import com.google.android.gms.fitness.request.SensorRequest;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
-import java.util.concurrent.TimeUnit;
+public class RunningActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener,
+                                                         GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
 
-public class RunningActivity extends Activity {
+    private static final int DISTANCE_CHANGE = 1; //meter
+    private static final int TIME_BEETWEEN_UPDATES = 30000;
+    private static final int HAVE_LOCATION_PERMISSION = 1;
 
-    private TextView distance;
+    private TextView distanceTextView;
     private Button start;
 
     private GoogleApiClient client;
+    private Location currentLocation;
+    private LocationRequest locationRequest;
+    private double distance = 0.00;
+    private boolean isRunning = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
 
-        distance = (TextView) findViewById(R.id.distanceEditText);
+        distanceTextView = (TextView) findViewById(R.id.distanceEditText);
         start = (Button) findViewById(R.id.StartButton);
 
+        distanceTextView.setText(String.valueOf(distance));
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(1000);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            }
-        });
-
-        client = new GoogleApiClient.Builder(this)
-                .addApi(Fitness.SENSORS_API)
-                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ))
-                .addScope(new Scope(Scopes.FITNESS_BODY_READ_WRITE))
-                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                    @Override
-                    public void onConnected(@Nullable Bundle bundle) {
-                        Log.i("App", "Connected!");
-                        invokeFitnessAPIs();
+                if(!isRunning){
+                    start.setText("Stop");
+                    if(client == null){
+                        createGoogleAPIClient();
+                    }else{
+                        startLocationUpdates();
                     }
-
-                    @Override
-                    public void onConnectionSuspended(int i) {
-                        Log.i("App", "Connection Suspended!");
-                    }
-                })
-                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Log.i("App", "Connection Failed!");
-                    }
-                })
-                .build();
-    }
-
-    private void invokeFitnessAPIs() {
-        OnDataPointListener listener = new OnDataPointListener() {
-            @Override
-            public void onDataPoint(DataPoint dataPoint) {
-                for (Field field : dataPoint.getDataType().getFields()) {
-                    Value val = dataPoint.getValue(field);
-                    distance.setText(val.asString());
+                    isRunning = true;
+                }else{
+                    start.setText("Start");
+                    isRunning = false;
+                    stopLocationUpdates();
                 }
             }
-        };
-        SensorRequest req = new SensorRequest.Builder()
-                .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                .setSamplingRate(1, TimeUnit.SECONDS)
-                .build();
+        });
+        createGoogleAPIClient();
 
-        Fitness.SensorsApi.add(client, req, listener)
-                .setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        if (status.isSuccess()) {
-                            Log.i("App", "Listener registered");
-                        } else {
-                            Log.i("App", "Listener register failed");
-                        }
-                    }
-                });
+    }
 
+    protected void onStart() {
+        super.onStart();
+        client.connect();
+    }
+
+    protected void onStop() {
+        super.onStop();
+        client.disconnect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(client.isConnected()) {
+            stopLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(client.isConnected()){
+            startLocationUpdates();
+        }
+    }
+
+    private void createGoogleAPIClient(){
+            if (client == null) {
+                client = new GoogleApiClient.Builder(this)
+                        .addApi(LocationServices.API)
+                        .build();
+        }
+    }
+
+    private void getLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+        }
+        currentLocation = LocationServices.FusedLocationApi.getLastLocation(client);
+    }
+
+    private void startLocationUpdates() {
+        //noinspection MissingPermission
+        LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
+    }
+
+    private void stopLocationUpdates(){
+            LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
+    }
+
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, HAVE_LOCATION_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case HAVE_LOCATION_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Je možné pokračovat
+                } else {
+                    Toast toast = Toast.makeText(this, "This permission is necessery for this app", Toast.LENGTH_SHORT);
+                    requestPermission();
+                }
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if(currentLocation != null) {
+            float distance2 = currentLocation.distanceTo(location);
+            distance2 = distance2/1000;
+            distance2 = Math.round(distance*100)/100;
+            distance += distance2;
+            distanceTextView.setText(String.valueOf(distance));
+
+            currentLocation = location;
+        }else{
+            currentLocation = location;
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(this,"Error while connecting to Google Play Services",Toast.LENGTH_SHORT);
     }
 }
