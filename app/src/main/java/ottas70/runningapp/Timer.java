@@ -13,7 +13,7 @@ public class Timer implements Runnable {
     private TextView timer;
     private Handler handler;
 
-    public Timer(TextView timer,Handler handler, long counter) {
+     public Timer(TextView timer,Handler handler, long counter) {
         this.timer = timer;
         this.handler = handler;
         this.counter = counter;

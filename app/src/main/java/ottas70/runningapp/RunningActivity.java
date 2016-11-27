@@ -23,23 +23,15 @@ import com.google.android.gms.location.LocationServices;
 
 import java.text.DecimalFormat;
 
-public class RunningActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener,
-                                                         GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
-
-    private static final int DISTANCE_CHANGE = 10; //meter
-    private static final int TIME_BEETWEEN_UPDATES = 5000; //miliseconds
-    private static final int HAVE_LOCATION_PERMISSION = 1;
+public class RunningActivity extends Activity {
 
     private TextView distanceTextView;
     private TextView timerTextView;
     private Button start;
 
-    private GoogleApiClient client;
-    private Location currentLocation;
-    private LocationRequest locationRequest;
-    private double distance = 0.000;
-    private boolean isRunning = false;
+    private boolean isRunning;
 
+    private DistanceTracker distanceTracker;
     private Handler handler = new Handler();
     private Timer timer;
 
@@ -52,56 +44,47 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         start = (Button) findViewById(R.id.StartButton);
 
+        distanceTracker = new DistanceTracker(this,distanceTextView);
         timer = new Timer(timerTextView,handler,0);
 
-        distanceTextView.setText(String.valueOf(distance));
-        locationRequest = new LocationRequest();
-        locationRequest.setInterval(TIME_BEETWEEN_UPDATES);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!isRunning){
                     start.setText("Stop");
                     handler.postDelayed(timer,1000);
-                    if(client == null){
-                        createGoogleAPIClient();
-                    }else{
-                        startLocationUpdates();
-                    }
+                    distanceTracker.startLocationUpdates();
                     isRunning = true;
                 }else{
                     start.setText("Start");
                     handler.removeCallbacks(timer);
                     isRunning = false;
-                    stopLocationUpdates();
+                    distanceTracker.stopLocationUpdates();
                 }
             }
         });
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
-        }
-        createGoogleAPIClient();
+
 
     }
 
     protected void onStart() {
         super.onStart();
-        client.connect();
+        distanceTracker.getClient().connect();
     }
 
     protected void onStop() {
         super.onStop();
-        client.disconnect();
+        distanceTracker.getClient().disconnect();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(client.isConnected()){
+        if(distanceTracker.getClient().isConnected()){
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             }else{
-                startLocationUpdates();
+                distanceTracker.startLocationUpdates();
             }
         }
     }
@@ -109,87 +92,14 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     @Override
     protected void onResume() {
         super.onResume();
-        if(client.isConnected()){
+        if(distanceTracker.getClient().isConnected()){
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             }else{
-                currentLocation = null;
-                startLocationUpdates();
+                distanceTracker.setCurrentLocation(null);
+                distanceTracker.startLocationUpdates();
             }
         }
     }
 
-    private void createGoogleAPIClient(){
-            if (client == null) {
-                client = new GoogleApiClient.Builder(this)
-                        .addApi(LocationServices.API)
-                        .build();
-        }
-    }
-
-    private void getLastLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
-        }
-        currentLocation = LocationServices.FusedLocationApi.getLastLocation(client);
-    }
-
-    private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
-        }
-        LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
-    }
-
-    private void stopLocationUpdates(){
-            LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
-    }
-
-
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, HAVE_LOCATION_PERMISSION);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case HAVE_LOCATION_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //Je možné pokračovat
-                } else {
-                    Toast toast = Toast.makeText(this, "This permission is necessery for this app", Toast.LENGTH_SHORT);
-                    requestPermission();
-                }
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        if(currentLocation != null) {
-            float distance2 = currentLocation.distanceTo(location);
-            distance += distance2;
-            double roundedDistanceMeters = (double)Math.round(distance);
-            DecimalFormat df = new DecimalFormat("#0.00");
-            distanceTextView.setText(String.valueOf(df.format((double)roundedDistanceMeters/1000.0)));
-
-            currentLocation = location;
-        }else{
-            currentLocation = location;
-        }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-      Log.i("App","Connected");
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,"Error while connecting to Google Play Services",Toast.LENGTH_SHORT);
-    }
 }
