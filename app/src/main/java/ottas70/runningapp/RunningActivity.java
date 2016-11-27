@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,8 +23,8 @@ import com.google.android.gms.location.LocationServices;
 public class RunningActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener,
                                                          GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
 
-    private static final int DISTANCE_CHANGE = 1; //meter
-    private static final int TIME_BEETWEEN_UPDATES = 30000;
+    private static final int DISTANCE_CHANGE = 10; //meter
+    private static final int TIME_BEETWEEN_UPDATES = 10000; //milisekund
     private static final int HAVE_LOCATION_PERMISSION = 1;
 
     private TextView distanceTextView;
@@ -32,7 +33,7 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     private GoogleApiClient client;
     private Location currentLocation;
     private LocationRequest locationRequest;
-    private double distance = 0.00;
+    private double distance = 0.000;
     private boolean isRunning = false;
 
 
@@ -46,7 +47,8 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
 
         distanceTextView.setText(String.valueOf(distance));
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(1000);
+        locationRequest.setInterval(TIME_BEETWEEN_UPDATES);
+        //locationRequest.setSmallestDisplacement(DISTANCE_CHANGE);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +103,7 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             }else{
+                currentLocation = null;
                 startLocationUpdates();
             }
         }
@@ -154,10 +157,11 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     public void onLocationChanged(Location location) {
         if(currentLocation != null) {
             float distance2 = currentLocation.distanceTo(location);
-            distance2 = distance2/1000;
-            distance2 = Math.round(distance*100)/100;
+            //distance2 = Math.round(distance2/100);
+            Log.i("Distance", String.valueOf(distance2));
             distance += distance2;
-            distanceTextView.setText(String.valueOf(distance));
+            double roundedDistanceMeters = (double)Math.round(distance);
+            distanceTextView.setText(String.valueOf((double)roundedDistanceMeters/1000.0));
 
             currentLocation = location;
         }else{
@@ -167,7 +171,7 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
+      Log.i("App","Connected");
     }
 
     @Override
@@ -178,5 +182,6 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this,"Error while connecting to Google Play Services",Toast.LENGTH_SHORT);
+        Log.i("App","No connected");
     }
 }
