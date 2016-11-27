@@ -44,4 +44,26 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:text="0:0:0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:id="@+id/timerTextView"
+        android:textSize="24sp"
+        android:layout_below="@+id/textView"
+        android:layout_toLeftOf="@+id/StartButton"
+        android:layout_toStartOf="@+id/StartButton" />
+
+    <TextView
+        android:text="Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/timerTextView"
+        android:layout_alignRight="@+id/timerTextView"
+        android:layout_alignEnd="@+id/timerTextView"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp" />
+
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -24,10 +25,11 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
                                                          GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
 
     private static final int DISTANCE_CHANGE = 10; //meter
-    private static final int TIME_BEETWEEN_UPDATES = 10000; //milisekund
+    private static final int TIME_BEETWEEN_UPDATES = 5000; //milisekund
     private static final int HAVE_LOCATION_PERMISSION = 1;
 
     private TextView distanceTextView;
+    private TextView timerTextView;
     private Button start;
 
     private GoogleApiClient client;
@@ -36,6 +38,8 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     private double distance = 0.000;
     private boolean isRunning = false;
 
+    private Handler handler = new Handler();
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +47,20 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
         setContentView(R.layout.activity_running);
 
         distanceTextView = (TextView) findViewById(R.id.distanceEditText);
+        timerTextView = (TextView) findViewById(R.id.timerTextView);
         start = (Button) findViewById(R.id.StartButton);
+
+        timer = new Timer(timerTextView,0);
 
         distanceTextView.setText(String.valueOf(distance));
         locationRequest = new LocationRequest();
         locationRequest.setInterval(TIME_BEETWEEN_UPDATES);
-        //locationRequest.setSmallestDisplacement(DISTANCE_CHANGE);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!isRunning){
                     start.setText("Stop");
+                    handler.postDelayed(timer,1000);
                     if(client == null){
                         createGoogleAPIClient();
                     }else{
@@ -62,6 +69,7 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
                     isRunning = true;
                 }else{
                     start.setText("Start");
+                    handler.removeCallbacks(timer);
                     isRunning = false;
                     stopLocationUpdates();
                 }
@@ -182,6 +190,5 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this,"Error while connecting to Google Play Services",Toast.LENGTH_SHORT);
-        Log.i("App","No connected");
     }
 }
