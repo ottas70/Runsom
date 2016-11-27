@@ -65,6 +65,9 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
                 }
             }
         });
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+        }
         createGoogleAPIClient();
 
     }
@@ -82,8 +85,12 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     @Override
     protected void onPause() {
         super.onPause();
-        if(client.isConnected()) {
-            stopLocationUpdates();
+        if(client.isConnected()){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            }else{
+                startLocationUpdates();
+            }
         }
     }
 
@@ -91,7 +98,11 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     protected void onResume() {
         super.onResume();
         if(client.isConnected()){
-            startLocationUpdates();
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            }else{
+                startLocationUpdates();
+            }
         }
     }
 
@@ -111,7 +122,9 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     }
 
     private void startLocationUpdates() {
-        //noinspection MissingPermission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
     }
 
