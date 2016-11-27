@@ -1,5 +1,6 @@
 package ottas70.runningapp;
 
+import android.os.Handler;
 import android.widget.TextView;
 
 /**
@@ -10,9 +11,11 @@ public class Timer implements Runnable {
 
     private long counter;
     private TextView timer;
+    private Handler handler;
 
-    public Timer(TextView timer,long counter) {
+    public Timer(TextView timer,Handler handler, long counter) {
         this.timer = timer;
+        this.handler = handler;
         this.counter = counter;
     }
 
@@ -24,7 +27,8 @@ public class Timer implements Runnable {
         seconds -= hours*3600;
         long minutes = seconds/60;
         seconds -= minutes*60;
-        timer.setText(String.valueOf(hours) + ":"+String.valueOf(minutes)+":"+String.valueOf(seconds));
+        timer.setText(""+String.format("%02d",hours)+":"+String.format("%02d",minutes)+":"+String.format("%02d",seconds));
+        handler.postDelayed(this,1000);
     }
 
 }

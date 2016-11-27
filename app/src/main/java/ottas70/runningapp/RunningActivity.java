@@ -21,11 +21,13 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.text.DecimalFormat;
+
 public class RunningActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener,
                                                          GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
 
     private static final int DISTANCE_CHANGE = 10; //meter
-    private static final int TIME_BEETWEEN_UPDATES = 5000; //milisekund
+    private static final int TIME_BEETWEEN_UPDATES = 5000; //miliseconds
     private static final int HAVE_LOCATION_PERMISSION = 1;
 
     private TextView distanceTextView;
@@ -50,7 +52,7 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         start = (Button) findViewById(R.id.StartButton);
 
-        timer = new Timer(timerTextView,0);
+        timer = new Timer(timerTextView,handler,0);
 
         distanceTextView.setText(String.valueOf(distance));
         locationRequest = new LocationRequest();
@@ -165,11 +167,10 @@ public class RunningActivity extends Activity implements ActivityCompat.OnReques
     public void onLocationChanged(Location location) {
         if(currentLocation != null) {
             float distance2 = currentLocation.distanceTo(location);
-            //distance2 = Math.round(distance2/100);
-            Log.i("Distance", String.valueOf(distance2));
             distance += distance2;
             double roundedDistanceMeters = (double)Math.round(distance);
-            distanceTextView.setText(String.valueOf((double)roundedDistanceMeters/1000.0));
+            DecimalFormat df = new DecimalFormat("#0.00");
+            distanceTextView.setText(String.valueOf(df.format((double)roundedDistanceMeters/1000.0)));
 
             currentLocation = location;
         }else{
