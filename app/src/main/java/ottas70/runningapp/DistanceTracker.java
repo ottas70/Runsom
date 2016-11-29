@@ -30,7 +30,8 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int HAVE_LOCATION_PERMISSION = 1;
-    private static final int TIME_BEETWEEN_UPDATES = 5000; //miliseconds
+    private static final int TIME_BEETWEEN_UPDATES = 3000; //miliseconds
+    private static final int MINIMAL_DISTANCE = 10;
 
 
     private GoogleApiClient client;
@@ -49,6 +50,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         locationRequest = new LocationRequest();
         locationRequest.setInterval(TIME_BEETWEEN_UPDATES);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        //locationRequest.setSmallestDisplacement(MINIMAL_DISTANCE);
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
@@ -61,6 +63,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
                     .addApi(LocationServices.API)
                     .build();
         }
+        client.connect();
     }
 
     private void getLastLocation() {
@@ -74,7 +77,6 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
     }
 
     public void stopLocationUpdates() {
@@ -101,9 +103,14 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
 
     @Override
     public void onLocationChanged(Location location) {
+        if(location.getAccuracy() > 25){
+            return;
+        }
+        //Log.i("DISTANCE ACCURACY:  ", String.valueOf(location.getAccuracy()));
         if (currentLocation != null) {
             float distance2 = currentLocation.distanceTo(location);
             distance += distance2;
+            //Log.i("DISTANCE RUN", String.valueOf(distance2));
             double roundedDistanceMeters = (double) Math.round(distance);
             DecimalFormat df = new DecimalFormat("#0.00");
             distanceTextView.setText(String.valueOf(df.format((double) roundedDistanceMeters / 1000.0)));

@@ -1,35 +1,28 @@
 package ottas70.runningapp;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.location.Location;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import java.text.DecimalFormat;
 
 public class RunningActivity extends Activity {
 
     private TextView distanceTextView;
     private TextView timerTextView;
-    private Button start;
+    private Button startButton;
 
     private boolean isRunning;
+
+    private final int NOTIFICATION_ID = 001;
+    private NotificationManager notificationManager;
+    NotificationCompat.Builder notificationBuilder;
 
     private DistanceTracker distanceTracker;
     private Handler handler = new Handler();
@@ -42,64 +35,61 @@ public class RunningActivity extends Activity {
 
         distanceTextView = (TextView) findViewById(R.id.distanceEditText);
         timerTextView = (TextView) findViewById(R.id.timerTextView);
-        start = (Button) findViewById(R.id.StartButton);
+        startButton = (Button) findViewById(R.id.StartButton);
 
-        distanceTracker = new DistanceTracker(this,distanceTextView);
-        timer = new Timer(timerTextView,handler,0);
+        isRunning = false;
+        distanceTracker = new DistanceTracker(this, distanceTextView);
+        timer = new Timer(timerTextView, handler, 0);
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        start.setOnClickListener(new View.OnClickListener() {
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isRunning){
-                    start.setText("Stop");
-                    handler.postDelayed(timer,1000);
-                    distanceTracker.startLocationUpdates();
-                    isRunning = true;
-                }else{
-                    start.setText("Start");
-                    handler.removeCallbacks(timer);
-                    isRunning = false;
-                    distanceTracker.stopLocationUpdates();
+                if (!isRunning) {
+                    startRun();
+                } else {
+                    stopRun();
                 }
             }
         });
 
+    }
+
+    private void startRun() {
+        isRunning = true;
+        startButton.setText("Stop");
+        handler.postDelayed(timer, 1000);
+        distanceTracker.startLocationUpdates();
+        createNotification();
 
     }
 
-    protected void onStart() {
-        super.onStart();
-        distanceTracker.getClient().connect();
+    private void stopRun() {
+        isRunning = false;
+        startButton.setText("Start");
+        handler.removeCallbacks(timer);
+        distanceTracker.stopLocationUpdates();
+        distanceTracker.setCurrentLocation(null);
+        deleteNotification();
     }
 
-    protected void onStop() {
-        super.onStop();
-        distanceTracker.getClient().disconnect();
+    private void createNotification() {
+        notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Running App")
+                .setContentText("Running App is tracking your run")
+                .setOngoing(true);
+        Intent resultIntent = new Intent(this, RunningActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(resultPendingIntent);
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(distanceTracker.getClient().isConnected()){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private void deleteNotification() {
+        notificationManager.cancel(NOTIFICATION_ID);
 
-            }else{
-                distanceTracker.startLocationUpdates();
-            }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(distanceTracker.getClient().isConnected()){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            }else{
-                distanceTracker.setCurrentLocation(null);
-                distanceTracker.startLocationUpdates();
-            }
-        }
     }
 
 }
