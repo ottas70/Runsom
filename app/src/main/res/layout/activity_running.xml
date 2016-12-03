@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_running"
     android:layout_width="match_parent"
@@ -20,18 +21,6 @@
         android:layout_alignEnd="@+id/textView"
         android:layout_marginBottom="96dp"
         android:id="@+id/StartButton" />
-
-    <TextView
-        android:text="00:00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:id="@+id/timerTextView"
-        android:textSize="24sp"
-        android:layout_below="@+id/textView"
-        android:layout_toLeftOf="@+id/StartButton"
-        android:layout_toStartOf="@+id/StartButton"
-        android:textColor="@color/textPrimary" />
 
     <TextView
         android:text="0.0"
@@ -69,18 +58,6 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:textColor="@color/textPrimary"
-        android:layout_below="@+id/timerTextView"
-        android:layout_alignLeft="@+id/timerTextView"
-        android:layout_alignStart="@+id/timerTextView"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
@@ -94,5 +71,29 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="00:00:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:id="@+id/timerTextView"
+        android:textSize="24sp"
+        android:textColor="@color/textPrimary"
+        android:layout_marginStart="45dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_timer_white_24dp"
+        android:id="@+id/imageView"
+        android:layout_alignTop="@+id/timerTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
 
 </RelativeLayout>
