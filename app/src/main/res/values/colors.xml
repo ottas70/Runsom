@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="backgroundPrimary">#222324</color>
     <color name="textPrimary">#e6e6e6</color>
+    <color name="startColor">#50e034</color>
+    <color name="stopColor">#E82020</color>
 </resources>

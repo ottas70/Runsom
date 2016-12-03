@@ -66,15 +66,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="60dp" />
 
-    <Button
-        android:text="Start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:id="@+id/StartButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,5 +91,18 @@
         android:layout_alignBottom="@+id/speedTextView"
         android:layout_alignRight="@+id/speedTextView"
         android:layout_alignEnd="@+id/speedTextView" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_play_arrow_black_36dp"
+        android:layout_marginBottom="96dp"
+        android:id="@+id/startButton"
+        app:backgroundTint="@color/startColor"
+        app:fabSize="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:layout_toStartOf="@+id/imageView2"
+        android:layout_width="wrap_content" />
 
 </RelativeLayout>

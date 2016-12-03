@@ -7,9 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class RunningActivity extends Activity {
@@ -17,7 +17,7 @@ public class RunningActivity extends Activity {
     private TextView distanceTextView;
     private TextView timerTextView;
     private TextView speedTextView;
-    private Button startButton;
+    private FloatingActionButton startButton;
 
     private boolean isRunning;
 
@@ -37,7 +37,7 @@ public class RunningActivity extends Activity {
         distanceTextView = (TextView) findViewById(R.id.distanceEditText);
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         speedTextView = (TextView) findViewById(R.id.speedTextView);
-        startButton = (Button) findViewById(R.id.StartButton);
+        startButton = (FloatingActionButton) findViewById(R.id.startButton);
 
         isRunning = false;
         distanceTracker = new DistanceTracker(this, distanceTextView,speedTextView);
@@ -59,7 +59,6 @@ public class RunningActivity extends Activity {
 
     private void startRun() {
         isRunning = true;
-        startButton.setText("Stop");
         handler.postDelayed(timer, 1000);
         distanceTracker.startLocationUpdates();
         createNotification();
@@ -68,7 +67,6 @@ public class RunningActivity extends Activity {
 
     private void stopRun() {
         isRunning = false;
-        startButton.setText("Start");
         handler.removeCallbacks(timer);
         distanceTracker.stopLocationUpdates();
         distanceTracker.setCurrentLocation(null);
