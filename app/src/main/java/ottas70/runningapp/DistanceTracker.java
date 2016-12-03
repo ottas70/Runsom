@@ -107,7 +107,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
     @Override
     public void onLocationChanged(Location location) {
         Log.i("DISTANCE ACCURACY:  ", String.valueOf(location.getAccuracy()));
-        if(location.getAccuracy() > 25){
+        if(location.getAccuracy() >= 20){
             return;
         }
         if (currentLocation != null) {
@@ -120,8 +120,9 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
 
             if(location.hasSpeed()){
                 Log.i("SPEED:  ", String.valueOf(location.getSpeed()));
-                double speedInKm = location.getSpeed() * 3.6;
-                speedTextView.setText(String.valueOf(speedInKm));
+                double roundedspeedInKm = (double)Math.round((location.getSpeed() * 3.6)*10.0);
+                DecimalFormat df2 = new DecimalFormat("#0.0");
+                speedTextView.setText(String.valueOf(String.valueOf(df2.format((double) roundedspeedInKm / 10.0))));
             }
 
             currentLocation = location;

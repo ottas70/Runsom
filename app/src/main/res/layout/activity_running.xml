@@ -78,7 +78,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/timer_icon"
+        app:srcCompat="@drawable/ic_timer_white_36dp"
         android:id="@+id/imageView"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -92,13 +92,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/speedIcon"
+        app:srcCompat="@drawable/icon_speed"
         android:id="@+id/imageView2"
-        android:background="@drawable/speed_icon"
+        android:background="@drawable/icon_speed"
+        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_alignBottom="@+id/speedTextView"
-        android:layout_toRightOf="@+id/StartButton"
-        android:layout_toEndOf="@+id/StartButton"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+        android:layout_alignRight="@+id/speedTextView"
+        android:layout_alignEnd="@+id/speedTextView" />
 
 </RelativeLayout>
