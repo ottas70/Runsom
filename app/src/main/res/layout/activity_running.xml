@@ -58,28 +58,13 @@
         android:textColor="@color/textPrimary" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/distanceEditText"
-        android:text="0.00"
-        android:textSize="100sp"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="1dp"
-        android:textColor="@color/textPrimary"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:text="KILOMETERS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:textColor="@color/textPrimary"
         android:textStyle="normal|bold"
-        android:textSize="14sp"
+        android:textSize="17sp"
         android:layout_below="@+id/distanceEditText"
         android:layout_centerHorizontal="true" />
 
@@ -94,5 +79,20 @@
         android:layout_alignStart="@+id/timerTextView"
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/distanceEditText"
+        android:text="0.00"
+        android:textSize="120sp"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="1dp"
+        android:textColor="@color/textPrimary"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
