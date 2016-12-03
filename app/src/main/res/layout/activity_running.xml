@@ -66,19 +66,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="60dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/timer_icon"
-        android:id="@+id/imageView"
-        android:layout_alignTop="@+id/timerTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false" />
-
     <Button
         android:text="Start"
         android:layout_width="wrap_content"
@@ -92,9 +79,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/speed_icon"
-        android:layout_alignTop="@+id/speedTextView"
+        android:id="@+id/imageView2"
+        android:background="@drawable/speed_icon"
+        android:layout_alignBottom="@+id/speedTextView"
         android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:id="@+id/imageView2" />
+        android:layout_toEndOf="@+id/textView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/timer_icon"
+        android:id="@+id/imageView"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:background="@drawable/timer_icon"
+        android:layout_alignBottom="@+id/timerTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
