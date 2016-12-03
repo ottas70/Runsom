@@ -39,12 +39,14 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
     private LocationRequest locationRequest;
     private Context context;
     private TextView distanceTextView;
+    private TextView speedTextView;
 
     private double distance = 0.0;
 
-    public DistanceTracker(Context context,TextView distanceTextView) {
+    public DistanceTracker(Context context,TextView distanceTextView, TextView speedTextView) {
         this.context = context;
         this.distanceTextView = distanceTextView;
+        this.speedTextView = speedTextView;
 
         createGoogleAPIClient();
         locationRequest = new LocationRequest();
@@ -77,6 +79,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
         }
+        LocationServices.FusedLocationApi.requestLocationUpdates(client,locationRequest,this);
     }
 
     public void stopLocationUpdates() {
@@ -103,17 +106,23 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.i("DISTANCE ACCURACY:  ", String.valueOf(location.getAccuracy()));
         if(location.getAccuracy() > 25){
             return;
         }
-        //Log.i("DISTANCE ACCURACY:  ", String.valueOf(location.getAccuracy()));
         if (currentLocation != null) {
             float distance2 = currentLocation.distanceTo(location);
             distance += distance2;
-            //Log.i("DISTANCE RUN", String.valueOf(distance2));
+            Log.i("DISTANCE RUN", String.valueOf(distance2));
             double roundedDistanceMeters = (double) Math.round(distance);
             DecimalFormat df = new DecimalFormat("#0.00");
             distanceTextView.setText(String.valueOf(df.format((double) roundedDistanceMeters / 1000.0)));
+
+            if(location.hasSpeed()){
+                Log.i("SPEED:  ", String.valueOf(location.getSpeed()));
+                double speedInKm = location.getSpeed() * 3.6;
+                speedTextView.setText(String.valueOf(speedInKm));
+            }
 
             currentLocation = location;
         } else {

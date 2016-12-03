@@ -16,6 +16,7 @@ public class RunningActivity extends Activity {
 
     private TextView distanceTextView;
     private TextView timerTextView;
+    private TextView speedTextView;
     private Button startButton;
 
     private boolean isRunning;
@@ -35,10 +36,11 @@ public class RunningActivity extends Activity {
 
         distanceTextView = (TextView) findViewById(R.id.distanceEditText);
         timerTextView = (TextView) findViewById(R.id.timerTextView);
+        speedTextView = (TextView) findViewById(R.id.speedTextView);
         startButton = (Button) findViewById(R.id.StartButton);
 
         isRunning = false;
-        distanceTracker = new DistanceTracker(this, distanceTextView);
+        distanceTracker = new DistanceTracker(this, distanceTextView,speedTextView);
         timer = new Timer(timerTextView, handler, 0);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
