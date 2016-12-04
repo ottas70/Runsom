@@ -1,6 +1,7 @@
 package ottas70.runningapp;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -21,12 +22,13 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class RunningActivity extends Activity {
+public class RunningActivity extends Activity{
 
     private TextView distanceTextView;
     private TextView timerTextView;
     private TextView speedTextView;
     private FloatingActionButton startButton;
+    private MyDialog dialog;
 
     private boolean isRunning;
 
@@ -109,6 +111,16 @@ public class RunningActivity extends Activity {
     private void deleteNotification() {
         notificationManager.cancel(NOTIFICATION_ID);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialog = new MyDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("title","ARE YOU SURE?");
+        bundle.putString("message","Are you sure you want end this run?");
+        dialog.setArguments(bundle);
+        dialog.show(getFragmentManager(),"dialog");
     }
 
 }
