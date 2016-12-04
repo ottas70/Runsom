@@ -26,10 +26,12 @@ public class RunningActivity extends Activity{
     private TextView speedTextView;
     private FloatingActionButton startButton;
     private ImageButton cancelButton;
+    private ImageButton lockButton;
 
     private MyDialog dialog;
 
     private boolean isRunning;
+    private boolean isLocked;
 
     private final int NOTIFICATION_ID = 001;
     private NotificationManager notificationManager;
@@ -50,8 +52,11 @@ public class RunningActivity extends Activity{
         speedTextView = (TextView) findViewById(R.id.speedTextView);
         startButton = (FloatingActionButton) findViewById(R.id.startButton);
         cancelButton = (ImageButton) findViewById(R.id.cancelButton);
+        lockButton = (ImageButton) findViewById(R.id.lockButton);
 
         isRunning = false;
+        isLocked = false;
+
         distanceTracker = new DistanceTracker(this, distanceTextView, speedTextView);
         timer = new Timer(timerTextView, handler, 0);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -59,6 +64,9 @@ public class RunningActivity extends Activity{
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isLocked){
+                    isLocked = false;
+                }
                 if (!isRunning) {
                     startRun();
                 } else {
@@ -71,6 +79,15 @@ public class RunningActivity extends Activity{
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        lockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isLocked = true;
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+                startButton.setImageDrawable(ContextCompat.getDrawable(lockButton.getContext(), R.drawable.ic_lock_white_36dp));
             }
         });
 
