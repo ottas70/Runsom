@@ -1,25 +1,22 @@
 package ottas70.runningapp;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class RunningActivity extends Activity{
@@ -28,6 +25,8 @@ public class RunningActivity extends Activity{
     private TextView timerTextView;
     private TextView speedTextView;
     private FloatingActionButton startButton;
+    private ImageButton cancelButton;
+
     private MyDialog dialog;
 
     private boolean isRunning;
@@ -50,6 +49,7 @@ public class RunningActivity extends Activity{
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         speedTextView = (TextView) findViewById(R.id.speedTextView);
         startButton = (FloatingActionButton) findViewById(R.id.startButton);
+        cancelButton = (ImageButton) findViewById(R.id.cancelButton);
 
         isRunning = false;
         distanceTracker = new DistanceTracker(this, distanceTextView, speedTextView);
@@ -64,6 +64,13 @@ public class RunningActivity extends Activity{
                 } else {
                     stopRun();
                 }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 
