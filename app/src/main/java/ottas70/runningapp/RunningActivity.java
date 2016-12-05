@@ -24,10 +24,11 @@ public class RunningActivity extends Activity{
     private TextView distanceTextView;
     private TextView timerTextView;
     private TextView speedTextView;
+    private TextView holdTextView;
+    private TextView moneyTextView;
     private FloatingActionButton startButton;
     private FloatingActionButton cancelButton;
     private FloatingActionButton lockButton;
-    private TextView holdTextView;
     private View completeView;
 
     private MyDialog dialog;
@@ -59,6 +60,7 @@ public class RunningActivity extends Activity{
         cancelButton = (FloatingActionButton) findViewById(R.id.cancelButton);
         lockButton = (FloatingActionButton) findViewById(R.id.lockButton);
         holdTextView = (TextView) findViewById(R.id.holdTextView);
+        moneyTextView = (TextView) findViewById(R.id.moneyTextView);
 
         isRunning = false;
         isLocked = false;
