@@ -133,4 +133,15 @@
         android:layout_marginRight="28dp"
         android:layout_marginEnd="28dp" />
 
+    <TextView
+        android:text="Tap and Hold to Unlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/holdTextView"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_below="@+id/lockButton"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

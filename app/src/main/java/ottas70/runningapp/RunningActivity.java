@@ -27,6 +27,7 @@ public class RunningActivity extends Activity{
     private FloatingActionButton startButton;
     private FloatingActionButton cancelButton;
     private FloatingActionButton lockButton;
+    private TextView holdTextView;
     private View completeView;
 
     private MyDialog dialog;
@@ -57,9 +58,11 @@ public class RunningActivity extends Activity{
         startButton = (FloatingActionButton) findViewById(R.id.startButton);
         cancelButton = (FloatingActionButton) findViewById(R.id.cancelButton);
         lockButton = (FloatingActionButton) findViewById(R.id.lockButton);
+        holdTextView = (TextView) findViewById(R.id.holdTextView);
 
         isRunning = false;
         isLocked = false;
+        holdTextView.setVisibility(View.INVISIBLE);
 
         distanceTracker = new DistanceTracker(this, distanceTextView, speedTextView);
         timer = new Timer(timerTextView, handler, 0);
@@ -114,6 +117,7 @@ public class RunningActivity extends Activity{
                 isLocked = true;
                 cancelButton.setVisibility(View.INVISIBLE);
                 lockButton.setVisibility(View.INVISIBLE);
+                holdTextView.setVisibility(View.VISIBLE);
                 completeView.setKeepScreenOn(true);
                 startButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
                 startButton.setImageDrawable(ContextCompat.getDrawable(lockButton.getContext(), R.drawable.ic_lock_white_36dp));
@@ -183,6 +187,7 @@ public class RunningActivity extends Activity{
                 return;
             cancelButton.setVisibility(View.VISIBLE);
             lockButton.setVisibility(View.VISIBLE);
+            holdTextView.setVisibility(View.INVISIBLE);
             isLocked = false;
             completeView.setKeepScreenOn(false);
             if(!isRunning){
