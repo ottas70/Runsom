@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,11 +29,14 @@ public class RunningActivity extends Activity{
     private FloatingActionButton startButton;
     private ImageButton cancelButton;
     private ImageButton lockButton;
+    private View completeView;
 
     private MyDialog dialog;
 
     private boolean isRunning;
     private boolean isLocked;
+
+    private Handler buttonHandler;
 
     private final int NOTIFICATION_ID = 001;
     private NotificationManager notificationManager;
@@ -47,6 +52,7 @@ public class RunningActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
 
+        completeView = findViewById(android.R.id.content);
         distanceTextView = (TextView) findViewById(R.id.distanceEditText);
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         speedTextView = (TextView) findViewById(R.id.speedTextView);
@@ -65,7 +71,7 @@ public class RunningActivity extends Activity{
             @Override
             public void onClick(View view) {
                 if(isLocked){
-                    isLocked = false;
+                    return;
                 }
                 if (!isRunning) {
                     startRun();
@@ -75,9 +81,31 @@ public class RunningActivity extends Activity{
             }
         });
 
+        startButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        if(buttonHandler != null) return true;
+                        buttonHandler = new Handler();
+                        buttonHandler.postDelayed(action,2000);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(buttonHandler == null) return true;
+                        buttonHandler.removeCallbacks(action);
+                        buttonHandler = null;
+                        break;
+                }
+                return false;
+            }
+        });
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isLocked){
+                    return;
+                }
                 onBackPressed();
             }
         });
@@ -86,6 +114,9 @@ public class RunningActivity extends Activity{
             @Override
             public void onClick(View view) {
                 isLocked = true;
+                cancelButton.setVisibility(View.INVISIBLE);
+                lockButton.setVisibility(View.INVISIBLE);
+                completeView.setKeepScreenOn(true);
                 startButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
                 startButton.setImageDrawable(ContextCompat.getDrawable(lockButton.getContext(), R.drawable.ic_lock_white_36dp));
             }
@@ -146,5 +177,25 @@ public class RunningActivity extends Activity{
         dialog.setArguments(bundle);
         dialog.show(getFragmentManager(),"dialog");
     }
+
+    Runnable action = new Runnable() {
+        @Override
+        public void run() {
+            if(!isLocked)
+                return;
+            cancelButton.setVisibility(View.VISIBLE);
+            lockButton.setVisibility(View.VISIBLE);
+            isLocked = false;
+            completeView.setKeepScreenOn(false);
+            if(!isRunning){
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_play_arrow_black_36dp));
+            }else{
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_stop_black_36dp));
+            }
+
+        }
+    };
 
 }
