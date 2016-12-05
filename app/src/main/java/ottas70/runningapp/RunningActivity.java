@@ -12,10 +12,8 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.AppIndex;
@@ -27,8 +25,8 @@ public class RunningActivity extends Activity{
     private TextView timerTextView;
     private TextView speedTextView;
     private FloatingActionButton startButton;
-    private ImageButton cancelButton;
-    private ImageButton lockButton;
+    private FloatingActionButton cancelButton;
+    private FloatingActionButton lockButton;
     private View completeView;
 
     private MyDialog dialog;
@@ -57,8 +55,8 @@ public class RunningActivity extends Activity{
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         speedTextView = (TextView) findViewById(R.id.speedTextView);
         startButton = (FloatingActionButton) findViewById(R.id.startButton);
-        cancelButton = (ImageButton) findViewById(R.id.cancelButton);
-        lockButton = (ImageButton) findViewById(R.id.lockButton);
+        cancelButton = (FloatingActionButton) findViewById(R.id.cancelButton);
+        lockButton = (FloatingActionButton) findViewById(R.id.lockButton);
 
         isRunning = false;
         isLocked = false;

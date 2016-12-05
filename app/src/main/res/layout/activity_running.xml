@@ -104,22 +104,31 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageButton
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_cancel_black_24dp"
         android:id="@+id/cancelButton"
-        android:background="@android:drawable/ic_menu_close_clear_cancel"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        app:backgroundTint="@android:color/white"
+        android:layout_marginBottom="28dp"
+        android:layout_alignBottom="@+id/startButton"
+        android:layout_alignRight="@+id/speedTextView"
+        android:layout_alignEnd="@+id/speedTextView" />
 
-    <ImageButton
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_lock_open_black_24dp"
         android:id="@+id/lockButton"
-        android:background="@drawable/ic_lock_open_white_24dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        app:backgroundTint="@android:color/white"
+        android:layout_marginRight="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_alignTop="@+id/cancelButton"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_toStartOf="@+id/textView" />
 
 </RelativeLayout>
