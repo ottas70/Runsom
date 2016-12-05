@@ -79,18 +79,6 @@
         android:layout_alignEnd="@+id/speedTextView" />
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_play_arrow_black_36dp"
-        android:layout_marginBottom="94dp"
-        android:id="@+id/startButton"
-        app:backgroundTint="@color/startColor"
-        app:fabSize="normal"
-        android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -131,30 +119,6 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="00:00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timerTextView"
-        android:textSize="24sp"
-        android:textColor="@color/textPrimary"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_above="@+id/imageView3"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"
-        android:layout_marginBottom="20dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:id="@+id/imageView3"
-        android:layout_above="@+id/lockButton"
-        android:layout_alignRight="@+id/timerTextView"
-        android:layout_alignEnd="@+id/timerTextView"
-        android:background="@drawable/ic_attach_money_white_36dp" />
-
-    <TextView
         android:text="0.0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -164,5 +128,39 @@
         android:layout_alignBottom="@+id/imageView3"
         android:layout_toRightOf="@+id/imageView3"
         android:layout_toEndOf="@+id/imageView3" />
+
+    <TextView
+        android:text="00:00:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timerTextView"
+        android:textSize="24sp"
+        android:textColor="@color/textPrimary"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_marginTop="23dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:background="@drawable/ic_attach_money_white_36dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/timerTextView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_play_arrow_black_36dp"
+        android:id="@+id/startButton"
+        app:backgroundTint="@color/startColor"
+        app:fabSize="normal"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/moneyTextView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
