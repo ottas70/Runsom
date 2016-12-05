@@ -109,26 +109,28 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:fabSize="mini"
-        app:srcCompat="@drawable/ic_cancel_black_24dp"
-        android:id="@+id/cancelButton"
+        app:srcCompat="@drawable/ic_lock_open_black_24dp"
+        android:id="@+id/lockButton"
         app:backgroundTint="@android:color/white"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:layout_alignBottom="@+id/startButton"
-        android:layout_alignRight="@+id/speedTextView"
-        android:layout_alignEnd="@+id/speedTextView" />
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         app:fabSize="mini"
-        app:srcCompat="@drawable/ic_lock_open_black_24dp"
-        android:id="@+id/lockButton"
+        app:srcCompat="@drawable/ic_cancel_black_24dp"
+        android:id="@+id/cancelButton"
         app:backgroundTint="@android:color/white"
-        android:layout_marginRight="17dp"
-        android:layout_marginEnd="17dp"
-        android:layout_alignTop="@+id/cancelButton"
-        android:layout_toLeftOf="@+id/textView"
-        android:layout_toStartOf="@+id/textView" />
+        android:layout_alignTop="@+id/lockButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp" />
 
 </RelativeLayout>
