@@ -13,7 +13,7 @@ public class ServerRequest {
 
     private ProgressDialog progressDialog;
     public static final int CONNECTION_TIMEOUT = 1000*15;
-    public static final String SERVER_ADRESS = "http://ottas70.com/";
+    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom";
 
     public ServerRequest(Context context){
         progressDialog = new ProgressDialog(context);

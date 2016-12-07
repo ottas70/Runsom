@@ -35,7 +35,7 @@ import ottas70.runningapp.User;
 public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
 
     public static final int CONNECTION_TIMEOUT = 1000*15;
-    public static final String SERVER_ADRESS = "http://ottas70.com/";
+    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom";
     User user;
     GetCallback getCallback;
     ProgressDialog progressDialog;
