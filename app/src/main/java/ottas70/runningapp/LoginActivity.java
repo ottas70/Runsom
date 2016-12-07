@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(validate()) {
                     String email = etEmail.getText().toString();
                     String password = etPassword.getText().toString();
-                    System.out.println(generateHash(password));
+                    //System.out.println(generateHash(password));
                     User user = new User(email, generateHash(password));
                     authenticate(user);
                 }
@@ -59,11 +59,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void authenticate(User user) {
-        dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(getApplicationContext());
         dialog.setCancelable(false);
         dialog.setTitle("Processing...");
         dialog.setMessage("Please wait...");
-        dialog.show();
+        //dialog.show();
         ServerRequest serverRequest = new ServerRequest(this);
         serverRequest.fetchUserDataAsyncTask(user, new GetCallback() {
             @Override
@@ -87,6 +87,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void logUserIn(final User user) {
         //LifeTasks.instance.setUser(user);
+        Intent intent = new Intent(LoginActivity.this, RunningActivity.class);
+        startActivity(intent);
 
     }
 

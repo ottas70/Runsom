@@ -18,12 +18,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
 
 import ottas70.runningapp.GetCallback;
 import ottas70.runningapp.User;
@@ -35,7 +35,7 @@ import ottas70.runningapp.User;
 public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
 
     public static final int CONNECTION_TIMEOUT = 1000*15;
-    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom";
+    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
     User user;
     GetCallback getCallback;
     ProgressDialog progressDialog;
@@ -48,11 +48,11 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
 
     @Override
     protected User doInBackground(Void... params) {
-        HttpsURLConnection urlConnection = null;
+        HttpURLConnection urlConnection = null;
         User returnedUser = null;
         try {
             URL url = new URL(SERVER_ADRESS + "FetchUserData.php");
-            urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
@@ -69,7 +69,9 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            urlConnection.disconnect();
+            if(urlConnection != null) {
+                urlConnection.disconnect();
+            }
         }
 
         return returnedUser;
@@ -112,7 +114,6 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
             JSONObject jsonObject = new JSONObject(builder.toString());
 
             if (jsonObject.length() != 0){
-                Log.v("happened", "2");
                 int id = jsonObject.getInt("id");
                 String username = jsonObject.getString("username");
 
