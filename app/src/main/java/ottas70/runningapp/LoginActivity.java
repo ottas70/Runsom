@@ -80,7 +80,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void logUserIn(final User user) {
         //LifeTasks.instance.setUser(user);
-        Intent intent = new Intent(LoginActivity.this, RunningActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RunOverviewActivity.class);
         startActivity(intent);
 
     }
