@@ -33,7 +33,8 @@
                 android:hint="Email"
                 android:textColor="@android:color/white"
                 android:textColorLink="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColorHint="@android:color/white"
+                android:textColorHighlight="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -48,7 +49,9 @@
                 android:inputType="textPassword"
                 android:hint="Password"
                 android:textColor="@android:color/white"
-                android:textColorLink="@android:color/white" />
+                android:textColorLink="@android:color/white"
+                android:textColorHighlight="@android:color/white"
+                android:textColorHint="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton

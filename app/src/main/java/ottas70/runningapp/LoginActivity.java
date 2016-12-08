@@ -1,11 +1,14 @@
 package ottas70.runningapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends Activity implements View.OnClickListener {
 
     Button bLogin;
     EditText etEmail, etPassword;
@@ -43,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                if(validate()) {
+                if (validate()) {
                     String email = etEmail.getText().toString();
                     String password = etPassword.getText().toString();
                     //System.out.println(generateHash(password));
@@ -80,9 +83,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-        dialogBuilder.setMessage("Incorrect user data");
-        dialogBuilder.setPositiveButton("Ok", null);
-        dialogBuilder.show();
+        dialogBuilder.setMessage("Incorrect user data")
+                .setPositiveButton("Ok", null)
+                .show();
     }
 
     private void logUserIn(final User user) {
