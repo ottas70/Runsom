@@ -52,7 +52,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.link_signup:
-                Intent registerintent = new Intent(LoginActivity.this, RunningActivity.class);
+                Intent registerintent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(registerintent);
                 break;
         }
