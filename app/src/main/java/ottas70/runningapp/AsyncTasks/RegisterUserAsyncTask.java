@@ -4,9 +4,13 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -43,11 +47,16 @@ public class RegisterUserAsyncTask extends AsyncTask<Void,Void,Void>{
             URL url = new URL(SERVER_ADRESS + "Register.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
             urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);
+
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+
 
 
         } catch (MalformedURLException e) {

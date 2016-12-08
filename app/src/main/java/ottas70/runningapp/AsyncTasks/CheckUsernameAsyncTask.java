@@ -82,7 +82,7 @@ public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
 
     private void writeStream(OutputStream out) throws UnsupportedEncodingException {
         ContentValues values = new ContentValues();
-        values.put("email",username);
+        values.put("username", username);
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
         try {

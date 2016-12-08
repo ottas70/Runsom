@@ -1,13 +1,17 @@
 package ottas70.runningapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class RegisterActivity extends Activity implements View.OnClickListener{
 
@@ -56,7 +60,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                                         if (usernameExists.booleanValue()) {
                                             showErrorMessage("Username is already used");
                                         } else {
-                                            User user = new User(email,password);
+                                            User user = new User(generateHash(password), username, email);
                                             registerUser(user);
                                         }
                                     }
@@ -123,5 +127,26 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         dialogBuilder.show();
     }
 
+    public String generateHash(String toHash) {
+        MessageDigest md = null;
+        byte[] hash = null;
+        try {
+            md = MessageDigest.getInstance("SHA-512");
+            hash = md.digest(toHash.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return convertToHex(hash);
+    }
+
+    private String convertToHex(byte[] raw) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < raw.length; i++) {
+            sb.append(Integer.toString((raw[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
+    }
 
 }
