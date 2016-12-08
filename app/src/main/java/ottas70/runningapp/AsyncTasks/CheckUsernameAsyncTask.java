@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -23,32 +23,31 @@ import java.net.URL;
 
 import ottas70.runningapp.GetCallback;
 import ottas70.runningapp.ServerRequest;
-import ottas70.runningapp.User;
 
 /**
- * Created by Ottas on 7.12.2016.
+ * Created by Ottas on 8.12.2016.
  */
 
-public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
+public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
 
     public static final int CONNECTION_TIMEOUT = 1000*15;
     public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
-    User user;
+    String username;
     GetCallback getCallback;
     ProgressDialog progressDialog;
 
-    public FetchUserDataAsyncTask(User user, GetCallback getCallback, ProgressDialog progressDialog) {
-        this.user = user;
+    public CheckUsernameAsyncTask(String username, GetCallback getCallback, ProgressDialog progressDialog) {
+        this.username = username;
         this.getCallback = getCallback;
         this.progressDialog = progressDialog;
     }
 
     @Override
-    protected User doInBackground(Void... params) {
+    protected Boolean doInBackground(Void... params) {
         HttpURLConnection urlConnection = null;
-        User returnedUser = null;
+        Boolean usernameExists = new Boolean(false);
         try {
-            URL url = new URL(SERVER_ADRESS + "FetchUserData.php");
+            URL url = new URL(SERVER_ADRESS + "CheckUsername.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
@@ -59,7 +58,7 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
             writeStream(out);
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            returnedUser = readStream(in);
+            usernameExists = readStream(in);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -71,20 +70,19 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
             }
         }
 
-        return returnedUser;
+        return usernameExists;
     }
 
     @Override
-    protected void onPostExecute(User returnedUser) {
-        super.onPostExecute(returnedUser);
+    protected void onPostExecute(Boolean emailExists) {
+        super.onPostExecute(emailExists);
         progressDialog.dismiss();
-        getCallback.done(returnedUser);
+        getCallback.done(emailExists);
     }
 
     private void writeStream(OutputStream out) throws UnsupportedEncodingException {
         ContentValues values = new ContentValues();
-        values.put("email",user.getEmail());
-        values.put("password",user.getPassword());
+        values.put("email",username);
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
         try {
@@ -97,24 +95,21 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
         }
     }
 
-    private User readStream(InputStream in) throws UnsupportedEncodingException {
+    private Boolean readStream(InputStream in) throws UnsupportedEncodingException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
         StringBuilder builder = new StringBuilder();
-        User returnedUser = null;
+        Boolean usernameExists = new Boolean(false);
 
         try {
             String line;
             while((line = reader.readLine()) != null){
-               builder.append(line);
+                builder.append(line);
             }
 
-            JSONObject jsonObject = new JSONObject(builder.toString());
+            JSONArray jsonArray = new JSONArray(builder.toString());
 
-            if (jsonObject.length() != 0){
-                int id = jsonObject.getInt("id");
-                String username = jsonObject.getString("username");
-
-                returnedUser = new User(id,username, user.getEmail(),user.getPassword());
+            if (jsonArray.length() > 0){
+                usernameExists = new Boolean(true);
             }
 
         } catch (IOException e) {
@@ -122,7 +117,7 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return returnedUser;
+        return usernameExists;
     }
 
 }

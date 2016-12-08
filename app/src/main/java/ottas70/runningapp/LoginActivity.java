@@ -5,10 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,18 +59,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void authenticate(User user) {
-        dialog = new ProgressDialog(getApplicationContext());
-        dialog.setCancelable(false);
-        dialog.setTitle("Processing...");
-        dialog.setMessage("Please wait...");
-        //dialog.show();
         ServerRequest serverRequest = new ServerRequest(this);
-        serverRequest.fetchUserDataAsyncTask(user, new GetCallback() {
+        serverRequest.fetchUserDataAsyncTask(user,true, new GetCallback() {
             @Override
             public void done(Object o) {
                 if (o == null) {
                     showErrorMessage();
-                    dialog.dismiss();
                 } else {
                     logUserIn((User) o);
                 }

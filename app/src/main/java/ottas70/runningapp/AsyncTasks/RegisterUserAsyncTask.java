@@ -4,16 +4,9 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -26,10 +19,10 @@ import ottas70.runningapp.ServerRequest;
 import ottas70.runningapp.User;
 
 /**
- * Created by Ottas on 7.12.2016.
+ * Created by Ottas on 8.12.2016.
  */
 
-public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
+public class RegisterUserAsyncTask extends AsyncTask<Void,Void,Void>{
 
     public static final int CONNECTION_TIMEOUT = 1000*15;
     public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
@@ -37,29 +30,25 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
     GetCallback getCallback;
     ProgressDialog progressDialog;
 
-    public FetchUserDataAsyncTask(User user, GetCallback getCallback, ProgressDialog progressDialog) {
+    public RegisterUserAsyncTask(User user, GetCallback getCallback, ProgressDialog progressDialog) {
         this.user = user;
         this.getCallback = getCallback;
         this.progressDialog = progressDialog;
     }
 
     @Override
-    protected User doInBackground(Void... params) {
+    protected Void doInBackground(Void... params) {
         HttpURLConnection urlConnection = null;
-        User returnedUser = null;
         try {
-            URL url = new URL(SERVER_ADRESS + "FetchUserData.php");
+            URL url = new URL(SERVER_ADRESS + "Register.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
             urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);
 
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            returnedUser = readStream(in);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -70,19 +59,19 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
                 urlConnection.disconnect();
             }
         }
-
-        return returnedUser;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(User returnedUser) {
-        super.onPostExecute(returnedUser);
+    protected void onPostExecute(Void result) {
+        super.onPostExecute(result);
         progressDialog.dismiss();
-        getCallback.done(returnedUser);
+        getCallback.done(null);
     }
 
     private void writeStream(OutputStream out) throws UnsupportedEncodingException {
         ContentValues values = new ContentValues();
+        values.put("username",user.getUsername());
         values.put("email",user.getEmail());
         values.put("password",user.getPassword());
 
@@ -95,34 +84,6 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private User readStream(InputStream in) throws UnsupportedEncodingException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
-        StringBuilder builder = new StringBuilder();
-        User returnedUser = null;
-
-        try {
-            String line;
-            while((line = reader.readLine()) != null){
-               builder.append(line);
-            }
-
-            JSONObject jsonObject = new JSONObject(builder.toString());
-
-            if (jsonObject.length() != 0){
-                int id = jsonObject.getInt("id");
-                String username = jsonObject.getString("username");
-
-                returnedUser = new User(id,username, user.getEmail(),user.getPassword());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return returnedUser;
     }
 
 }
