@@ -35,7 +35,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         bLogin.setOnClickListener(this);
         registerLink.setOnClickListener(this);
 
-        //authenticate(new User("yyy@y.y",generateHash("yyy")));
+        authenticate(new User("ottas70@gmail.com",generateHash("xxxx")));
 
     }
 
@@ -46,7 +46,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (validate()) {
                     String email = etEmail.getText().toString();
                     String password = etPassword.getText().toString();
-                    //System.out.println(generateHash(password));
                     User user = new User(email, generateHash(password));
                     authenticate(user);
                 }
