@@ -39,6 +39,8 @@ public class MyDialog extends DialogFragment {
         negativeButton = (Button) view.findViewById(R.id.negativeButton);
         positiveButton = (Button) view.findViewById(R.id.positiveButton);
 
+        title.setText(getArguments().getString("title"));
+        message.setText(getArguments().getString("message"));
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
