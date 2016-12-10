@@ -21,10 +21,15 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import ottas70.runningapp.DistanceTracker;
+import ottas70.runningapp.Duration;
+import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Interfaces.MyDialogListener;
-import ottas70.runningapp.Views.MyDialog;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
+import ottas70.runningapp.Run;
 import ottas70.runningapp.Timer;
+import ottas70.runningapp.Utils.DateUtils;
+import ottas70.runningapp.Views.MyDialog;
 
 public class RunningActivity extends Activity implements MyDialogListener{
 
@@ -47,7 +52,7 @@ public class RunningActivity extends Activity implements MyDialogListener{
 
     private final int NOTIFICATION_ID = 001;
     private NotificationManager notificationManager;
-    NotificationCompat.Builder notificationBuilder;
+    private NotificationCompat.Builder notificationBuilder;
 
     private DistanceTracker distanceTracker;
     private Handler handler = new Handler();
@@ -189,6 +194,34 @@ public class RunningActivity extends Activity implements MyDialogListener{
         dialog.show(getFragmentManager(),"dialog");
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        finishRun();
+        dialog.dismiss();
+        finish();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
+
+    private void finishRun(){
+        Duration duration = timer.getDuration();
+        double distance = distanceTracker.getDistance();
+        double averageSpeed = distanceTracker.getAverageSpeed();
+        int money = distanceTracker.getMoney();
+        String date = DateUtils.getCurrentDate();
+        Run run = new Run(duration,distance,averageSpeed,money,date);
+        ServerRequest request = new ServerRequest(this);
+        request.uploadRun(run, false, new GetCallback() {
+            @Override
+            public void done(Object o) {
+                //nothing
+            }
+        });
+    }
+
     Runnable action = new Runnable() {
         @Override
         public void run() {
@@ -209,15 +242,4 @@ public class RunningActivity extends Activity implements MyDialogListener{
 
         }
     };
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        dialog.dismiss();
-        finish();
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-       dialog.dismiss();
-    }
 }

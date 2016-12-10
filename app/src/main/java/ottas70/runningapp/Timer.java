@@ -26,4 +26,7 @@ public class Timer implements Runnable {
         handler.postDelayed(this,1000);
     }
 
+    public Duration getDuration() {
+        return duration;
+    }
 }

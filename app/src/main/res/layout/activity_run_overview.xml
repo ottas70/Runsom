@@ -41,7 +41,7 @@
             app:srcCompat="@drawable/ic_play_arrow_black_36dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/startRunButton"
             app:backgroundTint="@android:color/holo_green_light" />
     </RelativeLayout>
 

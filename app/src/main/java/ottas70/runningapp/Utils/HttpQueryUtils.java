@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by Ottas on 10.12.2016.
  */
 
-public class HttpQueryUtil {
+public class HttpQueryUtils {
 
     public static String getQuery(ContentValues values) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();

@@ -23,7 +23,7 @@ import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.User;
-import ottas70.runningapp.Utils.HttpQueryUtil;
+import ottas70.runningapp.Utils.HttpQueryUtils;
 
 /**
  * Created by Ottas on 7.12.2016.
@@ -88,7 +88,7 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
         try {
-            writer.write(HttpQueryUtil.getQuery(values));
+            writer.write(HttpQueryUtils.getQuery(values));
             writer.flush();
             writer.close();
             out.close();

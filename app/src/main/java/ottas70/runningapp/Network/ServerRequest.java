@@ -3,11 +3,13 @@ package ottas70.runningapp.Network;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.AsyncTasks.CheckEmailAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.CheckUsernameAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.FetchUserDataAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.RegisterUserAsyncTask;
-import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.AsyncTasks.UploadRunAsyncTask;
+import ottas70.runningapp.Run;
 import ottas70.runningapp.User;
 
 /**
@@ -49,6 +51,13 @@ public class ServerRequest {
             progressDialog.show();
         }
         new CheckUsernameAsyncTask(username,callback,progressDialog).execute();
+    }
+
+    public void uploadRun(Run run, boolean showDialog, GetCallback getCallback){
+        if(showDialog){
+            progressDialog.show();
+        }
+        new UploadRunAsyncTask(run,getCallback,progressDialog).execute();
     }
 
 }

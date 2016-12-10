@@ -4,9 +4,6 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -22,32 +19,33 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Run;
+import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Utils.HttpQueryUtils;
 
 /**
- * Created by Ottas on 8.12.2016.
+ * Created by Ottas on 10.12.2016.
  */
 
-public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
+public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
 
     public static final int CONNECTION_TIMEOUT = 1000*15;
     public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
-    String username;
+    Run run;
     GetCallback getCallback;
     ProgressDialog progressDialog;
 
-    public CheckUsernameAsyncTask(String username, GetCallback getCallback, ProgressDialog progressDialog) {
-        this.username = username;
+    public UploadRunAsyncTask(Run run, GetCallback getCallback, ProgressDialog progressDialog) {
+        this.run = run;
         this.getCallback = getCallback;
         this.progressDialog = progressDialog;
     }
 
     @Override
-    protected Boolean doInBackground(Void... params) {
+    protected Void doInBackground(Void... params) {
         HttpURLConnection urlConnection = null;
-        Boolean usernameExists = new Boolean(false);
         try {
-            URL url = new URL(SERVER_ADRESS + "CheckUsername.php");
+            URL url = new URL(SERVER_ADRESS + "UploadRun.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
@@ -58,7 +56,9 @@ public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
             writeStream(out);
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            usernameExists = readStream(in);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+
+
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -69,20 +69,24 @@ public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
                 urlConnection.disconnect();
             }
         }
-
-        return usernameExists;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean emailExists) {
-        super.onPostExecute(emailExists);
+    protected void onPostExecute(Void result) {
+        super.onPostExecute(result);
         progressDialog.dismiss();
-        getCallback.done(emailExists);
+        getCallback.done(null);
     }
 
     private void writeStream(OutputStream out) throws UnsupportedEncodingException {
         ContentValues values = new ContentValues();
-        values.put("username", username);
+        values.put("username", Runsom.getInstance().getUser().getUsername());
+        values.put("date",run.getDate());
+        values.put("distance",run.getDistance());
+        values.put("averageSpeed",run.getAverageSpeed());
+        values.put("moneyEarned",run.getMoneyEarned());
+        values.put("duration",run.getDuration().toString());
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
         try {
@@ -94,30 +98,4 @@ public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
             e.printStackTrace();
         }
     }
-
-    private Boolean readStream(InputStream in) throws UnsupportedEncodingException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
-        StringBuilder builder = new StringBuilder();
-        Boolean usernameExists = new Boolean(false);
-
-        try {
-            String line;
-            while((line = reader.readLine()) != null){
-                builder.append(line);
-            }
-
-            JSONArray jsonArray = new JSONArray(builder.toString());
-
-            if (jsonArray.length() > 0){
-                usernameExists = new Boolean(true);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return usernameExists;
-    }
-
 }

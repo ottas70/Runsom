@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
+import ottas70.runningapp.Runsom;
 import ottas70.runningapp.User;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -84,7 +85,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void logUserIn(final User user) {
-        //LifeTasks.instance.setUser(user);
+        Runsom.getInstance().setUser(user);
         Intent intent = new Intent(LoginActivity.this, RunOverviewActivity.class);
         startActivity(intent);
 

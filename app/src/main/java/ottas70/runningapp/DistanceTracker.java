@@ -1,6 +1,5 @@
 package ottas70.runningapp;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -41,18 +40,27 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
     private TextView distanceTextView;
     private TextView speedTextView;
 
-    private double distance = 0.0;
+    private double distance;
+    private double averageSpeed;
+    private int counter;
+    private double speedHelper;
+    private int money;
 
     public DistanceTracker(Context context,TextView distanceTextView, TextView speedTextView) {
         this.context = context;
         this.distanceTextView = distanceTextView;
         this.speedTextView = speedTextView;
 
+        distance = 0.0;
+        averageSpeed = 0.0;
+        counter = 0;
+        speedHelper = 0.0;
+        money = 0;
+
         createGoogleAPIClient();
         locationRequest = new LocationRequest();
         locationRequest.setInterval(TIME_BEETWEEN_UPDATES);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        //locationRequest.setSmallestDisplacement(MINIMAL_DISTANCE);
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
@@ -68,13 +76,6 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         client.connect();
     }
 
-    private void getLastLocation() {
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
-        }
-        currentLocation = LocationServices.FusedLocationApi.getLastLocation(client);
-    }
-
     public void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
@@ -84,24 +85,6 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
 
     public void stopLocationUpdates() {
         LocationServices.FusedLocationApi.removeLocationUpdates(client,this);
-    }
-
-
-    private void requestPermission() {
-        ActivityCompat.requestPermissions((Activity)context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, HAVE_LOCATION_PERMISSION);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case HAVE_LOCATION_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //Je možné pokračovat
-                } else {
-                    Toast toast = Toast.makeText(context, "This permission is necessery for this app", Toast.LENGTH_SHORT);
-                    requestPermission();
-                }
-        }
     }
 
     @Override
@@ -123,13 +106,36 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
                 double roundedspeedInKm = (double)Math.round((location.getSpeed() * 3.6)*10.0);
                 DecimalFormat df2 = new DecimalFormat("#0.0");
                 speedTextView.setText(String.valueOf(String.valueOf(df2.format((double) roundedspeedInKm / 10.0))));
-            }
 
+                counter++;
+                speedHelper += roundedspeedInKm;
+                averageSpeed = speedHelper/counter;
+            }
             currentLocation = location;
         } else {
             currentLocation = location;
         }
     }
+
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions((Activity)context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, HAVE_LOCATION_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case HAVE_LOCATION_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Je možné pokračovat
+                } else {
+                    Toast toast = Toast.makeText(context, "This permission is necessery for this app", Toast.LENGTH_SHORT);
+                    requestPermission();
+                }
+        }
+    }
+
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -154,4 +160,15 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         this.currentLocation = currentLocation;
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
+    public double getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public int getMoney() {
+        return money;
+    }
 }
