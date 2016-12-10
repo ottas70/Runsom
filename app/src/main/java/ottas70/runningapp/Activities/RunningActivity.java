@@ -33,6 +33,7 @@ import ottas70.runningapp.Views.MyDialog;
 
 public class RunningActivity extends Activity implements MyDialogListener{
 
+    private final int NOTIFICATION_ID = 001;
     private TextView distanceTextView;
     private TextView timerTextView;
     private TextView speedTextView;
@@ -42,18 +43,32 @@ public class RunningActivity extends Activity implements MyDialogListener{
     private FloatingActionButton cancelButton;
     private FloatingActionButton lockButton;
     private View completeView;
-
     private MyDialog dialog;
-
     private boolean isRunning;
     private boolean isLocked;
+    Runnable action = new Runnable() {
+        @Override
+        public void run() {
+            if (!isLocked)
+                return;
+            cancelButton.setVisibility(View.VISIBLE);
+            lockButton.setVisibility(View.VISIBLE);
+            holdTextView.setVisibility(View.INVISIBLE);
+            isLocked = false;
+            completeView.setKeepScreenOn(false);
+            if (!isRunning) {
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_play_arrow_black_36dp));
+            } else {
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_stop_black_36dp));
+            }
 
+        }
+    };
     private Handler buttonHandler;
-
-    private final int NOTIFICATION_ID = 001;
     private NotificationManager notificationManager;
     private NotificationCompat.Builder notificationBuilder;
-
     private DistanceTracker distanceTracker;
     private Handler handler = new Handler();
     private Timer timer;
@@ -208,8 +223,8 @@ public class RunningActivity extends Activity implements MyDialogListener{
 
     private void finishRun(){
         Duration duration = timer.getDuration();
-        double distance = distanceTracker.getDistance();
-        double averageSpeed = distanceTracker.getAverageSpeed();
+        double distance = Math.round(distanceTracker.getDistance()) / 1000.0;
+        double averageSpeed = Math.round(distanceTracker.getAverageSpeed() * 10) / 10.0;
         int money = distanceTracker.getMoney();
         String date = DateUtils.getCurrentDate();
         Run run = new Run(duration,distance,averageSpeed,money,date);
@@ -221,25 +236,4 @@ public class RunningActivity extends Activity implements MyDialogListener{
             }
         });
     }
-
-    Runnable action = new Runnable() {
-        @Override
-        public void run() {
-            if(!isLocked)
-                return;
-            cancelButton.setVisibility(View.VISIBLE);
-            lockButton.setVisibility(View.VISIBLE);
-            holdTextView.setVisibility(View.INVISIBLE);
-            isLocked = false;
-            completeView.setKeepScreenOn(false);
-            if(!isRunning){
-                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_play_arrow_black_36dp));
-            }else{
-                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_stop_black_36dp));
-            }
-
-        }
-    };
 }
