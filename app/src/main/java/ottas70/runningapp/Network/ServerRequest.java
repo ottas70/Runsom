@@ -1,17 +1,14 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Network;
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Map;
-
-import ottas70.runningapp.AsyncTasks.CheckEmailAsyncTask;
-import ottas70.runningapp.AsyncTasks.CheckUsernameAsyncTask;
-import ottas70.runningapp.AsyncTasks.FetchUserDataAsyncTask;
-import ottas70.runningapp.AsyncTasks.RegisterUserAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.CheckEmailAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.CheckUsernameAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.FetchUserDataAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.RegisterUserAsyncTask;
+import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.User;
 
 /**
  * Created by Ottas on 7.12.2016.
@@ -30,29 +27,7 @@ public class ServerRequest {
         progressDialog.setMessage("Please wait...");
     }
 
-    public static String getQuery(ContentValues values) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        for (Map.Entry<String,Object> entry : values.valueSet())
-        {
-            String key = entry.getKey();
-            String value = entry.getValue().toString();
-
-            if (first) {
-                first = false;
-            }else {
-                result.append("&");
-            }
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value, "UTF-8"));
-        }
-
-        return result.toString();
-    }
-
-    public void fetchUserDataAsyncTask(User user,boolean showDialog, GetCallback getCallback) {
+    public void fetchUserDataAsyncTask(User user, boolean showDialog, GetCallback getCallback) {
         if (showDialog) progressDialog.show();
         new FetchUserDataAsyncTask(user, getCallback, progressDialog).execute();
     }

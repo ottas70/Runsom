@@ -1,4 +1,4 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Views;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ottas70.runningapp.Interfaces.MyDialogListener;
+import ottas70.runningapp.R;
+
 /**
  * Created by ottovodvarka on 04.12.16.
  */
@@ -20,6 +23,8 @@ public class MyDialog extends DialogFragment {
     private TextView message;
     private Button negativeButton;
     private Button positiveButton;
+
+    private MyDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,23 +39,30 @@ public class MyDialog extends DialogFragment {
         negativeButton = (Button) view.findViewById(R.id.negativeButton);
         positiveButton = (Button) view.findViewById(R.id.positiveButton);
 
-        title.setText(getArguments().getString("title"));
-        message.setText(getArguments().getString("message"));
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
-                getActivity().finish();
+                listener.onDialogPositiveClick(MyDialog.this);
             }
         });
+
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+                listener.onDialogNegativeClick(MyDialog.this);
             }
         });
 
         return builder.create();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            listener = (MyDialogListener)context;
+        }catch (ClassCastException e){
+            throw new ClassCastException(context.toString()+" must implement MyDialogListener");
+        }
+    }
 }

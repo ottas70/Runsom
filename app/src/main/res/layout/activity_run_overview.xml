@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_run_overview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ottas70.runningapp.RunOverviewActivity">
+    tools:context="ottas70.runningapp.Activities.RunOverviewActivity">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"></LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center">
+
+        <TextView
+            android:text="ACTIVITY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="normal|bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="188dp"
         android:background="@android:color/white">
 
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:fabSize="mini"
+            app:srcCompat="@drawable/ic_play_arrow_black_36dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/floatingActionButton"
+            app:backgroundTint="@android:color/holo_green_light" />
     </RelativeLayout>
 
     <ListView

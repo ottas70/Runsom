@@ -1,4 +1,4 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,11 @@ import android.widget.TextView;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.R;
+import ottas70.runningapp.Network.ServerRequest;
+import ottas70.runningapp.User;
 
 public class RegisterActivity extends Activity implements View.OnClickListener{
 

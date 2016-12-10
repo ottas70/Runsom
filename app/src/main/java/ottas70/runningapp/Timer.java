@@ -9,25 +9,20 @@ import android.widget.TextView;
 
 public class Timer implements Runnable {
 
-    private long counter;
-    private TextView timer;
+    private TextView timerTextView;
     private Handler handler;
+    private Duration duration;
 
-     public Timer(TextView timer,Handler handler, long counter) {
-        this.timer = timer;
+     public Timer(TextView timerTextView,Handler handler) {
+        this.timerTextView = timerTextView;
         this.handler = handler;
-        this.counter = counter;
+        duration = new Duration(0,0,0);
     }
 
     @Override
     public void run() {
-        counter++;
-        long seconds = counter;
-        long hours = seconds/3600;
-        seconds -= hours*3600;
-        long minutes = seconds/60;
-        seconds -= minutes*60;
-        timer.setText(""+String.format("%02d",hours)+":"+String.format("%02d",minutes)+":"+String.format("%02d",seconds));
+        duration.addSecond();
+        timerTextView.setText(duration.toString());
         handler.postDelayed(this,1000);
     }
 

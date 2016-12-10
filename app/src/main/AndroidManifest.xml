@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RunningActivity"
+            android:name=".Activities.RunningActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <!--
@@ -23,7 +23,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,10 +33,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity
-            android:name=".RunOverviewActivity"
+            android:name=".Activities.RunOverviewActivity"
             android:label="@string/title_activity_run_overview"></activity>
     </application>
 

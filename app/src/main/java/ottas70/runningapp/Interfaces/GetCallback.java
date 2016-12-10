@@ -1,4 +1,4 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Interfaces;
 
 /**
  * Created by Ottas on 7.12.2016.

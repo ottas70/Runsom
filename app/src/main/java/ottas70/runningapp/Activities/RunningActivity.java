@@ -1,6 +1,7 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Activities;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -19,7 +20,13 @@ import android.widget.TextView;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class RunningActivity extends Activity{
+import ottas70.runningapp.DistanceTracker;
+import ottas70.runningapp.Interfaces.MyDialogListener;
+import ottas70.runningapp.Views.MyDialog;
+import ottas70.runningapp.R;
+import ottas70.runningapp.Timer;
+
+public class RunningActivity extends Activity implements MyDialogListener{
 
     private TextView distanceTextView;
     private TextView timerTextView;
@@ -67,7 +74,7 @@ public class RunningActivity extends Activity{
         holdTextView.setVisibility(View.INVISIBLE);
 
         distanceTracker = new DistanceTracker(this, distanceTextView, speedTextView);
-        timer = new Timer(timerTextView, handler, 0);
+        timer = new Timer(timerTextView, handler);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -203,4 +210,14 @@ public class RunningActivity extends Activity{
         }
     };
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        dialog.dismiss();
+        finish();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+       dialog.dismiss();
+    }
 }

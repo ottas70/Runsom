@@ -1,7 +1,9 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Activities;
 
 import android.os.Bundle;
 import android.app.Activity;
+
+import ottas70.runningapp.R;
 
 public class RunOverviewActivity extends Activity {
 

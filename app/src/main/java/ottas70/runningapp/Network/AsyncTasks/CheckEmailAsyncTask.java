@@ -1,4 +1,4 @@
-package ottas70.runningapp.AsyncTasks;
+package ottas70.runningapp.Network.AsyncTasks;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -21,8 +21,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import ottas70.runningapp.GetCallback;
-import ottas70.runningapp.ServerRequest;
+import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Utils.HttpQueryUtil;
 
 /**
  * Created by Ottas on 8.12.2016.
@@ -86,7 +86,7 @@ public class CheckEmailAsyncTask extends AsyncTask<Void,Void,Boolean> {
 
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
             try {
-                writer.write(ServerRequest.getQuery(values));
+                writer.write(HttpQueryUtil.getQuery(values));
                 writer.flush();
                 writer.close();
                 out.close();
