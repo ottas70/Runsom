@@ -33,6 +33,14 @@ public class Duration {
         return ""+String.format("%02d",hours)+":"+String.format("%02d",minutes)+":"+String.format("%02d",seconds);
     }
 
+    public static Duration parseDuration(String string){
+        String[] parts = string.split(":");
+        int hours = Integer.parseInt(parts[0]);
+        int minutes = Integer.parseInt(parts[1]);
+        int seconds = Integer.parseInt(parts[2]);
+        return new Duration(hours,minutes,seconds);
+    }
+
     public int getHours() {
         return hours;
     }

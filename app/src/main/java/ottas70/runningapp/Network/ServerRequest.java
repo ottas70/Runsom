@@ -7,6 +7,7 @@ import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.AsyncTasks.CheckEmailAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.CheckUsernameAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.FetchUserDataAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.GetRunsAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.RegisterUserAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.UploadRunAsyncTask;
 import ottas70.runningapp.Run;
@@ -58,6 +59,13 @@ public class ServerRequest {
             progressDialog.show();
         }
         new UploadRunAsyncTask(run,getCallback,progressDialog).execute();
+    }
+
+    public void getRuns(boolean showDialog, GetCallback getCallback){
+        if(showDialog){
+            progressDialog.show();
+        }
+        new GetRunsAsyncTask(getCallback,progressDialog).execute();
     }
 
 }

@@ -52,7 +52,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/mapView"
         android:layout_toEndOf="@+id/mapView"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        android:id="@+id/runList" />
 
     <LinearLayout
         android:orientation="horizontal"
