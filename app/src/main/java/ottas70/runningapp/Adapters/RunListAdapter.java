@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
 import java.util.ArrayList;
 
 import ottas70.runningapp.R;
@@ -68,6 +72,19 @@ public class RunListAdapter extends BaseAdapter {
         TextView time = (TextView) myView.findViewById(R.id.timeTextView);
         time.setText(run.getDuration().toString());
 
+        MapView mapView = (MapView) myView.findViewById(R.id.mapView);
+        buildMap(mapView);
+
         return myView;
     }
+
+    private  void buildMap(MapView mapView){
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                
+            }
+        });
+    }
+
 }
