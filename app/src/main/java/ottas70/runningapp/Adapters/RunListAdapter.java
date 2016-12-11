@@ -57,7 +57,7 @@ public class RunListAdapter extends BaseAdapter {
         date.setText(run.getDate());
 
         TextView name = (TextView) myView.findViewById(R.id.nameTextView);
-        name.setText("Run x");
+        name.setText(run.getName());
 
         TextView distance = (TextView) myView.findViewById(R.id.distanceTextView);
         distance.setText(String.valueOf(run.getDistance()));
