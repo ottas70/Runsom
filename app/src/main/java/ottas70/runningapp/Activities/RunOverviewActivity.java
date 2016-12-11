@@ -1,9 +1,9 @@
 package ottas70.runningapp.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ListView;
 
@@ -15,7 +15,7 @@ import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
 
-public class RunOverviewActivity extends Activity {
+public class RunOverviewActivity extends FragmentActivity {
 
     private FloatingActionButton startRun;
     private ListView list;
