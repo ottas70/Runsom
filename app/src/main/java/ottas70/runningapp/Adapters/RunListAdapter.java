@@ -1,5 +1,7 @@
 package ottas70.runningapp.Adapters;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
@@ -72,19 +76,19 @@ public class RunListAdapter extends BaseAdapter {
         TextView time = (TextView) myView.findViewById(R.id.timeTextView);
         time.setText(run.getDuration().toString());
 
-        MapView mapView = (MapView) myView.findViewById(R.id.mapView);
-        buildMap(mapView);
+        FragmentManager manager = ((Activity)context).getFragmentManager();
+        MapFragment mapFragment = (MapFragment) manager.findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(0, 0))
+                        .title("Marker"));
+            }
+        });
 
         return myView;
     }
 
-    private  void buildMap(MapView mapView){
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                
-            }
-        });
-    }
 
 }
