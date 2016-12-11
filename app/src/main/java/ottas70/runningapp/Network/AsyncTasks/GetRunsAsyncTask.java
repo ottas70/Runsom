@@ -80,6 +80,7 @@ public class GetRunsAsyncTask extends AsyncTask<Void,Void,ArrayList<Run>> {
     @Override
     protected void onPostExecute(ArrayList<Run> runs) {
         super.onPostExecute(runs);
+        Runsom.getInstance().getUser().setRuns(runs);
         progressDialog.dismiss();
         getCallback.done(runs);
     }
@@ -122,8 +123,9 @@ public class GetRunsAsyncTask extends AsyncTask<Void,Void,ArrayList<Run>> {
                     double averageSpeed = object.getDouble("averageSpeed");
                     int moneyEarned = object.getInt("moneyEarned");
                     String date = object.getString("date");
+                    String name = object.getString("name");
 
-                    Run r = new Run(duration,distance,averageSpeed,moneyEarned,date);
+                    Run r = new Run(duration,distance,averageSpeed,moneyEarned,date,name);
                     runs.add(r);
                 }
             }

@@ -11,13 +11,19 @@ public class Run {
     private double averageSpeed;
     private int moneyEarned;
     private String date;
+    private String name;
 
-    public Run(Duration duration, double distance, double averageSpeed, int moneyEarned,String date) {
+    public Run(Duration duration, double distance, double averageSpeed, int moneyEarned,String date, String name) {
         this.duration = duration;
         this.distance = distance;
         this.averageSpeed = averageSpeed;
         this.moneyEarned = moneyEarned;
         this.date = date;
+        this.name = name;
+    }
+
+    public static String generateName(){
+        return "Run " + (Runsom.getInstance().getUser().getRuns().size()+1);
     }
 
     public Duration getDuration() {
@@ -38,5 +44,13 @@ public class Run {
 
     public String getDate() {
         return date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

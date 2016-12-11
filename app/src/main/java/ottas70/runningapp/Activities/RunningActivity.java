@@ -222,12 +222,14 @@ public class RunningActivity extends Activity implements MyDialogListener{
     }
 
     private void finishRun(){
+        stopRun();
+
         Duration duration = timer.getDuration();
         double distance = Math.round(distanceTracker.getDistance()) / 1000.0;
         double averageSpeed = Math.round(distanceTracker.getAverageSpeed() * 10) / 10.0;
         int money = distanceTracker.getMoney();
         String date = DateUtils.getCurrentDate();
-        Run run = new Run(duration,distance,averageSpeed,money,date);
+        Run run = new Run(duration,distance,averageSpeed,money,date,Run.generateName());
         ServerRequest request = new ServerRequest(this);
         request.uploadRun(run, false, new GetCallback() {
             @Override
