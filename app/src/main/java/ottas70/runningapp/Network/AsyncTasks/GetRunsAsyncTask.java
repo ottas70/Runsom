@@ -113,6 +113,7 @@ public class GetRunsAsyncTask extends AsyncTask<Void,Void,ArrayList<Run>> {
             JSONArray jArray = new JSONArray(builder.toString());
 
             if (jArray.length() != 0){
+                runs = new ArrayList<>();
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject object = jArray.getJSONObject(i);
                     String durationString = object.getString("duration");

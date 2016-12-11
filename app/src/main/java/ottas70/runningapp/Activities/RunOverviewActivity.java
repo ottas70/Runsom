@@ -49,4 +49,18 @@ public class RunOverviewActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ServerRequest request = new ServerRequest(this);
+        request.getRuns(false, new GetCallback() {
+            @Override
+            public void done(Object o) {
+                if (o == null) {
+                    return;
+                }
+                list.setAdapter(new RunListAdapter(list.getContext(), (ArrayList<Run>) o));
+            }
+        });
+    }
 }
