@@ -9,23 +9,23 @@
     tools:context="ottas70.runningapp.Activities.RunOverviewActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-            android:text="ACTIVITY"
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/textView2"
             android:layout_weight="1"
             android:gravity="center"
-            android:textStyle="normal|bold"
+            android:text="ACTIVITY"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textColor="@android:color/white" />
+            android:textStyle="normal|bold" />
     </LinearLayout>
 
     <RelativeLayout
@@ -34,68 +34,68 @@
         android:background="@android:color/white">
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/startRunButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            app:fabSize="mini"
-            app:srcCompat="@drawable/ic_play_arrow_black_36dp"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/startRunButton"
-            app:backgroundTint="@android:color/holo_green_light" />
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            app:backgroundTint="@android:color/holo_green_light"
+            app:fabSize="mini"
+            app:srcCompat="@drawable/ic_play_arrow_black_36dp" />
     </RelativeLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/runsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/mapView"
         android:layout_toEndOf="@+id/mapView"
-        android:background="@android:color/white"
-        android:id="@+id/runList" />
+        android:layout_toRightOf="@+id/mapView"
+        android:layout_weight="1"
+        android:background="@android:color/white" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
         <Button
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/button6"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
             android:id="@+id/button5"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
             android:id="@+id/button4"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
             android:id="@+id/button3"
-            android:layout_weight="1" />
-
-        <Button
-            android:text="Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
             android:id="@+id/button2"
-            android:layout_weight="1" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Button" />
     </LinearLayout>
 
 </LinearLayout>
