@@ -46,7 +46,7 @@ public class RunsAdapter extends RecyclerView.Adapter<RunsAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Run run = runsList.get(position);
+        final Run run = runsList.get(position);
         holder.distance.setText(String.valueOf(run.getDistance()) + " km");
         holder.date.setText(run.getDate());
         holder.name.setText(run.getName());
@@ -65,6 +65,13 @@ public class RunsAdapter extends RecyclerView.Adapter<RunsAdapter.MyViewHolder> 
                 } catch (Exception e) {
 
                 }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //...
             }
         });
     }
