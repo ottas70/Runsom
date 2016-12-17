@@ -88,6 +88,7 @@ public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
         values.put("moneyEarned",run.getMoneyEarned());
         values.put("duration",run.getDuration().toString());
         values.put("name",run.getName());
+        values.put("encodedPath", run.getEncodedPath());
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
         try {

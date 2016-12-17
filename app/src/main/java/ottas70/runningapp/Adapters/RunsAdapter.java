@@ -1,6 +1,7 @@
 package ottas70.runningapp.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,10 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
 
 import java.util.List;
 
@@ -60,8 +65,14 @@ public class RunsAdapter extends RecyclerView.Adapter<RunsAdapter.MyViewHolder> 
             public void onMapReady(GoogleMap googleMap) {
                 try {
                     MapsInitializer.initialize(context);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(50, 14), 15));
+                    List<LatLng> path = PolyUtil.decode(run.getEncodedPath());
+                    Polyline line = googleMap.addPolyline(new PolylineOptions()
+                            .width(5)
+                            .color(Color.RED));
+                    line.setPoints(path);
+                    fixZoom(path, googleMap);
                     holder.mapView.onResume();
+
                 } catch (Exception e) {
 
                 }
@@ -77,8 +88,21 @@ public class RunsAdapter extends RecyclerView.Adapter<RunsAdapter.MyViewHolder> 
     }
 
     @Override
+    public void onViewRecycled(MyViewHolder holder) {
+        holder.mapView.onResume();
+    }
+
+    @Override
     public int getItemCount() {
         return runsList.size();
+    }
+
+    private void fixZoom(List<LatLng> latLngList, GoogleMap map) {
+        LatLngBounds.Builder bc = new LatLngBounds.Builder();
+        for (LatLng item : latLngList) {
+            bc.include(item);
+        }
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bc.build(), 30));
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

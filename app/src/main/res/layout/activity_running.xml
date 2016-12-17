@@ -5,162 +5,162 @@
     android:id="@+id/activity_running"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundPrimary"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ottas70.runningapp.Activities.RunningActivity"
-    android:background="@color/backgroundPrimary">
+    tools:context="ottas70.runningapp.Activities.RunningActivity">
 
     <TextView
-        android:text="0.0"
+        android:id="@+id/speedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/speedTextView"
-        android:textSize="24sp"
         android:layout_alignBaseline="@+id/timerTextView"
         android:layout_alignBottom="@+id/timerTextView"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
         android:layout_marginLeft="36dp"
         android:layout_marginStart="36dp"
-        android:textColor="@color/textPrimary" />
+        android:layout_toEndOf="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:text="0.0"
+        android:textColor="@color/textPrimary"
+        android:textSize="24sp" />
 
     <TextView
-        android:text="KILOMETERS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:textColor="@color/textPrimary"
-        android:textStyle="normal|bold"
-        android:textSize="17sp"
-        android:layout_below="@+id/distanceEditText"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/distanceEditText"
-        android:text="0.00"
-        android:textSize="120sp"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="1dp"
+        android:layout_below="@+id/distanceTextView"
+        android:layout_centerHorizontal="true"
+        android:text="KILOMETERS"
         android:textColor="@color/textPrimary"
-        android:layout_alignParentTop="true"
+        android:textSize="17sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/distanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:gravity="center_vertical|center_horizontal"
+        android:inputType="number"
+        android:padding="1dp"
+        android:text="0.00"
+        android:textColor="@color/textPrimary"
+        android:textSize="120sp" />
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_timer_white_36dp"
-        android:id="@+id/imageView"
+        android:layout_alignBottom="@+id/timerTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:adjustViewBounds="false"
-        android:cropToPadding="false"
         android:background="@drawable/ic_timer_white_36dp"
-        android:layout_alignBottom="@+id/timerTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:cropToPadding="false"
+        app:srcCompat="@drawable/ic_timer_white_36dp" />
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/icon_speed"
-        android:id="@+id/imageView2"
-        android:background="@drawable/icon_speed"
-        android:layout_marginRight="50dp"
-        android:layout_marginEnd="50dp"
         android:layout_alignBottom="@+id/speedTextView"
+        android:layout_alignEnd="@+id/speedTextView"
         android:layout_alignRight="@+id/speedTextView"
-        android:layout_alignEnd="@+id/speedTextView" />
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/icon_speed"
+        app:srcCompat="@drawable/icon_speed" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/lockButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/ic_lock_open_black_24dp"
-        android:id="@+id/lockButton"
-        app:backgroundTint="@android:color/white"
+        android:layout_alignBottom="@+id/startButton"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
         android:layout_marginBottom="35dp"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
-        android:layout_alignBottom="@+id/startButton"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        android:clickable="true"
+        app:backgroundTint="@android:color/white"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_lock_open_black_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/ic_cancel_black_24dp"
         android:id="@+id/cancelButton"
-        app:backgroundTint="@android:color/white"
-        android:layout_alignTop="@+id/lockButton"
-        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/lockButton"
+        android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
-        android:layout_marginEnd="28dp" />
+        android:clickable="true"
+        app:backgroundTint="@android:color/white"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_cancel_black_24dp" />
 
     <TextView
-        android:text="Tap and Hold to Unlock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
         android:id="@+id/holdTextView"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/lockButton"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="0.0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/moneyTextView"
-        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Tap and Hold to Unlock"
         android:textColor="@android:color/white"
-        android:layout_alignBottom="@+id/imageView3"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3" />
+        android:textSize="16sp" />
 
     <TextView
-        android:text="00:00:00"
+        android:id="@+id/moneyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_toEndOf="@+id/imageView3"
+        android:layout_toRightOf="@+id/imageView3"
+        android:text="0.0"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
+
+    <TextView
         android:id="@+id/timerTextView"
-        android:textSize="24sp"
-        android:textColor="@color/textPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/imageView"
+        android:layout_marginTop="23dp"
         android:layout_toEndOf="@+id/imageView"
-        android:layout_marginTop="23dp" />
+        android:layout_toRightOf="@+id/imageView"
+        android:text="00:00:00"
+        android:textColor="@color/textPrimary"
+        android:textSize="24sp" />
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:background="@drawable/ic_attach_money_white_36dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/timerTextView"
         android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/timerTextView"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_attach_money_white_36dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_play_arrow_black_36dp"
         android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/moneyTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp"
+        android:clickable="true"
         app:backgroundTint="@color/startColor"
         app:fabSize="normal"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/moneyTextView"
-        android:layout_centerHorizontal="true" />
+        app:srcCompat="@drawable/ic_play_arrow_black_36dp" />
 
 </RelativeLayout>

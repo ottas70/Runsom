@@ -1,6 +1,7 @@
 package ottas70.runningapp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ottas on 7.12.2016.
@@ -13,17 +14,19 @@ public class User {
     private String password;
     private String email;
 
-    private ArrayList<Run> runs = new ArrayList<>();
+    private List<Run> runs;
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+        runs = new ArrayList<>();
     }
 
     public User(String password, String username, String email) {
         this.password = password;
         this.username = username;
         this.email = email;
+        runs = new ArrayList<>();
     }
 
     public User(int id, String username, String password, String email) {
@@ -31,6 +34,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        runs = new ArrayList<>();
     }
 
     public int getId() {
@@ -61,7 +65,7 @@ public class User {
         this.email = email;
     }
 
-    public ArrayList<Run> getRuns() {
+    public List<Run> getRuns() {
         return runs;
     }
 

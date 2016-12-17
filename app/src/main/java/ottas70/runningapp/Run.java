@@ -12,18 +12,20 @@ public class Run {
     private int moneyEarned;
     private String date;
     private String name;
+    private String encodedPath;
 
-    public Run(Duration duration, double distance, double averageSpeed, int moneyEarned,String date, String name) {
+    public Run(Duration duration, double distance, double averageSpeed, int moneyEarned, String date, String name, String encodedPath) {
         this.duration = duration;
         this.distance = distance;
         this.averageSpeed = averageSpeed;
         this.moneyEarned = moneyEarned;
         this.date = date;
         this.name = name;
+        this.encodedPath = encodedPath;
     }
 
-    public static String generateName(){
-        return "Run " + (Runsom.getInstance().getUser().getRuns().size()+1);
+    public static String generateName() {
+        return "Run " + (Runsom.getInstance().getUser().getRuns().size() + 1);
     }
 
     public Duration getDuration() {
@@ -52,5 +54,9 @@ public class Run {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEncodedPath() {
+        return encodedPath;
     }
 }

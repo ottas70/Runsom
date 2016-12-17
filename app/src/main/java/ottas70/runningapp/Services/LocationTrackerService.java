@@ -1,32 +1,30 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Services;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ottovodvarka on 27.11.16.
  */
 
-public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LocationTrackerService implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener {
 
     private static final int HAVE_LOCATION_PERMISSION = 1;
     private static final int TIME_BEETWEEN_UPDATES = 3000; //miliseconds
@@ -45,9 +43,11 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
     private int counter;
     private double speedHelper;
     private int money;
+    private List<LatLng> latLngList;
 
-    public DistanceTracker(Context context,TextView distanceTextView, TextView speedTextView) {
+    public LocationTrackerService(Context context, GoogleApiClient client, TextView distanceTextView, TextView speedTextView) {
         this.context = context;
+        this.client = client;
         this.distanceTextView = distanceTextView;
         this.speedTextView = speedTextView;
 
@@ -56,8 +56,8 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         counter = 0;
         speedHelper = 0.0;
         money = 0;
+        latLngList = new ArrayList<>();
 
-        createGoogleAPIClient();
         locationRequest = new LocationRequest();
         locationRequest.setInterval(TIME_BEETWEEN_UPDATES);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -67,33 +67,26 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         }
     }
 
-    private void createGoogleAPIClient() {
-        if (client == null) {
-            client = new GoogleApiClient.Builder(context)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-        client.connect();
-    }
-
     public void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(client,locationRequest,this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
     }
 
     public void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(client,this);
+        LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
     }
 
     @Override
     public void onLocationChanged(Location location) {
         Log.i("DISTANCE ACCURACY:  ", String.valueOf(location.getAccuracy()));
-        if(location.getAccuracy() >= 20){
+        if (location.getAccuracy() >= 20) {
             return;
         }
         if (currentLocation != null) {
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            latLngList.add(latLng);
             float distance2 = currentLocation.distanceTo(location);
             distance += distance2;
             Log.i("DISTANCE RUN", String.valueOf(distance2));
@@ -101,7 +94,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
             DecimalFormat df = new DecimalFormat("#0.00");
             distanceTextView.setText(String.valueOf(df.format((double) roundedDistanceMeters / 1000.0)));
 
-            if(location.hasSpeed()){
+            if (location.hasSpeed()) {
                 Log.i("SPEED:  ", String.valueOf(location.getSpeed()));
                 double roundedspeedInKm = (double) Math.round((location.getSpeed() * 3.6) * 10.0) / 10.0;
                 DecimalFormat df2 = new DecimalFormat("#0.0");
@@ -109,7 +102,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
 
                 counter++;
                 speedHelper += roundedspeedInKm;
-                averageSpeed = speedHelper/counter;
+                averageSpeed = speedHelper / counter;
             }
             currentLocation = location;
         } else {
@@ -119,7 +112,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
 
 
     private void requestPermission() {
-        ActivityCompat.requestPermissions((Activity)context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, HAVE_LOCATION_PERMISSION);
+        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, HAVE_LOCATION_PERMISSION);
     }
 
     @Override
@@ -135,28 +128,7 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
         }
     }
 
-
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        Log.i("App", "Connected");
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(context, "Error while connecting to Google Play Services", Toast.LENGTH_SHORT);
-    }
-
-    public GoogleApiClient getClient(){
-        return client;
-    }
-
-    public void setCurrentLocation(Location currentLocation){
+    public void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
     }
 
@@ -170,5 +142,9 @@ public class DistanceTracker implements ActivityCompat.OnRequestPermissionsResul
 
     public int getMoney() {
         return money;
+    }
+
+    public List<LatLng> getLatLngList() {
+        return latLngList;
     }
 }

@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ottas70.runningapp.Adapters.RunsAdapter;
@@ -18,6 +19,7 @@ import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
+import ottas70.runningapp.Runsom;
 
 public class RunOverviewActivity extends Activity {
 
@@ -43,7 +45,6 @@ public class RunOverviewActivity extends Activity {
                 startActivity(intent);
             }
         });
-        getRuns();
     }
 
     @Override
@@ -60,6 +61,7 @@ public class RunOverviewActivity extends Activity {
                 if (o == null) {
                     return;
                 }
+                Runsom.getInstance().getUser().setRuns((ArrayList<Run>) o);
                 runsAdapter = new RunsAdapter((List<Run>) o, savedInstanceState, getApplicationContext());
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(layoutManager);

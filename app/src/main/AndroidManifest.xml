@@ -3,6 +3,7 @@
     package="ottas70.runningapp">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:allowBackup="true"
@@ -10,6 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service android:name="ottas70.runningapp.Services.ActivityRecognitionService"></service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -19,6 +22,7 @@
         <activity
             android:name=".Activities.RunningActivity"
             android:launchMode="singleTop"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
