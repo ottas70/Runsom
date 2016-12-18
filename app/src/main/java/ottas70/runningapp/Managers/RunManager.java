@@ -122,10 +122,6 @@ public class RunManager implements GoogleApiClient.ConnectionCallbacks, GoogleAp
         googleApiClient.connect();
     }
 
-    public void onDestroy() {
-        myNotificationManager.deleteNotification();
-    }
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         locationTracker = new LocationTrackerService(context, googleApiClient, distanceTextView, speedTextView);

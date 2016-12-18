@@ -44,9 +44,20 @@
             app:fabSize="mini"
             app:srcCompat="@drawable/ic_play_arrow_black_36dp" />
     </RelativeLayout>
+    <!--
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/runsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/mapView"
+            android:layout_toRightOf="@+id/mapView"
+            android:layout_weight="1"
+            android:background="@android:color/white" />
+    -->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/runsRecyclerView"
+    <ListView
+        android:id="@+id/runsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -54,6 +65,7 @@
         android:layout_toRightOf="@+id/mapView"
         android:layout_weight="1"
         android:background="@android:color/white" />
+
 
     <LinearLayout
         android:layout_width="match_parent"

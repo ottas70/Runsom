@@ -10,11 +10,13 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ottas70.runningapp.Adapters.RunsAdapter;
+import ottas70.runningapp.Adapters.RunsListAdapter;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
@@ -25,7 +27,8 @@ public class RunOverviewActivity extends Activity {
 
     private FloatingActionButton startRun;
     private RecyclerView recyclerView;
-    private Bundle savedInstanceState;
+
+    private ListView listView;
 
     private RunsAdapter runsAdapter;
 
@@ -34,9 +37,10 @@ public class RunOverviewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_overview);
 
-        this.savedInstanceState = savedInstanceState;
         startRun = (FloatingActionButton) findViewById(R.id.startRunButton);
-        recyclerView = (RecyclerView) findViewById(R.id.runsRecyclerView);
+        //recyclerView = (RecyclerView) findViewById(R.id.runsRecyclerView);
+
+        listView = (ListView) findViewById(R.id.runsListView);
 
         startRun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,17 +66,24 @@ public class RunOverviewActivity extends Activity {
                     return;
                 }
                 Runsom.getInstance().getUser().setRuns((ArrayList<Run>) o);
-                runsAdapter = new RunsAdapter((List<Run>) o, savedInstanceState, getApplicationContext());
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                        DividerItemDecoration.VERTICAL);
-                dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                        R.drawable.horizontal_divider));
-                recyclerView.addItemDecoration(dividerItemDecoration);
-                recyclerView.setAdapter(runsAdapter);
+                //initializeRecyclerView((List<Run>) o);
+
+                listView.setAdapter(new RunsListAdapter(getApplicationContext(), (List<Run>) o));
+
             }
         });
+    }
+
+    private void initializeRecyclerView(List<Run> runs) {
+        runsAdapter = new RunsAdapter(runs, getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.horizontal_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setAdapter(runsAdapter);
     }
 }

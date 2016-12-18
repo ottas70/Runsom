@@ -42,54 +42,11 @@ public class RunningActivity extends Activity implements MyDialogListener{
 
     private Handler buttonHandler;
     private RunManager runManager;
-    Runnable action = new Runnable() {
-        @Override
-        public void run() {
-            if (!isLocked)
-                return;
-            cancelButton.setVisibility(View.VISIBLE);
-            lockButton.setVisibility(View.VISIBLE);
-            holdTextView.setVisibility(View.INVISIBLE);
-            isLocked = false;
-            completeView.setKeepScreenOn(false);
-            if (runManager.isRunning()) {
-                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_play_arrow_black_36dp));
-            } else {
-                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_stop_black_36dp));
-            }
+    private HoldButtonRunnable holdButtonRunnable;
+    private MessageReceiver messageReceiver;
 
-        }
-    };
     private List<Integer> detectedActivityList = new ArrayList<>();
-    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String message = intent.getStringExtra("Status");
-            if (isFinishing()) {
-                return;
-            }
 
-            if (isDefinetlyNotRunnning(Integer.parseInt(message))) {
-                finish = true;
-                runManager.stopRun();
-                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                startButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_play_arrow_black_36dp));
-
-                finishRunDialog = new FinishRunDialog();
-                Bundle bundle = new Bundle();
-                if (message == "1") {
-                    bundle.putString("title", " VEHICLE USAGE IS NOT ALLOWED");
-                } else {
-                    bundle.putString("title", " BICYCLE USAGE IS NOT ALLOWED");
-                }
-                bundle.putString("message", "Only activity allowed here is running. This run will be terminated.");
-                finishRunDialog.setArguments(bundle);
-                finishRunDialog.show(getFragmentManager(), "finishRunDialog");
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +65,8 @@ public class RunningActivity extends Activity implements MyDialogListener{
         holdTextView.setVisibility(View.INVISIBLE);
 
         runManager = new RunManager(this);
+        holdButtonRunnable = new HoldButtonRunnable();
+        messageReceiver = new MessageReceiver();
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(messageReceiver, new IntentFilter("ActivityRecognitionUpdates"));
 
@@ -137,11 +96,11 @@ public class RunningActivity extends Activity implements MyDialogListener{
                     case MotionEvent.ACTION_DOWN:
                         if(buttonHandler != null) return true;
                         buttonHandler = new Handler();
-                        buttonHandler.postDelayed(action,2000);
+                        buttonHandler.postDelayed(holdButtonRunnable, 2000);
                         break;
                     case MotionEvent.ACTION_UP:
                         if(buttonHandler == null) return true;
-                        buttonHandler.removeCallbacks(action);
+                        buttonHandler.removeCallbacks(holdButtonRunnable);
                         buttonHandler = null;
                         break;
                 }
@@ -216,10 +175,55 @@ public class RunningActivity extends Activity implements MyDialogListener{
         return false;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        runManager.onDestroy();
+
+    private class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra("Status");
+            if (isFinishing()) {
+                return;
+            }
+
+            if (isDefinetlyNotRunnning(Integer.parseInt(message))) {
+                finish = true;
+                runManager.stopRun();
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                startButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_play_arrow_black_36dp));
+
+                finishRunDialog = new FinishRunDialog();
+                Bundle bundle = new Bundle();
+                if (message == "1") {
+                    bundle.putString("title", " VEHICLE USAGE IS NOT ALLOWED");
+                } else {
+                    bundle.putString("title", " BICYCLE USAGE IS NOT ALLOWED");
+                }
+                bundle.putString("message", "Only activity allowed here is running. This run will be terminated.");
+                finishRunDialog.setArguments(bundle);
+                finishRunDialog.show(getFragmentManager(), "finishRunDialog");
+            }
+        }
+    }
+
+    private class HoldButtonRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            if (!isLocked)
+                return;
+            cancelButton.setVisibility(View.VISIBLE);
+            lockButton.setVisibility(View.VISIBLE);
+            holdTextView.setVisibility(View.INVISIBLE);
+            isLocked = false;
+            completeView.setKeepScreenOn(false);
+            if (runManager.isRunning()) {
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_play_arrow_black_36dp));
+            } else {
+                startButton.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                startButton.setImageDrawable(ContextCompat.getDrawable(startButton.getContext(), R.drawable.ic_stop_black_36dp));
+            }
+        }
     }
 
 }
