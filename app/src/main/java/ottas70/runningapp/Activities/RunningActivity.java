@@ -157,24 +157,6 @@ public class RunningActivity extends Activity implements MyDialogListener{
         dialog.dismiss();
     }
 
-    private boolean isDefinetlyNotRunnning(int currentActivity) {
-        detectedActivityList.add(currentActivity);
-        int counter = 0;
-        for (int activity : detectedActivityList) {
-            if (activity == currentActivity) {
-                counter++;
-            } else {
-                detectedActivityList.clear();
-                detectedActivityList.add(currentActivity);
-                return false;
-            }
-        }
-        if (counter == 5) {
-            return true;
-        }
-        return false;
-    }
-
 
     private class MessageReceiver extends BroadcastReceiver {
 
@@ -202,6 +184,24 @@ public class RunningActivity extends Activity implements MyDialogListener{
                 finishRunDialog.setArguments(bundle);
                 finishRunDialog.show(getFragmentManager(), "finishRunDialog");
             }
+        }
+
+        private boolean isDefinetlyNotRunnning(int currentActivity) {
+            detectedActivityList.add(currentActivity);
+            int counter = 0;
+            for (int activity : detectedActivityList) {
+                if (activity == currentActivity) {
+                    counter++;
+                } else {
+                    detectedActivityList.clear();
+                    detectedActivityList.add(currentActivity);
+                    return false;
+                }
+            }
+            if (counter == 5) {
+                return true;
+            }
+            return false;
         }
     }
 
