@@ -2,35 +2,41 @@ package ottas70.runningapp.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ottas70.runningapp.Adapters.RunsAdapter;
-import ottas70.runningapp.Adapters.RunsListAdapter;
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Interfaces.MyLocationListener;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
 import ottas70.runningapp.Runsom;
+import ottas70.runningapp.Services.LocationProviderService;
 
 public class RunOverviewActivity extends Activity {
 
     private FloatingActionButton startRun;
-    private RecyclerView recyclerView;
-
+    private MapView mapView;
     private ListView listView;
 
+    private GoogleMap gMap;
+
     private RunsAdapter runsAdapter;
+    private Bundle savedInstanceState;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -38,14 +44,16 @@ public class RunOverviewActivity extends Activity {
         setContentView(R.layout.activity_run_overview);
 
         startRun = (FloatingActionButton) findViewById(R.id.startRunButton);
-        //recyclerView = (RecyclerView) findViewById(R.id.runsRecyclerView);
-
+        mapView = (MapView) findViewById(R.id.mapView);
         listView = (ListView) findViewById(R.id.runsListView);
+
+        this.savedInstanceState = savedInstanceState;
+        createMap();
 
         startRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RunOverviewActivity.this,RunningActivity.class);
+                Intent intent = new Intent(RunOverviewActivity.this, RunningActivity.class);
                 startActivity(intent);
             }
         });
@@ -66,24 +74,36 @@ public class RunOverviewActivity extends Activity {
                     return;
                 }
                 Runsom.getInstance().getUser().setRuns((ArrayList<Run>) o);
-                //initializeRecyclerView((List<Run>) o);
 
-                listView.setAdapter(new RunsListAdapter(getApplicationContext(), (List<Run>) o));
+                runsAdapter = new RunsAdapter(getApplicationContext(), (List<Run>) o);
+                listView.setAdapter(runsAdapter);
 
             }
         });
     }
 
-    private void initializeRecyclerView(List<Run> runs) {
-        runsAdapter = new RunsAdapter(runs, getApplicationContext());
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                R.drawable.horizontal_divider));
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        recyclerView.setAdapter(runsAdapter);
+    private void createMap() {
+        mapView.onCreate(savedInstanceState);
+        mapView.setClickable(false);
+        mapView.onResume();
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                gMap = googleMap;
+                gMap.getUiSettings().setMapToolbarEnabled(false);
+                gMap.getUiSettings().setMyLocationButtonEnabled(false);
+                gMap.setMyLocationEnabled(true);
+                LocationProviderService lps = new LocationProviderService(getApplicationContext(),
+                        new MyLocationListener() {
+                            @Override
+                            public void onLocationReceived(Location location) {
+                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16);
+                                gMap.moveCamera(cameraUpdate);
+                                mapView.onResume();
+                            }
+                        });
+            }
+        });
     }
 }

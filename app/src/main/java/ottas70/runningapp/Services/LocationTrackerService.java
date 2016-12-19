@@ -1,14 +1,12 @@
 package ottas70.runningapp.Services;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -20,13 +18,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import ottas70.runningapp.PermissionRequester;
+
 /**
  * Created by ottovodvarka on 27.11.16.
  */
 
-public class LocationTrackerService implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener {
+public class LocationTrackerService implements LocationListener {
 
-    private static final int HAVE_LOCATION_PERMISSION = 1;
     private static final int TIME_BEETWEEN_UPDATES = 3000; //miliseconds
     private static final int MINIMAL_DISTANCE = 10;
 
@@ -45,6 +44,8 @@ public class LocationTrackerService implements ActivityCompat.OnRequestPermissio
     private int money;
     private List<LatLng> latLngList;
 
+    private PermissionRequester permissionRequester;
+
     public LocationTrackerService(Context context, GoogleApiClient client, TextView distanceTextView, TextView speedTextView) {
         this.context = context;
         this.client = client;
@@ -62,14 +63,16 @@ public class LocationTrackerService implements ActivityCompat.OnRequestPermissio
         locationRequest.setInterval(TIME_BEETWEEN_UPDATES);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+        permissionRequester = new PermissionRequester(context);
+
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
+            permissionRequester.requestPermission(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
         }
     }
 
     public void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission();
+            permissionRequester.requestPermission(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
     }
@@ -107,24 +110,6 @@ public class LocationTrackerService implements ActivityCompat.OnRequestPermissio
             currentLocation = location;
         } else {
             currentLocation = location;
-        }
-    }
-
-
-    private void requestPermission() {
-        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, HAVE_LOCATION_PERMISSION);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case HAVE_LOCATION_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //Je možné pokračovat
-                } else {
-                    Toast toast = Toast.makeText(context, "This permission is necessery for this app", Toast.LENGTH_SHORT);
-                    requestPermission();
-                }
         }
     }
 

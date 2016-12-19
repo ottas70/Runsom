@@ -37,24 +37,24 @@
             android:id="@+id/startRunButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
             app:backgroundTint="@android:color/holo_green_light"
             app:fabSize="mini"
             app:srcCompat="@drawable/ic_play_arrow_black_36dp" />
-    </RelativeLayout>
-    <!--
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/runsRecyclerView"
+
+        <com.google.android.gms.maps.MapView xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/mapView"
-            android:layout_toRightOf="@+id/mapView"
-            android:layout_weight="1"
-            android:background="@android:color/white" />
-    -->
+            map:liteMode="true" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/runsListView"
