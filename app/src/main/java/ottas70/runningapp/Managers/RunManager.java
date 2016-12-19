@@ -101,13 +101,15 @@ public class RunManager implements GoogleApiClient.ConnectionCallbacks, GoogleAp
         String date = DateUtils.getCurrentDate();
         String encodedPath = PolyUtil.encode(locationTracker.getLatLngList());
         Run run = new Run(duration, distance, averageSpeed, money, date, Run.generateName(), encodedPath);
-        ServerRequest request = new ServerRequest(context);
-        request.uploadRun(run, false, new GetCallback() {
-            @Override
-            public void done(Object o) {
-                //nothing
-            }
-        });
+        if (!locationTracker.getLatLngList().isEmpty()) {
+            ServerRequest request = new ServerRequest(context);
+            request.uploadRun(run, false, new GetCallback() {
+                @Override
+                public void done(Object o) {
+                    //nothing
+                }
+            });
+        }
     }
 
     private void createGoogleAPIClient() {

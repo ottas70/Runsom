@@ -157,7 +157,6 @@ public class RunningActivity extends Activity implements MyDialogListener{
         dialog.dismiss();
     }
 
-
     private class MessageReceiver extends BroadcastReceiver {
 
         @Override

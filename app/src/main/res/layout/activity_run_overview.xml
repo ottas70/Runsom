@@ -64,7 +64,8 @@
         android:layout_toEndOf="@+id/mapView"
         android:layout_toRightOf="@+id/mapView"
         android:layout_weight="1"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        android:divider="@drawable/horizontal_divider" />
 
 
     <LinearLayout

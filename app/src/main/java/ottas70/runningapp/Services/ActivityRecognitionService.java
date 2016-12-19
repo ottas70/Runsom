@@ -43,7 +43,7 @@ public class ActivityRecognitionService extends IntentService {
     private void handleDetectedActivities(List<DetectedActivity> probableActivities) {
         for (DetectedActivity activity : probableActivities) {
             switch (activity.getType()) {
-                case DetectedActivity.STILL: {
+                case DetectedActivity.IN_VEHICLE: {
                     if (activity.getConfidence() > 75) {
                         toastHandler.post(new DisplayToast(this, "Vehicle usage is not allowed"));
                         sendMessageToActivity("1");
