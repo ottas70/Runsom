@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="ottas70.runningapp.Activities.RunOverviewActivity">
 
+
     <include layout="@layout/header" />
 
     <RelativeLayout
@@ -71,6 +72,7 @@
         android:layout_weight="1"
         android:background="@android:color/white"
         android:divider="@drawable/horizontal_divider" />
+
 
     <include layout="@layout/footer" />
 
