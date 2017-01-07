@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView4"
             android:layout_weight="1"
-            app:srcCompat="@drawable/runner"
+            app:srcCompat="@drawable/feed"
             android:padding="5dp" />
 
         <android.support.v7.widget.AppCompatImageView
