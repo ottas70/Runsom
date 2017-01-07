@@ -107,7 +107,8 @@
             android:id="@+id/imageView4"
             android:layout_weight="1"
             app:srcCompat="@drawable/feed"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:layout_gravity="center" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
@@ -115,15 +116,17 @@
             app:srcCompat="@drawable/runner"
             android:id="@+id/imageView5"
             android:layout_weight="1"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:layout_gravity="center" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/runner"
+            app:srcCompat="@drawable/ic_map_white_36dp"
             android:id="@+id/imageView6"
             android:layout_weight="1"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:layout_gravity="center" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
@@ -131,7 +134,8 @@
             app:srcCompat="@drawable/runner"
             android:id="@+id/imageView7"
             android:layout_weight="1"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:layout_gravity="center" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
@@ -139,7 +143,8 @@
             app:srcCompat="@drawable/runner"
             android:id="@+id/imageView8"
             android:layout_weight="1"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:layout_gravity="center" />
     </LinearLayout>
 
 </LinearLayout>
