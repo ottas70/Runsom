@@ -25,7 +25,8 @@
             android:text="ACTIVITY"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="normal|bold" />
+            android:textStyle="normal|bold"
+            android:background="@color/backgroundPrimary" />
     </LinearLayout>
 
     <RelativeLayout
@@ -37,24 +38,47 @@
             android:id="@+id/startRunButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="14dp"
             android:clickable="true"
             app:backgroundTint="@android:color/holo_green_light"
             app:fabSize="mini"
-            app:srcCompat="@drawable/ic_play_arrow_black_36dp" />
+            app:srcCompat="@drawable/ic_play_arrow_black_36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="17dp"
+            android:layout_marginEnd="17dp" />
 
-        <com.google.android.gms.maps.MapView xmlns:map="http://schemas.android.com/apk/res-auto"
+        <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            app:liteMode="true"
             android:layout_alignParentTop="true"
-            map:liteMode="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:background="@color/backgroundPrimary">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="HISTORY"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="normal|bold" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/runsListView"
@@ -73,7 +97,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/backgroundPrimary">
 
         <Button
             android:id="@+id/button6"

@@ -6,6 +6,8 @@ package ottas70.runningapp;
 
 public class Run {
 
+    private int MET_RUNNING = 8;
+
     private Duration duration;
     private double distance;
     private double averageSpeed;
@@ -26,6 +28,10 @@ public class Run {
 
     public static String generateName() {
         return "Run " + (Runsom.getInstance().getUser().getRuns().size() + 1);
+    }
+
+    public int getCalories() {
+        return (int) (MET_RUNNING * Runsom.getInstance().getUser().getWeight() * duration.getDurationInHours());
     }
 
     public Duration getDuration() {

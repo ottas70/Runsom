@@ -2,4 +2,5 @@
     <string name="app_name">RunningApp</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_run_overview">RunOverviewActivity</string>
+    <string name="title_activity_run_details">RunDetailsActivity</string>
 </resources>

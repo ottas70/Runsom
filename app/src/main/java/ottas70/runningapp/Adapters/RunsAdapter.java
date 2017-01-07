@@ -1,6 +1,8 @@
 package ottas70.runningapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +13,11 @@ import com.google.android.gms.maps.MapView;
 
 import java.util.List;
 
+import ottas70.runningapp.Activities.RunDetailsActivity;
 import ottas70.runningapp.MapReadyCallback;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
+import ottas70.runningapp.Runsom;
 
 /**
  * Created by ottovodvarka on 18.12.16.
@@ -73,6 +77,18 @@ public class RunsAdapter extends BaseAdapter {
         mapView.onCreate(null);
         mapView.setClickable(false);
         mapView.getMapAsync(new MapReadyCallback(mapView, run));
+
+        myView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, RunDetailsActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Bundle b = new Bundle();
+                b.putInt("listPosition", Runsom.getInstance().getUser().getRuns().indexOf(run));
+                i.putExtras(b);
+                context.startActivity(i);
+            }
+        });
 
         return myView;
     }

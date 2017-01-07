@@ -13,6 +13,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private int weight = -1;
 
     private List<Run> runs;
 
@@ -71,5 +72,13 @@ public class User {
 
     public void setRuns(ArrayList<Run> runs) {
         this.runs = runs;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

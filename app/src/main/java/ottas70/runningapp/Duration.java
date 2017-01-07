@@ -41,6 +41,14 @@ public class Duration {
         return new Duration(hours,minutes,seconds);
     }
 
+    public int getDurationInSeconds() {
+        return seconds + minutes * 60 + hours * 3600;
+    }
+
+    public double getDurationInHours() {
+        return hours + minutes / 60 + seconds / 3600;
+    }
+
     public int getHours() {
         return hours;
     }

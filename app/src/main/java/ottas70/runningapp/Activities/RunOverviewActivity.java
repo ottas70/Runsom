@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ListView;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -98,8 +97,7 @@ public class RunOverviewActivity extends Activity {
                             @Override
                             public void onLocationReceived(Location location) {
                                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16);
-                                gMap.moveCamera(cameraUpdate);
+                                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                                 mapView.onResume();
                             }
                         });
