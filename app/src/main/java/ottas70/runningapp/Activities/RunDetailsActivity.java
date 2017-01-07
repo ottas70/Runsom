@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,6 +28,7 @@ public class RunDetailsActivity extends Activity implements GoogleApiClient.Conn
     private TextView moneyTextView;
     private TextView caloriesTextView;
     private MapView mapView;
+    private ImageView backButton;
 
     private Run run;
 
@@ -44,6 +47,14 @@ public class RunDetailsActivity extends Activity implements GoogleApiClient.Conn
         moneyTextView = (TextView) findViewById(R.id.moneyTextView);
         caloriesTextView = (TextView) findViewById(R.id.caloriesTextView);
         mapView = (MapView) findViewById(R.id.mapView);
+        backButton = (ImageView) findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         bundle = savedInstanceState;
         int listPosition = getIntent().getExtras().getInt("listPosition");

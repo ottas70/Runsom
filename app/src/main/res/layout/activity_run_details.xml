@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_arrow_back_white_36dp"
-                android:id="@+id/imageView6"
+                android:id="@+id/backButton"
                 android:background="@drawable/ic_arrow_back_white_36dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp" />
@@ -44,7 +44,8 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="normal|bold"
-                android:background="@color/backgroundPrimary" />
+                android:background="@color/backgroundPrimary"
+                android:layout_marginRight="40dp" />
 
         </LinearLayout>
 

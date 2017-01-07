@@ -1,5 +1,6 @@
 package ottas70.runningapp.Views;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -70,6 +71,17 @@ public class MyDialog extends DialogFragment {
             throw new ClassCastException(context.toString()+" must implement MyDialogListener");
         }
     }
+
+    @Override
+    public void onAttach(Activity context) {
+        super.onAttach(context);
+        try {
+            listener = (MyDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement MyDialogListener");
+        }
+    }
+
 
     @Override
     public void onDetach() {
