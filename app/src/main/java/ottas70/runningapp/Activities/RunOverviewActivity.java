@@ -1,6 +1,5 @@
 package ottas70.runningapp.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ import ottas70.runningapp.Run;
 import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Services.LocationProviderService;
 
-public class RunOverviewActivity extends Activity {
+public class RunOverviewActivity extends BaseActivity {
 
     private FloatingActionButton startRun;
     private MapView mapView;
@@ -41,6 +40,9 @@ public class RunOverviewActivity extends Activity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run_overview);
+
+        setTitleText("ACTIVITY");
+        initiateListeners();
 
         startRun = (FloatingActionButton) findViewById(R.id.startRunButton);
         mapView = (MapView) findViewById(R.id.mapView);

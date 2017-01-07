@@ -47,7 +47,11 @@
             android:label="@string/title_activity_run_overview" />
         <activity
             android:name=".Activities.RunDetailsActivity"
-            android:label="@string/title_activity_run_details"></activity>
+            android:label="@string/title_activity_run_details" />
+        <activity android:name=".Activities.FeedActivity" />
+        <activity android:name=".Activities.EconomyMapActivity" />
+        <activity android:name=".Activities.EconomyOverviewActivity" />
+        <activity android:name=".Activities.AccountActivity"></activity>
     </application>
 
 </manifest>
