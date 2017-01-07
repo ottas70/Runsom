@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="ottas70.runningapp.Activities.RunOverviewActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -100,35 +101,35 @@
         android:background="@color/backgroundPrimary"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/runner"
             android:id="@+id/imageView4"
             android:layout_weight="1" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/runner"
             android:id="@+id/imageView5"
             android:layout_weight="1" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/runner"
             android:id="@+id/imageView6"
             android:layout_weight="1" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/runner"
             android:id="@+id/imageView7"
             android:layout_weight="1" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/runner"

@@ -52,7 +52,7 @@
         android:textColor="@color/textPrimary"
         android:textSize="120sp" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,11 +62,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:adjustViewBounds="false"
-        android:background="@drawable/ic_timer_white_36dp"
         android:cropToPadding="false"
         app:srcCompat="@drawable/ic_timer_white_36dp" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +74,6 @@
         android:layout_alignRight="@+id/speedTextView"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/icon_speed"
         app:srcCompat="@drawable/icon_speed" />
 
     <android.support.design.widget.FloatingActionButton
@@ -141,7 +139,7 @@
         android:textColor="@color/textPrimary"
         android:textSize="24sp" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -149,7 +147,7 @@
         android:layout_alignStart="@+id/textView"
         android:layout_below="@+id/timerTextView"
         android:layout_marginTop="20dp"
-        android:background="@drawable/ic_attach_money_white_36dp" />
+        app:srcCompat="@drawable/ic_attach_money_white_36dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/startButton"
