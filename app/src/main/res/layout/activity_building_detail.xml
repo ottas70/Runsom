@@ -100,7 +100,45 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"></LinearLayout>
+                android:layout_margin="5dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:text="WHERE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="18sp" />
+
+                <com.google.android.gms.maps.MapView
+                    android:layout_width="match_parent"
+                    android:id="@+id/mapView2"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:text="INFO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView4"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
