@@ -10,6 +10,6 @@ public class BuildingDetailAtivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_building_detail_ativity);
+        setContentView(R.layout.activity_building_detail);
     }
 }
