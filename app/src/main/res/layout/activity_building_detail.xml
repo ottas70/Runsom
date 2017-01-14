@@ -76,23 +76,23 @@
                     android:text="Nová 641, Dolní Březany"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="190dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/addressTextView"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_below="@+id/imageView4"
+                    android:layout_centerHorizontal="true" />
 
                 <TextView
                     android:text="Otto Vodvářka"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/addressTextView"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="29dp"
+                    android:layout_marginTop="19dp"
                     android:id="@+id/ownerTextView"
                     android:textColor="@color/text_grey2"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:layout_below="@+id/addressTextView"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
