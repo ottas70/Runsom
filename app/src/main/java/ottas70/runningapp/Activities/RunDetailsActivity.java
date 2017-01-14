@@ -44,7 +44,7 @@ public class RunDetailsActivity extends Activity implements GoogleApiClient.Conn
         distanceTextView = (TextView) findViewById(R.id.distanceTextView);
         durationTextView = (TextView) findViewById(R.id.durationTextView);
         speedTextView = (TextView) findViewById(R.id.speedTextView);
-        moneyTextView = (TextView) findViewById(R.id.moneyTextView);
+        moneyTextView = (TextView) findViewById(R.id.moneyLogTextView);
         caloriesTextView = (TextView) findViewById(R.id.caloriesTextView);
         mapView = (MapView) findViewById(R.id.mapView);
         backButton = (ImageView) findViewById(R.id.backButton);

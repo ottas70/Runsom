@@ -45,6 +45,7 @@ public class RunManager implements GoogleApiClient.ConnectionCallbacks, GoogleAp
     private TextView timerTextView;
     private TextView distanceTextView;
     private TextView speedTextView;
+    private TextView moneyTextView;
 
     private GoogleApiClient googleApiClient;
     private PendingIntent pendingIntent;
@@ -56,6 +57,7 @@ public class RunManager implements GoogleApiClient.ConnectionCallbacks, GoogleAp
         timerTextView = (TextView) rootView.findViewById(R.id.timerTextView);
         distanceTextView = (TextView) rootView.findViewById(R.id.distanceTextView);
         speedTextView = (TextView) rootView.findViewById(R.id.speedTextView);
+        moneyTextView = (TextView) rootView.findViewById(R.id.moneyLogTextView);
 
         isRunning = false;
         handler = new Handler();
@@ -126,7 +128,7 @@ public class RunManager implements GoogleApiClient.ConnectionCallbacks, GoogleAp
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        locationTracker = new LocationTrackerService(context, googleApiClient, distanceTextView, speedTextView);
+        locationTracker = new LocationTrackerService(context, googleApiClient, distanceTextView, speedTextView, moneyTextView);
         Intent intent = new Intent(context, ActivityRecognitionService.class);
         pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }

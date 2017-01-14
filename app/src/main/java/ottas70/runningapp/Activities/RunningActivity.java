@@ -29,7 +29,6 @@ import ottas70.runningapp.Views.MyDialog;
 public class RunningActivity extends Activity implements MyDialogListener{
 
     private TextView holdTextView;
-    private TextView moneyTextView;
     private FloatingActionButton startButton;
     private FloatingActionButton cancelButton;
     private FloatingActionButton lockButton;
@@ -58,7 +57,6 @@ public class RunningActivity extends Activity implements MyDialogListener{
         cancelButton = (FloatingActionButton) findViewById(R.id.cancelButton);
         lockButton = (FloatingActionButton) findViewById(R.id.lockButton);
         holdTextView = (TextView) findViewById(R.id.holdTextView);
-        moneyTextView = (TextView) findViewById(R.id.moneyTextView);
 
         isLocked = false;
         finish = false;

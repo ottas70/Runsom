@@ -14,16 +14,11 @@
         android:id="@+id/footer"
         layout="@layout/footer" />
 
-    <ScrollView
+    <com.google.android.gms.maps.MapView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/footer"
-        android:layout_below="@id/header">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_below="@id/header"
+        android:id="@+id/economyMap" />
 
 </RelativeLayout>

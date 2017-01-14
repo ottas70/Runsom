@@ -36,6 +36,7 @@ public class LocationTrackerService implements LocationListener {
     private Context context;
     private TextView distanceTextView;
     private TextView speedTextView;
+    private TextView moneyTextView;
 
     private double distance;
     private double averageSpeed;
@@ -46,11 +47,12 @@ public class LocationTrackerService implements LocationListener {
 
     private PermissionRequester permissionRequester;
 
-    public LocationTrackerService(Context context, GoogleApiClient client, TextView distanceTextView, TextView speedTextView) {
+    public LocationTrackerService(Context context, GoogleApiClient client, TextView distanceTextView, TextView speedTextView, TextView moneyTextView) {
         this.context = context;
         this.client = client;
         this.distanceTextView = distanceTextView;
         this.speedTextView = speedTextView;
+        this.moneyTextView = moneyTextView;
 
         distance = 0.0;
         averageSpeed = 0.0;
@@ -96,6 +98,9 @@ public class LocationTrackerService implements LocationListener {
             double roundedDistanceMeters = (double) Math.round(distance);
             DecimalFormat df = new DecimalFormat("#0.00");
             distanceTextView.setText(String.valueOf(df.format((double) roundedDistanceMeters / 1000.0)));
+
+            money = (int) Math.round(roundedDistanceMeters / 10.0);
+            moneyTextView.setText(String.valueOf(money));
 
             if (location.hasSpeed()) {
                 Log.i("SPEED:  ", String.valueOf(location.getSpeed()));

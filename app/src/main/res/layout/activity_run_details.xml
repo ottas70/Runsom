@@ -191,7 +191,7 @@
                         android:text="2367"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/moneyTextView"
+                        android:id="@+id/moneyLogTextView"
                         android:textColor="@android:color/black"
                         android:textSize="21sp"
                         android:gravity="center" />

@@ -51,7 +51,8 @@
         <activity android:name=".Activities.FeedActivity" />
         <activity android:name=".Activities.EconomyMapActivity" />
         <activity android:name=".Activities.EconomyOverviewActivity" />
-        <activity android:name=".Activities.AccountActivity"></activity>
+        <activity android:name=".Activities.AccountActivity" />
+        <activity android:name=".Activities.BuildingDetailAtivity"></activity>
     </application>
 
 </manifest>
