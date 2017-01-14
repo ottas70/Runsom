@@ -37,6 +37,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.40"
         android:background="@color/divider_grey"
+        android:layout_above="@+id/buttonLayout"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
