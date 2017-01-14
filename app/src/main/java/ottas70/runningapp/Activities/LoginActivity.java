@@ -86,7 +86,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void logUserIn(final User user) {
         Runsom.getInstance().setUser(user);
-        Intent intent = new Intent(LoginActivity.this, RunOverviewActivity.class);
+        Intent intent = new Intent(LoginActivity.this, BuildingDetailAtivity.class);
         startActivity(intent);
 
     }

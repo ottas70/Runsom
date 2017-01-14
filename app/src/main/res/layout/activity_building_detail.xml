@@ -51,14 +51,14 @@
                 android:layout_height="300dp"
                 android:background="@color/backgroundPrimary">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     app:srcCompat="@drawable/building_type_1"
                     android:id="@+id/imageView6"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="56dp"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="9dp" />
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
         </LinearLayout>
 
