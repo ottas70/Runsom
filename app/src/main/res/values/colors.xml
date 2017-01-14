@@ -9,4 +9,5 @@
     <color name="stopColor">#E82020</color>
     <color name="divider_grey">#d3d3d3</color>
     <color name="text_grey">#717477</color>
+    <color name="text_grey2">#afafaf</color>
 </resources>
