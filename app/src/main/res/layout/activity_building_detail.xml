@@ -159,24 +159,6 @@
                             android:layout_column="0"
                             android:layout_weight="1" />
 
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/price_icon"
-                            android:id="@+id/imageView51"
-                            android:layout_row="0"
-                            android:layout_column="1"
-                            android:layout_weight="1" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/price_icon"
-                            android:id="@+id/imageView26"
-                            android:layout_row="0"
-                            android:layout_column="2"
-                            android:layout_weight="1" />
-
                     </TableRow>
 
                     <TableRow
@@ -197,31 +179,6 @@
                             android:layout_marginTop="10dp"
                             android:textSize="16sp" />
 
-                        <TextView
-                            android:text="600 $"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_row="1"
-                            android:layout_column="0"
-                            android:id="@+id/textView16"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textColor="@android:color/black"
-                            android:layout_marginTop="10dp"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:text="600 $"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_row="1"
-                            android:layout_column="0"
-                            android:id="@+id/textView17"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textColor="@android:color/black"
-                            android:layout_marginTop="10dp"
-                            android:textSize="16sp" />
                     </TableRow>
 
                 </TableLayout>
