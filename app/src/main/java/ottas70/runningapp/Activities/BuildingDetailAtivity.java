@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import ottas70.runningapp.R;
 
@@ -33,6 +35,8 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
     private GoogleApiClient googleApiClient;
     private Bundle bundle;
     private GoogleMap gMap;
+    private double latitude;
+    private double longtitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,17 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         mapView = (MapView) findViewById(R.id.mapView);
         buyButton = (Button) findViewById(R.id.buyButton);
         bundle = savedInstanceState;
+
+        addressTextView.setText(getIntent().getExtras().getString("address"));
+        latitude = getIntent().getExtras().getDouble("latitude");
+        longtitude = getIntent().getExtras().getDouble("longitude");
+
+        arrowBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         createGoogleAPIClient();
     }
@@ -72,10 +87,12 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
                 gMap.getUiSettings().setMapToolbarEnabled(false);
 
                 CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(new LatLng(50.081002, 14.427984))
+                        .target(new LatLng(latitude, longtitude))
                         .zoom(15)
                         .build();
                 gMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                gMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longtitude)));
 
                 mapView.onResume();
             }
