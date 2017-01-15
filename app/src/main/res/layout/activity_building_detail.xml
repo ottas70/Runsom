@@ -142,7 +142,9 @@
 
                 <TableLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp">
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -183,7 +185,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:text="600"
+                            android:text="600 $"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="1"
@@ -192,10 +194,11 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@android:color/black"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:text="600"
+                            android:text="600 $"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="1"
@@ -204,10 +207,11 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@android:color/black"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:text="600"
+                            android:text="600 $"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="1"
@@ -216,7 +220,8 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@android:color/black"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" />
                     </TableRow>
 
                 </TableLayout>
