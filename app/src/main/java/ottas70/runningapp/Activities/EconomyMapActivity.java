@@ -3,11 +3,9 @@ package ottas70.runningapp.Activities;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolygonOptions;
@@ -51,10 +49,7 @@ public class EconomyMapActivity extends BaseActivity {
                 bounds = new LatLngBounds(SOUTHWEST_LATLNG, NORTHEAST_LATLNG);
                 gMap.setLatLngBoundsForCameraTarget(bounds);
                 gMap.setMinZoomPreference(11.5f);
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(new LatLng(50.081002, 14.427984))
-                        .build();
-                gMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
 
                 createBorder();
             }

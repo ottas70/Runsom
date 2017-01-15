@@ -14,9 +14,9 @@ import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.MapView;
 
-import ottas70.runningapp.MapReadyCallback;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
+import ottas70.runningapp.RunMapReadyCallback;
 import ottas70.runningapp.Runsom;
 
 public class RunDetailsActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -91,7 +91,7 @@ public class RunDetailsActivity extends Activity implements GoogleApiClient.Conn
     private void initiateMap() {
         mapView.onCreate(bundle);
         mapView.setClickable(false);
-        mapView.getMapAsync(new MapReadyCallback(mapView, run));
+        mapView.getMapAsync(new RunMapReadyCallback(mapView, run));
     }
 
     @Override

@@ -18,12 +18,12 @@ import java.util.List;
  * Created by ottovodvarka on 18.12.16.
  */
 
-public class MapReadyCallback implements OnMapReadyCallback {
+public class RunMapReadyCallback implements OnMapReadyCallback {
 
     private Run run;
     private MapView mapView;
 
-    public MapReadyCallback(MapView mapView, Run run) {
+    public RunMapReadyCallback(MapView mapView, Run run) {
         this.mapView = mapView;
         this.run = run;
     }

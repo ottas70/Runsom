@@ -14,9 +14,9 @@ import com.google.android.gms.maps.MapView;
 import java.util.List;
 
 import ottas70.runningapp.Activities.RunDetailsActivity;
-import ottas70.runningapp.MapReadyCallback;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
+import ottas70.runningapp.RunMapReadyCallback;
 import ottas70.runningapp.Runsom;
 
 /**
@@ -76,7 +76,7 @@ public class RunsAdapter extends BaseAdapter {
 
         mapView.onCreate(null);
         mapView.setClickable(false);
-        mapView.getMapAsync(new MapReadyCallback(mapView, run));
+        mapView.getMapAsync(new RunMapReadyCallback(mapView, run));
 
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
