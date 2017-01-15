@@ -133,11 +133,63 @@
                     android:text="INFO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView4"
+                    android:id="@+id/info"
                     android:layout_marginLeft="20dp"
                     android:textColor="@android:color/black"
-                    android:layout_marginTop="5dp"
-                    android:textSize="18sp" />
+                    android:layout_marginTop="10dp"
+                    android:textSize="22sp"
+                    android:typeface="monospace" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/price_icon"
+                        android:id="@+id/imageView4"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1" />
+
+                    <TextView
+                        android:text="600"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:id="@+id/textView5"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_marginTop="10dp" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/price_icon"
+                        android:id="@+id/imageView8"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1" />
+
+                    <TextView
+                        android:text="600"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:id="@+id/textView8"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:layout_marginTop="10dp" />
+
+                </GridLayout>
+
             </LinearLayout>
 
         </LinearLayout>
