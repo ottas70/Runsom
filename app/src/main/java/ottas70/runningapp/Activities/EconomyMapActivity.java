@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,12 +20,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 
 public class EconomyMapActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
-    private final LatLng NORTHEAST_LATLNG = new LatLng(50.113836, 14.474836);
-    private final LatLng SOUTHWEST_LATLNG = new LatLng(50.047974, 14.362646);
+    private final LatLng NORTHEAST_LATLNG = new LatLng(50.1138, 14.4748);
+    private final LatLng SOUTHWEST_LATLNG = new LatLng(50.0479, 14.3626);
 
     private MapView mapView;
 
@@ -67,7 +70,7 @@ public class EconomyMapActivity extends BaseActivity implements OnMapReadyCallba
     }
 
     @Override
-    public void onMapClick(LatLng latLng) {
+    public void onMapClick(final LatLng latLng) {
         if (!bounds.contains(latLng)) {
             return;
         }
@@ -82,14 +85,32 @@ public class EconomyMapActivity extends BaseActivity implements OnMapReadyCallba
         }
 
         String address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getAddressLine(1);
+        Log.e("Address Google", address);
 
-        Intent i = new Intent(this, BuildingDetailAtivity.class);
-        Bundle b = new Bundle();
-        b.putString("address", address);
-        b.putDouble("latitude", latLng.latitude);
-        b.putDouble("longitude", latLng.longitude);
-        i.putExtras(b);
-        startActivity(i);
+        final ServerRequest request = new ServerRequest(this);
+        request.getNominatimAddress(latLng, false, new GetCallback() {
+            @Override
+            public void done(Object o) {
+                if (o != null) {
+                    final String address = (String) o;
+                    Log.e("NOMINATIM ADDRESS", address);
+                    request.getBuildingAsyncTask(address, true, new GetCallback() {
+                        @Override
+                        public void done(Object o) {
+                            if (o != null) {
+                                Intent i = new Intent(getApplicationContext(), BuildingDetailAtivity.class);
+                                Bundle b = new Bundle();
+                                b.putString("address", address);
+                                b.putDouble("latitude", latLng.latitude);
+                                b.putDouble("longitude", latLng.longitude);
+                                i.putExtras(b);
+                                startActivity(i);
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
     }
 

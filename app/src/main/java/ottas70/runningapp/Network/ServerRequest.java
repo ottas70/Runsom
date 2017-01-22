@@ -3,10 +3,14 @@ package ottas70.runningapp.Network;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.AsyncTasks.CheckEmailAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.CheckUsernameAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.FetchUserDataAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.GetBuildingAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.GetNominatimAddressAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.GetRunsAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.RegisterUserAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.UploadRunAsyncTask;
@@ -66,6 +70,20 @@ public class ServerRequest {
             progressDialog.show();
         }
         new GetRunsAsyncTask(getCallback,progressDialog).execute();
+    }
+
+    public void getNominatimAddress(LatLng latLng, boolean showDialog, GetCallback getCallback) {
+        if (showDialog) {
+            progressDialog.show();
+        }
+        new GetNominatimAddressAsyncTask(latLng, getCallback, progressDialog).execute();
+    }
+
+    public void getBuildingAsyncTask(String address, boolean showDialog, GetCallback getCallback) {
+        if (showDialog) {
+            progressDialog.show();
+        }
+        new GetBuildingAsyncTask(address, getCallback, progressDialog).execute();
     }
 
 }
