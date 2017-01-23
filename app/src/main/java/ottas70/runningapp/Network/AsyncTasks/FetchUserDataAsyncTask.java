@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.User;
 import ottas70.runningapp.Utils.HttpQueryUtils;
 
@@ -30,9 +31,6 @@ import ottas70.runningapp.Utils.HttpQueryUtils;
  */
 
 public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
-
-    public static final int CONNECTION_TIMEOUT = 1000*15;
-    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
 
     private User user;
     private GetCallback getCallback;
@@ -49,12 +47,12 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
         HttpURLConnection urlConnection = null;
         User returnedUser = null;
         try {
-            URL url = new URL(SERVER_ADRESS + "FetchUserData.php");
+            URL url = new URL(ServerRequest.SERVER_ADRESS + "FetchUserData.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
-            urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+            urlConnection.setConnectTimeout(ServerRequest.CONNECTION_TIMEOUT);
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);
@@ -114,8 +112,9 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
             if (jsonObject.length() != 0){
                 int id = jsonObject.getInt("id");
                 String username = jsonObject.getString("username");
+                int money = jsonObject.getInt("money");
 
-                returnedUser = new User(id,username, user.getEmail(),user.getPassword());
+                returnedUser = new User(id, username, user.getEmail(), user.getPassword(), money);
             }
 
         } catch (IOException e) {

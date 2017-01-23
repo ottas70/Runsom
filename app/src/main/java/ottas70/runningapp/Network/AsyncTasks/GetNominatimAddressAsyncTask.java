@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.Runsom;
 
 /**
@@ -27,8 +28,6 @@ import ottas70.runningapp.Runsom;
  */
 
 public class GetNominatimAddressAsyncTask extends AsyncTask<Void, Void, String> {
-
-    public static final int CONNECTION_TIMEOUT = 1000 * 15;
 
     private GetCallback getCallback;
     private ProgressDialog progressDialog;
@@ -50,7 +49,7 @@ public class GetNominatimAddressAsyncTask extends AsyncTask<Void, Void, String> 
                     "&lat=" + latLng.latitude +
                     "&lon=" + latLng.longitude);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+            urlConnection.setConnectTimeout(ServerRequest.CONNECTION_TIMEOUT);
 
             Log.e("Response Code", String.valueOf(urlConnection.getResponseCode()));
 

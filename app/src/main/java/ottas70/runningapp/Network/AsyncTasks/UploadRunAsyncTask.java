@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.Run;
 import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Utils.HttpQueryUtils;
@@ -24,9 +25,6 @@ import ottas70.runningapp.Utils.HttpQueryUtils;
  */
 
 public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
-
-    public static final int CONNECTION_TIMEOUT = 1000*15;
-    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
 
     private Run run;
     private GetCallback getCallback;
@@ -42,11 +40,11 @@ public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... params) {
         HttpURLConnection urlConnection = null;
         try {
-            URL url = new URL(SERVER_ADRESS + "UploadRun.php");
+            URL url = new URL(ServerRequest.SERVER_ADRESS + "UploadRun.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setChunkedStreamingMode(0);
-            urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+            urlConnection.setConnectTimeout(ServerRequest.CONNECTION_TIMEOUT);
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);

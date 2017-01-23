@@ -23,6 +23,7 @@ import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
+import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Services.ActivityRecognitionService;
 import ottas70.runningapp.Services.LocationTrackerService;
 import ottas70.runningapp.Timer;
@@ -99,16 +100,21 @@ public class RunManager implements GoogleApiClient.ConnectionCallbacks, GoogleAp
         Duration duration = timer.getDuration();
         double distance = Math.round(locationTracker.getDistance()) / 1000.0;
         double averageSpeed = Math.round(locationTracker.getAverageSpeed() * 10) / 10.0;
-        int money = locationTracker.getMoney();
+        final int money = locationTracker.getMoney();
         String date = DateUtils.getCurrentDate();
         String encodedPath = PolyUtil.encode(locationTracker.getLatLngList());
         Run run = new Run(duration, distance, averageSpeed, money, date, Run.generateName(), encodedPath);
         if (!locationTracker.getLatLngList().isEmpty()) {
-            ServerRequest request = new ServerRequest(context);
+            final ServerRequest request = new ServerRequest(context);
             request.uploadRun(run, false, new GetCallback() {
                 @Override
                 public void done(Object o) {
+                    request.addMoneyToUserAsyncTask(Runsom.getInstance().getUser().getMoney() + money, false, new GetCallback() {
+                        @Override
+                        public void done(Object o) {
 
+                        }
+                    });
                 }
             });
         }

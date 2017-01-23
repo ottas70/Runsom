@@ -13,6 +13,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private int money;
     private int weight = -1;
 
     private List<Run> runs;
@@ -30,11 +31,12 @@ public class User {
         runs = new ArrayList<>();
     }
 
-    public User(int id, String username, String password, String email) {
+    public User(int id, String username, String password, String email, int money) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.money = money;
         runs = new ArrayList<>();
     }
 
@@ -80,5 +82,13 @@ public class User {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

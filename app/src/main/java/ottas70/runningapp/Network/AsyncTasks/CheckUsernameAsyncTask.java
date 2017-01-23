@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.Utils.HttpQueryUtils;
 
 /**
@@ -29,9 +30,6 @@ import ottas70.runningapp.Utils.HttpQueryUtils;
  */
 
 public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
-
-    public static final int CONNECTION_TIMEOUT = 1000*15;
-    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
 
     private String username;
     private GetCallback getCallback;
@@ -48,12 +46,12 @@ public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
         HttpURLConnection urlConnection = null;
         Boolean usernameExists = new Boolean(false);
         try {
-            URL url = new URL(SERVER_ADRESS + "CheckUsername.php");
+            URL url = new URL(ServerRequest.SERVER_ADRESS + "CheckUsername.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
-            urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+            urlConnection.setConnectTimeout(ServerRequest.CONNECTION_TIMEOUT);
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);

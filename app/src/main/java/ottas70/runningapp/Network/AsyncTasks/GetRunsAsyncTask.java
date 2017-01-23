@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import ottas70.runningapp.Duration;
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.Run;
 import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Utils.HttpQueryUtils;
@@ -34,9 +35,6 @@ import ottas70.runningapp.Utils.HttpQueryUtils;
  */
 
 public class GetRunsAsyncTask extends AsyncTask<Void,Void,ArrayList<Run>> {
-
-    public static final int CONNECTION_TIMEOUT = 1000*15;
-    public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
 
     private GetCallback getCallback;
     private ProgressDialog progressDialog;
@@ -51,12 +49,12 @@ public class GetRunsAsyncTask extends AsyncTask<Void,Void,ArrayList<Run>> {
         HttpURLConnection urlConnection = null;
         ArrayList<Run> runs = null;
         try {
-            URL url = new URL(SERVER_ADRESS + "GetRuns.php");
+            URL url = new URL(ServerRequest.SERVER_ADRESS + "GetRuns.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
-            urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+            urlConnection.setConnectTimeout(ServerRequest.CONNECTION_TIMEOUT);
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);
