@@ -6,6 +6,7 @@ import android.content.Context;
 import com.google.android.gms.maps.model.LatLng;
 
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.AsyncTasks.AddMoneyToUserAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.CheckEmailAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.CheckUsernameAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.FetchUserDataAsyncTask;
@@ -84,6 +85,13 @@ public class ServerRequest {
             progressDialog.show();
         }
         new GetBuildingAsyncTask(address, getCallback, progressDialog).execute();
+    }
+
+    public void addMoneyToUserAsyncTask(int money, boolean showDialog, GetCallback getCallback) {
+        if (showDialog) {
+            progressDialog.show();
+        }
+        new AddMoneyToUserAsyncTask(money, getCallback, progressDialog).execute();
     }
 
 }

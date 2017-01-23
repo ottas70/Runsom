@@ -32,9 +32,10 @@ public class CheckUsernameAsyncTask extends AsyncTask<Void,Void,Boolean> {
 
     public static final int CONNECTION_TIMEOUT = 1000*15;
     public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
-    String username;
-    GetCallback getCallback;
-    ProgressDialog progressDialog;
+
+    private String username;
+    private GetCallback getCallback;
+    private ProgressDialog progressDialog;
 
     public CheckUsernameAsyncTask(String username, GetCallback getCallback, ProgressDialog progressDialog) {
         this.username = username;

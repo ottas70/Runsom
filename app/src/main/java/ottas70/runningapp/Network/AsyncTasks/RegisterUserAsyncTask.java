@@ -30,9 +30,10 @@ public class RegisterUserAsyncTask extends AsyncTask<Void,Void,Void>{
 
     public static final int CONNECTION_TIMEOUT = 1000*15;
     public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
-    User user;
-    GetCallback getCallback;
-    ProgressDialog progressDialog;
+
+    private User user;
+    private GetCallback getCallback;
+    private ProgressDialog progressDialog;
 
     public RegisterUserAsyncTask(User user, GetCallback getCallback, ProgressDialog progressDialog) {
         this.user = user;

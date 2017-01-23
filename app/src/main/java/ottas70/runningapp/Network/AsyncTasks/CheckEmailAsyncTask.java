@@ -32,9 +32,10 @@ public class CheckEmailAsyncTask extends AsyncTask<Void,Void,Boolean> {
 
         public static final int CONNECTION_TIMEOUT = 1000*15;
         public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
-        String email;
-        GetCallback getCallback;
-        ProgressDialog progressDialog;
+
+    private String email;
+    private GetCallback getCallback;
+    private ProgressDialog progressDialog;
 
         public CheckEmailAsyncTask(String email, GetCallback getCallback, ProgressDialog progressDialog) {
             this.email = email;

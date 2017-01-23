@@ -15,25 +15,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
-import ottas70.runningapp.Run;
 import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Utils.HttpQueryUtils;
 
 /**
- * Created by Ottas on 10.12.2016.
+ * Created by ottovodvarka on 23.01.17.
  */
 
-public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
+public class AddMoneyToUserAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    public static final int CONNECTION_TIMEOUT = 1000*15;
+    public static final int CONNECTION_TIMEOUT = 1000 * 15;
     public static final String SERVER_ADRESS = "http://ottas70.com/Runsom/";
 
-    private Run run;
+    private int money;
     private GetCallback getCallback;
     private ProgressDialog progressDialog;
 
-    public UploadRunAsyncTask(Run run, GetCallback getCallback, ProgressDialog progressDialog) {
-        this.run = run;
+    public AddMoneyToUserAsyncTask(int money, GetCallback getCallback, ProgressDialog progressDialog) {
+        this.money = money;
         this.getCallback = getCallback;
         this.progressDialog = progressDialog;
     }
@@ -42,7 +41,7 @@ public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... params) {
         HttpURLConnection urlConnection = null;
         try {
-            URL url = new URL(SERVER_ADRESS + "UploadRun.php");
+            URL url = new URL(SERVER_ADRESS + "AddMoneyToUser.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setChunkedStreamingMode(0);
@@ -51,13 +50,12 @@ public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);
 
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if(urlConnection != null) {
+        } finally {
+            if (urlConnection != null) {
                 urlConnection.disconnect();
             }
         }
@@ -74,15 +72,9 @@ public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
     private void writeStream(OutputStream out) throws UnsupportedEncodingException {
         ContentValues values = new ContentValues();
         values.put("username", Runsom.getInstance().getUser().getUsername());
-        values.put("date",run.getDate());
-        values.put("distance",run.getDistance());
-        values.put("averageSpeed",run.getAverageSpeed());
-        values.put("moneyEarned",run.getMoneyEarned());
-        values.put("duration",run.getDuration().toString());
-        values.put("name",run.getName());
-        values.put("encodedPath", run.getEncodedPath());
+        values.put("money", money);
 
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
         try {
             writer.write(HttpQueryUtils.getQuery(values));
             writer.flush();

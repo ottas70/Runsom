@@ -108,7 +108,7 @@ public class RunManager implements GoogleApiClient.ConnectionCallbacks, GoogleAp
             request.uploadRun(run, false, new GetCallback() {
                 @Override
                 public void done(Object o) {
-                    //nothing
+
                 }
             });
         }
