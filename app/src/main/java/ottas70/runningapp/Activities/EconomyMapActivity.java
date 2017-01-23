@@ -2,10 +2,9 @@ package ottas70.runningapp.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,10 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolygonOptions;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
+import ottas70.runningapp.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
@@ -74,40 +70,35 @@ public class EconomyMapActivity extends BaseActivity implements OnMapReadyCallba
         if (!bounds.contains(latLng)) {
             return;
         }
-        Geocoder geocoder;
-        List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        String address = addresses.get(0).getAddressLine(0) + ", " + addresses.get(0).getAddressLine(1);
-        Log.e("Address Google", address);
 
         final ServerRequest request = new ServerRequest(this);
         request.getNominatimAddress(latLng, false, new GetCallback() {
             @Override
             public void done(Object o) {
-                if (o != null) {
+                if (o != null && !o.equals("")) {
                     final String address = (String) o;
                     Log.e("NOMINATIM ADDRESS", address);
                     request.getBuildingAsyncTask(address, true, new GetCallback() {
                         @Override
                         public void done(Object o) {
                             if (o != null) {
+                                Building building = (Building) o;
                                 Intent i = new Intent(getApplicationContext(), BuildingDetailAtivity.class);
                                 Bundle b = new Bundle();
                                 b.putString("address", address);
                                 b.putDouble("latitude", latLng.latitude);
                                 b.putDouble("longitude", latLng.longitude);
+                                b.putString("ownersName", building.getOwnersName());
+                                b.putInt("price", building.getPrice());
                                 i.putExtras(b);
                                 startActivity(i);
+                            } else {
+                                writeToast();
                             }
                         }
                     });
+                } else {
+                    writeToast();
                 }
             }
         });
@@ -133,5 +124,9 @@ public class EconomyMapActivity extends BaseActivity implements OnMapReadyCallba
         gMap.setOnMapClickListener(this);
 
         createBorder();
+    }
+
+    private void writeToast() {
+        Toast.makeText(this, "Building is not for sale", Toast.LENGTH_SHORT).show();
     }
 }

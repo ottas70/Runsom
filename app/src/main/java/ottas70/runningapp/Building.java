@@ -47,4 +47,12 @@ public class Building {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public String getOwnersName() {
+        return ownersName;
+    }
+
+    public void setOwnersName(String ownersName) {
+        this.ownersName = ownersName;
+    }
 }

@@ -29,6 +29,7 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
     private ImageView buildingImageView;
     private TextView addressTextView;
     private TextView ownerTextView;
+    private TextView priceTextView;
     private MapView mapView;
     private Button buyButton;
 
@@ -47,11 +48,14 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         buildingImageView = (ImageView) findViewById(R.id.buildingTypeImageView);
         addressTextView = (TextView) findViewById(R.id.addressTextView);
         ownerTextView = (TextView) findViewById(R.id.ownerTextView);
+        priceTextView = (TextView) findViewById(R.id.priceTextView);
         mapView = (MapView) findViewById(R.id.mapView);
         buyButton = (Button) findViewById(R.id.buyButton);
         bundle = savedInstanceState;
 
         addressTextView.setText(getIntent().getExtras().getString("address"));
+        ownerTextView.setText(getIntent().getExtras().getString("ownersName"));
+        priceTextView.setText(getIntent().getExtras().getInt("price") + " $");
         latitude = getIntent().getExtras().getDouble("latitude");
         longtitude = getIntent().getExtras().getDouble("longitude");
 

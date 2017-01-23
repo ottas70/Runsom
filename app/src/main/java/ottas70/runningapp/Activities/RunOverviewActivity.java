@@ -1,9 +1,12 @@
 package ottas70.runningapp.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.ListView;
 
@@ -93,6 +96,16 @@ public class RunOverviewActivity extends BaseActivity {
                 gMap = googleMap;
                 gMap.getUiSettings().setMapToolbarEnabled(false);
                 gMap.getUiSettings().setMyLocationButtonEnabled(false);
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 gMap.setMyLocationEnabled(true);
                 LocationProviderService lps = new LocationProviderService(getApplicationContext(),
                         new MyLocationListener() {

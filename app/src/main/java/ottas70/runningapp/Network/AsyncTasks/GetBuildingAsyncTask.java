@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -108,16 +107,16 @@ public class GetBuildingAsyncTask extends AsyncTask<Void, Void, Building> {
             while ((line = reader.readLine()) != null) {
                 builder.append(line);
             }
+            if (!builder.toString().equals("[]")) {
+                JSONObject jsonObject = new JSONObject(builder.toString());
+                if (jsonObject.length() != 0) {
+                    String ownersName = jsonObject.getString("ownersName");
+                    String address = jsonObject.getString("address");
+                    int type = jsonObject.getInt("type");
+                    int price = jsonObject.getInt("price");
 
-            JSONArray jsonArray = new JSONArray(builder.toString());
-            if (jsonArray.length() != 0) {
-                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                String ownersName = jsonObject.getString("ownersName");
-                String address = jsonObject.getString("address");
-                int type = jsonObject.getInt("type");
-                int price = jsonObject.getInt("price");
-
-                building = new Building(ownersName, address, type, price);
+                    building = new Building(ownersName, address, type, price);
+                }
             }
 
         } catch (IOException e) {
