@@ -32,6 +32,18 @@ public class Building {
         }
     }
 
+    public int getBuildingTypeInInteger() {
+        switch (buildingType) {
+            case FIRST_TYPE:
+                return 1;
+            case SECOND_TYPE:
+                return 2;
+            case THIRD_TYPE:
+                return 3;
+        }
+        return 1;
+    }
+
     public String getAddress() {
         return address;
     }

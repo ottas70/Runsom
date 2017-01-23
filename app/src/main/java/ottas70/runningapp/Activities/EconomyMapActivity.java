@@ -90,6 +90,7 @@ public class EconomyMapActivity extends BaseActivity implements OnMapReadyCallba
                                 b.putDouble("longitude", latLng.longitude);
                                 b.putString("ownersName", building.getOwnersName());
                                 b.putInt("price", building.getPrice());
+                                b.putInt("type", building.getBuildingTypeInInteger());
                                 i.putExtras(b);
                                 startActivity(i);
                             } else {
