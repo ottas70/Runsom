@@ -84,13 +84,10 @@ public class EconomyMapActivity extends BaseActivity implements OnMapReadyCallba
                             if (o != null) {
                                 Building building = (Building) o;
                                 Intent i = new Intent(getApplicationContext(), BuildingDetailAtivity.class);
+                                i.putExtra("building", building);
                                 Bundle b = new Bundle();
-                                b.putString("address", address);
                                 b.putDouble("latitude", latLng.latitude);
                                 b.putDouble("longitude", latLng.longitude);
-                                b.putString("ownersName", building.getOwnersName());
-                                b.putInt("price", building.getPrice());
-                                b.putInt("type", building.getBuildingTypeInInteger());
                                 i.putExtras(b);
                                 startActivity(i);
                             } else {

@@ -40,6 +40,10 @@ public class User {
         runs = new ArrayList<>();
     }
 
+    public void discountMoney(int price) {
+        money = money - price;
+    }
+
     public int getId() {
         return id;
     }

@@ -23,8 +23,8 @@ import java.util.List;
 import ottas70.runningapp.Interfaces.MyDialogListener;
 import ottas70.runningapp.Managers.RunManager;
 import ottas70.runningapp.R;
-import ottas70.runningapp.Views.FinishRunDialog;
-import ottas70.runningapp.Views.MyDialog;
+import ottas70.runningapp.Views.InfoDialog;
+import ottas70.runningapp.Views.OptionDialog;
 
 public class RunningActivity extends Activity implements MyDialogListener{
 
@@ -33,8 +33,8 @@ public class RunningActivity extends Activity implements MyDialogListener{
     private FloatingActionButton cancelButton;
     private FloatingActionButton lockButton;
     private View completeView;
-    private MyDialog myDialog;
-    private FinishRunDialog finishRunDialog;
+    private OptionDialog optionDialog;
+    private InfoDialog infoDialog;
 
     private boolean isLocked;
     private boolean finish;
@@ -132,12 +132,12 @@ public class RunningActivity extends Activity implements MyDialogListener{
 
     @Override
     public void onBackPressed() {
-        myDialog = new MyDialog();
+        optionDialog = new OptionDialog();
         Bundle bundle = new Bundle();
         bundle.putString("title","ARE YOU SURE?");
         bundle.putString("message","Are you sure you want end this run?");
-        myDialog.setArguments(bundle);
-        myDialog.show(getFragmentManager(), "myDialog");
+        optionDialog.setArguments(bundle);
+        optionDialog.show(getFragmentManager(), "optionDialog");
     }
 
     @Override
@@ -170,7 +170,7 @@ public class RunningActivity extends Activity implements MyDialogListener{
                 startButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
                 startButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_play_arrow_black_36dp));
 
-                finishRunDialog = new FinishRunDialog();
+                infoDialog = new InfoDialog();
                 Bundle bundle = new Bundle();
                 if (message == "1") {
                     bundle.putString("title", " VEHICLE USAGE IS NOT ALLOWED");
@@ -178,8 +178,8 @@ public class RunningActivity extends Activity implements MyDialogListener{
                     bundle.putString("title", " BICYCLE USAGE IS NOT ALLOWED");
                 }
                 bundle.putString("message", "Only activity allowed here is running. This run will be terminated.");
-                finishRunDialog.setArguments(bundle);
-                finishRunDialog.show(getFragmentManager(), "finishRunDialog");
+                infoDialog.setArguments(bundle);
+                infoDialog.show(getFragmentManager(), "infoDialog");
             }
         }
 

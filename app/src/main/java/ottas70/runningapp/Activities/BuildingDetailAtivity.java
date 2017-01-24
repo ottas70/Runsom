@@ -1,6 +1,7 @@
 package ottas70.runningapp.Activities;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,9 +23,16 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import ottas70.runningapp.Building;
+import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Interfaces.MyDialogListener;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
+import ottas70.runningapp.Runsom;
+import ottas70.runningapp.Views.InfoDialog;
 
-public class BuildingDetailAtivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class BuildingDetailAtivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+        , MyDialogListener {
 
     private ImageView arrowBackButton;
     private ImageView buildingImageView;
@@ -34,12 +42,14 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
     private MapView mapView;
     private Button buyButton;
 
+    private InfoDialog infoDialog;
+
     private GoogleApiClient googleApiClient;
     private Bundle bundle;
     private GoogleMap gMap;
     private double latitude;
     private double longtitude;
-    private int buildingType;
+    private Building building;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +65,14 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         buyButton = (Button) findViewById(R.id.buyButton);
         bundle = savedInstanceState;
 
-        addressTextView.setText(getIntent().getExtras().getString("address"));
-        ownerTextView.setText(getIntent().getExtras().getString("ownersName"));
-        priceTextView.setText(getIntent().getExtras().getInt("price") + " $");
+        building = (Building) getIntent().getSerializableExtra("building");
+        addressTextView.setText(building.getAddress());
+        ownerTextView.setText(building.getOwnersName());
+        priceTextView.setText(building.getPrice() + " $");
         latitude = getIntent().getExtras().getDouble("latitude");
         longtitude = getIntent().getExtras().getDouble("longitude");
-        buildingType = getIntent().getExtras().getInt("type");
 
-        setImage(buildingType);
+        setImage();
 
         arrowBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,18 +81,50 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
             }
         });
 
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Runsom.getInstance().getUser().getMoney() <= building.getPrice()) {
+                    ServerRequest request = new ServerRequest(BuildingDetailAtivity.this);
+                    request.buyBuildingAsyncTask(building, true, new GetCallback() {
+                        @Override
+                        public void done(Object o) {
+                            if (o != null) {
+                                Boolean b = (Boolean) o;
+                                if (b.booleanValue() == true) {
+                                    Runsom.getInstance().getUser().discountMoney(building.getPrice());
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    notEnoughMoney();
+                }
+            }
+        });
+
         createGoogleAPIClient();
     }
 
-    private void setImage(int buildingType) {
-        switch (buildingType) {
-            case 1:
+    private void notEnoughMoney() {
+        infoDialog = new InfoDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", " NOT ENOUGH MONEY");
+        bundle.putString("message", " This building costs " + building.getPrice() + " $." +
+                " You have only " + Runsom.getInstance().getUser().getMoney() + " $ on your account");
+        infoDialog.setArguments(bundle);
+        infoDialog.show(getFragmentManager(), "infoDialog");
+    }
+
+    private void setImage() {
+        switch (building.getBuildingType()) {
+            case FIRST_TYPE:
                 buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_1));
                 break;
-            case 2:
+            case SECOND_TYPE:
                 buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_2));
                 break;
-            case 3:
+            case THIRD_TYPE:
                 buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_3));
                 break;
 
@@ -136,5 +178,15 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
     }
 }

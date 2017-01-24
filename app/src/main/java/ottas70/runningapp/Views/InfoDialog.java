@@ -18,15 +18,14 @@ import ottas70.runningapp.Interfaces.MyDialogListener;
 import ottas70.runningapp.R;
 
 /**
- * Created by ottovodvarka on 04.12.16.
+ * Created by ottovodvarka on 14.12.16.
  */
 
-public class MyDialog extends DialogFragment {
+public class InfoDialog extends DialogFragment {
 
     private TextView title;
     private TextView message;
     private Button negativeButton;
-    private Button positiveButton;
 
     private MyDialogListener listener;
 
@@ -35,27 +34,20 @@ public class MyDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_mydialog, null);
+        View view = inflater.inflate(R.layout.layout_infodialog, null);
         builder.setView(view);
 
         title = (TextView) view.findViewById(R.id.titleTextView);
         message = (TextView) view.findViewById(R.id.messageTextView);
         negativeButton = (Button) view.findViewById(R.id.negativeButton);
-        positiveButton = (Button) view.findViewById(R.id.positiveButton);
 
         title.setText(getArguments().getString("title"));
         message.setText(getArguments().getString("message"));
-        positiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onDialogPositiveClick(MyDialog.this);
-            }
-        });
 
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onDialogNegativeClick(MyDialog.this);
+                listener.onDialogNegativeClick(InfoDialog.this);
             }
         });
 
@@ -65,10 +57,10 @@ public class MyDialog extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
-            listener = (MyDialogListener)context;
-        }catch (ClassCastException e){
-            throw new ClassCastException(context.toString()+" must implement MyDialogListener");
+        try {
+            listener = (MyDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement MyDialogListener");
         }
     }
 
@@ -81,7 +73,6 @@ public class MyDialog extends DialogFragment {
             throw new ClassCastException(context.toString() + " must implement MyDialogListener");
         }
     }
-
 
     @Override
     public void onDetach() {
@@ -98,4 +89,5 @@ public class MyDialog extends DialogFragment {
             throw new RuntimeException(e);
         }
     }
+
 }

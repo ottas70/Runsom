@@ -1,10 +1,12 @@
 package ottas70.runningapp;
 
+import java.io.Serializable;
+
 /**
  * Created by ottovodvarka on 21.01.17.
  */
 
-public class Building {
+public class Building implements Serializable {
 
     private String ownersName;
     private String address;
