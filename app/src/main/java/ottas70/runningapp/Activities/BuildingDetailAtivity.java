@@ -84,7 +84,7 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Runsom.getInstance().getUser().getMoney() <= building.getPrice()) {
+                if (Runsom.getInstance().getUser().getMoney() >= building.getPrice()) {
                     ServerRequest request = new ServerRequest(BuildingDetailAtivity.this);
                     request.buyBuildingAsyncTask(building, true, new GetCallback() {
                         @Override
