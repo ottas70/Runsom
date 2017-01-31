@@ -25,7 +25,7 @@ import ottas70.runningapp.Runsom;
 
 public class RunsAdapter extends BaseAdapter {
 
-    private static LayoutInflater inflater;
+    private LayoutInflater inflater;
     private Context context;
     private List<Run> runsList;
 
@@ -55,7 +55,7 @@ public class RunsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View myView;
         if (view == null) {
-            myView = inflater.inflate(R.layout.list_row, null);
+            myView = inflater.inflate(R.layout.run_list_row, null);
         } else {
             myView = view;
         }

@@ -14,16 +14,13 @@
         android:id="@+id/footer"
         layout="@layout/footer" />
 
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/buildingList"
+        android:layout_below="@+id/header"
         android:layout_above="@id/footer"
-        android:layout_below="@id/header">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></ListView>
 
 </RelativeLayout>
