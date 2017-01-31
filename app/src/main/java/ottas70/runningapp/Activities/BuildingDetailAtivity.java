@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -73,6 +74,9 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         longtitude = getIntent().getExtras().getDouble("longitude");
 
         setImage();
+        if (Runsom.getInstance().getUser().getUsername().equals(building.getOwnersName())) {
+            changeButton();
+        }
 
         arrowBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,26 +88,62 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Runsom.getInstance().getUser().getMoney() >= building.getPrice()) {
-                    ServerRequest request = new ServerRequest(BuildingDetailAtivity.this);
-                    request.buyBuildingAsyncTask(building, true, new GetCallback() {
-                        @Override
-                        public void done(Object o) {
-                            if (o != null) {
-                                Boolean b = (Boolean) o;
-                                if (b.booleanValue() == true) {
-                                    Runsom.getInstance().getUser().discountMoney(building.getPrice());
-                                }
-                            }
-                        }
-                    });
-                } else {
-                    notEnoughMoney();
-                }
+                onBuyButtonClicked();
             }
         });
 
         createGoogleAPIClient();
+    }
+
+    private void buyBuilding() {
+        if (Runsom.getInstance().getUser().getMoney() >= building.getPrice()) {
+            ServerRequest request = new ServerRequest(BuildingDetailAtivity.this);
+            request.buyBuildingAsyncTask(building, true, new GetCallback() {
+                @Override
+                public void done(Object o) {
+                    if (o != null) {
+                        Boolean b = (Boolean) o;
+                        if (b.booleanValue() == true) {
+                            Runsom.getInstance().getUser().discountMoney(building.getPrice());
+                            building.setOwnersName(Runsom.getInstance().getUser().getUsername());
+                            ownerTextView.setText(building.getOwnersName());
+                            changeButton();
+                            transactionSuccessful();
+                        } else {
+                            error();
+                        }
+                    }
+                }
+            });
+        } else {
+            notEnoughMoney();
+        }
+    }
+
+    private void upgrade() {
+
+    }
+
+    private void onBuyButtonClicked() {
+        if (!building.getOwnersName().equals(Runsom.getInstance().getUser().getUsername())) {
+            buyBuilding();
+        } else {
+            upgrade();
+        }
+    }
+
+    private void changeButton() {
+        buyButton.setBackgroundColor(ContextCompat.getColor(this, R.color.wallet_holo_blue_light));
+        buyButton.setText("UPGRADE");
+    }
+
+    private void transactionSuccessful() {
+        infoDialog = new InfoDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", " PURCHASE SUCCESSFUL");
+        bundle.putString("message", " You have succesfully purchased building on address " + building.getAddress());
+        infoDialog.setArguments(bundle);
+        infoDialog.show(getFragmentManager(), "infoDialog");
     }
 
     private void notEnoughMoney() {
@@ -116,16 +156,26 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         infoDialog.show(getFragmentManager(), "infoDialog");
     }
 
+    private void error() {
+        Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
+    }
+
     private void setImage() {
         switch (building.getBuildingType()) {
-            case FIRST_TYPE:
+            case OUTSKIRTS:
                 buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_1));
                 break;
-            case SECOND_TYPE:
+            case HOUSING_ESTATE:
                 buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_2));
                 break;
-            case THIRD_TYPE:
+            case LUCRATIVE_AREA:
                 buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_3));
+                break;
+            case CENTER:
+                buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_4));
+                break;
+            case HISTORIC_CENTRE:
+                buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_5));
                 break;
 
         }

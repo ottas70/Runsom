@@ -23,27 +23,21 @@ public class Building implements Serializable {
     private void setBuildingType(int buildingType) {
         switch (buildingType) {
             case 1:
-                this.buildingType = BuildingType.FIRST_TYPE;
+                this.buildingType = BuildingType.OUTSKIRTS;
                 break;
             case 2:
-                this.buildingType = BuildingType.SECOND_TYPE;
+                this.buildingType = BuildingType.HOUSING_ESTATE;
                 break;
             case 3:
-                this.buildingType = BuildingType.THIRD_TYPE;
+                this.buildingType = BuildingType.LUCRATIVE_AREA;
+                break;
+            case 4:
+                this.buildingType = BuildingType.CENTER;
+                break;
+            case 5:
+                this.buildingType = BuildingType.HISTORIC_CENTRE;
                 break;
         }
-    }
-
-    public int getBuildingTypeInInteger() {
-        switch (buildingType) {
-            case FIRST_TYPE:
-                return 1;
-            case SECOND_TYPE:
-                return 2;
-            case THIRD_TYPE:
-                return 3;
-        }
-        return 1;
     }
 
     public String getAddress() {

@@ -106,7 +106,7 @@ public class BuyBuildingAsyncTask extends AsyncTask<Void, Void, Boolean> {
                 builder.append(line);
             }
 
-            if (line.equals("true")) {
+            if (builder.toString().equals("true")) {
                 success = true;
             }
 

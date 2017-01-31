@@ -5,5 +5,5 @@ package ottas70.runningapp;
  */
 
 public enum BuildingType {
-    FIRST_TYPE, SECOND_TYPE, THIRD_TYPE;
+    OUTSKIRTS, HOUSING_ESTATE, LUCRATIVE_AREA, CENTER, HISTORIC_CENTRE;
 }
