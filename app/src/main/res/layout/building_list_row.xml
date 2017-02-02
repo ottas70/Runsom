@@ -18,15 +18,32 @@
             app:srcCompat="@drawable/roman_one"
             android:layout_margin="10dp" />
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/addressTextView"
-            android:text="Nová 641, Dolní Břežany"
-            android:textSize="16dp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addressTextView"
+                android:text="Nová 641, Dolní Břežany"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:text="15000 $"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/priceTextView"
+                android:layout_weight="1"
+                android:textColor="@android:color/holo_green_dark"
+                android:layout_marginLeft="10dp"
+                android:gravity="center" />
+        </LinearLayout>
 
     </LinearLayout>
 
