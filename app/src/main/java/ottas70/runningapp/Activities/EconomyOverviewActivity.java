@@ -51,7 +51,9 @@ public class EconomyOverviewActivity extends BaseActivity {
 
 
     private String makeQuery(int pageNumber) {
-        String query = "SELECT * FROM Buildings LIMIT " + (pageNumber * 10) + ",10";
+        String query = "SELECT * FROM Buildings " +
+                "JOIN Users ON Buildings.user_id = Users.user_id " +
+                "LIMIT " + (pageNumber * 10) + ",10";
         return query;
     }
 

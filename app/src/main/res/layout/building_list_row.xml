@@ -36,13 +36,12 @@
 
             <TextView
                 android:text="15000 $"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/priceTextView"
                 android:layout_weight="1"
                 android:textColor="@android:color/holo_green_dark"
-                android:layout_marginLeft="10dp"
-                android:gravity="center" />
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
 
     </LinearLayout>

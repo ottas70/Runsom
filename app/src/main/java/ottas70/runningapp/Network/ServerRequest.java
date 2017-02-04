@@ -14,6 +14,7 @@ import ottas70.runningapp.Network.AsyncTasks.CheckUsernameAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.FetchUserDataAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.GetBuildingAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.GetNominatimAddressAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.GetNominatimCoordinatesAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.GetRunsAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.LoadBuildingsAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.RegisterUserAsyncTask;
@@ -110,6 +111,13 @@ public class ServerRequest {
             progressDialog.show();
         }
         new LoadBuildingsAsyncTask(query, getCallback, progressDialog).execute();
+    }
+
+    public void getNominatimCoordinatesAsyncTask(String address, boolean showDialog, GetCallback getCallback) {
+        if (showDialog) {
+            progressDialog.show();
+        }
+        new GetNominatimCoordinatesAsyncTask(address, getCallback, progressDialog).execute();
     }
 
 }
