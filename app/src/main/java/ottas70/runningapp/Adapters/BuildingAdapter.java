@@ -104,16 +104,16 @@ public class BuildingAdapter extends BaseAdapter {
                 imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_one));
                 break;
             case HOUSING_ESTATE:
-                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_one));
+                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_two));
                 break;
             case LUCRATIVE_AREA:
-                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_one));
+                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_three));
                 break;
             case CENTER:
-                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_one));
+                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_four));
                 break;
             case HISTORIC_CENTRE:
-                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_one));
+                imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.roman_five));
                 break;
         }
     }
