@@ -43,6 +43,7 @@ abstract class BaseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BaseActivity.this, FeedActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
@@ -51,6 +52,7 @@ abstract class BaseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BaseActivity.this, RunOverviewActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
@@ -59,6 +61,7 @@ abstract class BaseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BaseActivity.this, EconomyMapActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
@@ -67,6 +70,7 @@ abstract class BaseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BaseActivity.this, EconomyOverviewActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
@@ -75,6 +79,7 @@ abstract class BaseActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BaseActivity.this, AccountActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
