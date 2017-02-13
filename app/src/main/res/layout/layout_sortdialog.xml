@@ -282,7 +282,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text|numberDecimal"
+            android:inputType="text"
             android:textColor="@android:color/black"
             android:textColorHighlight="@android:color/black"
             android:textColorHint="@android:color/black"
