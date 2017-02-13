@@ -14,7 +14,7 @@
         android:gravity="center"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
-        android:text="Set sort criterias"
+        android:text="SET SORT CRITERIAS"
         android:textColor="@android:color/white"
         android:textSize="17sp"
         android:textStyle="normal|bold" />
@@ -25,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginRight="15dp">
 
         <TextView
             android:id="@+id/textView"
@@ -90,7 +91,8 @@
         android:layout_height="80dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -118,7 +120,7 @@
                     android:textSize="18sp" />
 
                 <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/corporationCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -164,7 +166,8 @@
         android:layout_height="115dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginRight="15dp">
 
         <TextView
             android:id="@+id/pricetextView"
@@ -267,7 +270,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
