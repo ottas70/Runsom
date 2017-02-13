@@ -1,6 +1,7 @@
 package ottas70.runningapp.Activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -12,10 +13,12 @@ import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Listeners.EndlessScrollListener;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
+import ottas70.runningapp.Views.SortDialog;
 
 public class EconomyOverviewActivity extends BaseActivity {
 
     private ListView listView;
+    private SortDialog sortDialog;
 
     private BuildingAdapter buildingAdapter;
     private ArrayList<Building> buildingList = new ArrayList<>();
@@ -26,6 +29,13 @@ public class EconomyOverviewActivity extends BaseActivity {
         setContentView(R.layout.activity_economy_overview);
 
         setTitleText("ECONOMY");
+        setImage(R.drawable.runner, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortDialog = new SortDialog();
+                sortDialog.show(getFragmentManager(),"sortDialog");
+            }
+        });
         initiateListeners();
 
         listView = (ListView) findViewById(R.id.buildingList);

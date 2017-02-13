@@ -3,6 +3,7 @@ package ottas70.runningapp.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ abstract class BaseActivity extends Activity {
     private ImageView map;
     private ImageView stats;
     private ImageView account;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,12 @@ abstract class BaseActivity extends Activity {
     protected void setTitleText(String text) {
         title = (TextView) findViewById(R.id.titleTextView);
         title.setText(text);
+    }
+
+    protected void setImage(int drawable, View.OnClickListener listener){
+        image = (ImageView) findViewById(R.id.image);
+        image.setImageDrawable(ContextCompat.getDrawable(this, drawable));
+        image.setOnClickListener(listener);
     }
 
     protected void initiateListeners() {
