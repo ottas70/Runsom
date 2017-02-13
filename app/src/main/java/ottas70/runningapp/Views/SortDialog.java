@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 import ottas70.runningapp.Interfaces.MyDialogListener;
+import ottas70.runningapp.Interfaces.SortDialogListener;
 import ottas70.runningapp.R;
 
 /**
@@ -23,10 +24,9 @@ import ottas70.runningapp.R;
 
 public class SortDialog extends DialogFragment{
 
-    private TextView title;
     private Button sortButton;
 
-    private MyDialogListener listener;
+    private SortDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,15 +36,12 @@ public class SortDialog extends DialogFragment{
         View view = inflater.inflate(R.layout.layout_sortdialog, null);
         builder.setView(view);
 
-        title = (TextView) view.findViewById(R.id.titleTextView);
         sortButton = (Button) view.findViewById(R.id.sortButton);
-
-        title.setText(getArguments().getString("title"));
 
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onDialogPositiveClick(SortDialog.this);
+                listener.onSortButtonClick(SortDialog.this);
             }
         });
 
@@ -56,9 +53,9 @@ public class SortDialog extends DialogFragment{
     public void onAttach(Context context) {
         super.onAttach(context);
         try{
-            listener = (MyDialogListener)context;
+            listener = (SortDialogListener) context;
         }catch (ClassCastException e){
-            throw new ClassCastException(context.toString()+" must implement MyDialogListener");
+            throw new ClassCastException(context.toString()+" must implement SortDialogListener");
         }
     }
 
@@ -66,9 +63,9 @@ public class SortDialog extends DialogFragment{
     public void onAttach(Activity context) {
         super.onAttach(context);
         try {
-            listener = (MyDialogListener) context;
+            listener = (SortDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement MyDialogListener");
+            throw new ClassCastException(context.toString() + " must implement SortDialogListener");
         }
     }
 

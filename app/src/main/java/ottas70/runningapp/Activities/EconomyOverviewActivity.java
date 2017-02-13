@@ -1,5 +1,6 @@
 package ottas70.runningapp.Activities;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -10,12 +11,13 @@ import java.util.Collection;
 import ottas70.runningapp.Adapters.BuildingAdapter;
 import ottas70.runningapp.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Interfaces.SortDialogListener;
 import ottas70.runningapp.Listeners.EndlessScrollListener;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Views.SortDialog;
 
-public class EconomyOverviewActivity extends BaseActivity {
+public class EconomyOverviewActivity extends BaseActivity implements SortDialogListener{
 
     private ListView listView;
     private SortDialog sortDialog;
@@ -29,7 +31,7 @@ public class EconomyOverviewActivity extends BaseActivity {
         setContentView(R.layout.activity_economy_overview);
 
         setTitleText("ECONOMY");
-        setImage(R.drawable.runner, new View.OnClickListener() {
+        setImage(R.drawable.ic_sort_white_36dp, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sortDialog = new SortDialog();
@@ -67,4 +69,8 @@ public class EconomyOverviewActivity extends BaseActivity {
         return query;
     }
 
+    @Override
+    public void onSortButtonClick(DialogFragment dialog) {
+       dialog.dismiss();
+    }
 }
