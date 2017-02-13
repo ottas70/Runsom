@@ -97,7 +97,6 @@
             android:text="Owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"
             android:textColor="@android:color/black"
             android:textStyle="normal|bold"
             android:textSize="18sp" />
@@ -119,7 +118,7 @@
                     android:textSize="18sp"
                     android:layout_marginLeft="15dp" />
 
-                <CheckBox
+                <android.support.v7.widget.AppCompatCheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/checkBox4"
@@ -143,14 +142,12 @@
                     android:layout_marginLeft="15dp" />
 
                 <EditText
-                    android:id="@+id/input_email"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textColorLink="@android:color/black"
-                    android:textColorHint="@android:color/black"
-                    android:textColorHighlight="@android:color/black"
-                    android:textSize="16sp" />
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/editText2" />
+
             </TableRow>
 
         </TableLayout>
