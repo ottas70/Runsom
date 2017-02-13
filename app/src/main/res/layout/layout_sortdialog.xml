@@ -143,16 +143,14 @@
                     android:layout_marginLeft="15dp" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:id="@+id/editText"
+                    android:textColor="@android:color/black"
+                    android:textColorLink="@android:color/black"
                     android:textColorHint="@android:color/black"
                     android:textColorHighlight="@android:color/black"
-                    android:textColorLink="@android:color/black"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </TableRow>
 
         </TableLayout>
