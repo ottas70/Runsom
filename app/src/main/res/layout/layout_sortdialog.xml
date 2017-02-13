@@ -23,49 +23,139 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp">
 
         <TextView
             android:text="Type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textStyle="normal|bold"
+            android:textSize="18sp" />
 
         <CheckBox
             android:text="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox2"
-            android:textColor="@android:color/black" />
+            android:id="@+id/type1CheckBox"
+            android:textColor="@android:color/black"
+            android:checked="false"
+            android:duplicateParentState="false"
+            app:buttonTint="@android:color/black"
+            android:layout_marginLeft="15dp"
+            android:autoText="false" />
 
         <CheckBox
             android:text="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox3"
-            android:textColor="@android:color/black" />
+            android:id="@+id/type2CheckBox"
+            android:textColor="@android:color/black"
+            app:buttonTint="@android:color/black"
+            android:layout_marginLeft="5dp" />
 
         <CheckBox
             android:text="3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox6"
-            android:textColor="@android:color/black" />
+            android:id="@+id/type3CheckBox"
+            android:textColor="@android:color/black"
+            app:buttonTint="@android:color/black"
+            android:layout_marginLeft="5dp" />
 
         <CheckBox
             android:text="4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox5"
-            android:textColor="@android:color/black" />
+            android:id="@+id/type4CheckBox"
+            android:textColor="@android:color/black"
+            app:buttonTint="@android:color/black"
+            android:layout_marginLeft="5dp" />
 
         <CheckBox
             android:text="5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox4"
-            android:textColor="@android:color/black" />
+            android:id="@+id/type5CheckBox"
+            android:textColor="@android:color/black"
+            app:buttonTint="@android:color/black"
+            android:layout_marginLeft="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_height="80dp">
+
+        <TextView
+            android:text="Owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textColor="@android:color/black"
+            android:textStyle="normal|bold"
+            android:textSize="18sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="Corporation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView5"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox4"
+                    app:buttonTint="@android:color/black"
+                    android:layout_marginLeft="10dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:text="Runner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView11"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:textColorHint="@android:color/black"
+                    android:textColorHighlight="@android:color/black"
+                    android:textColorLink="@android:color/black"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </TableRow>
+
+        </TableLayout>
 
     </LinearLayout>
 
@@ -94,4 +184,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
