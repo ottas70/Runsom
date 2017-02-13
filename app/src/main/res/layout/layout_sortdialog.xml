@@ -146,10 +146,10 @@
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/editText2"
-                    android:textColorHint="@android:color/black"
-                    android:textColorHighlight="@android:color/black"
+                    android:textColorHint="@android:color/white"
+                    android:textColorHighlight="@android:color/white"
                     android:textColor="@android:color/black"
-                    android:textColorLink="@android:color/black" />
+                    android:textColorLink="@android:color/white" />
 
             </TableRow>
 
