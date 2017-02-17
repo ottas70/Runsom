@@ -15,6 +15,8 @@ public class User {
     private String email;
     private int money;
     private int weight = -1;
+    private int height = -1;
+    private String gender;
 
     private List<Run> runs;
 
@@ -31,12 +33,15 @@ public class User {
         runs = new ArrayList<>();
     }
 
-    public User(int id, String username, String password, String email, int money) {
+    public User(int id, String username, String password, String email, int money, int weight, int height, String gender) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.money = money;
+        this.weight = weight;
+        this.height = height;
+        this.gender = gender;
         runs = new ArrayList<>();
     }
 
@@ -94,5 +99,21 @@ public class User {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

@@ -6,6 +6,7 @@ import android.widget.TextView;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Run;
 import ottas70.runningapp.Runsom;
+import ottas70.runningapp.User;
 
 public class AccountActivity extends BaseActivity {
 
@@ -18,6 +19,8 @@ public class AccountActivity extends BaseActivity {
     private TextView gender;
     private TextView height;
     private TextView weight;
+
+    private User user = Runsom.getInstance().getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +41,16 @@ public class AccountActivity extends BaseActivity {
     }
 
     private void initiateValues(){
-        money.setText(String.valueOf(Runsom.getInstance().getUser().getMoney()));
-        runs.setText(String.valueOf(Runsom.getInstance().getUser().getRuns().size()));
+        money.setText(String.valueOf(user.getMoney()));
+        runs.setText(String.valueOf(user.getRuns().size()));
         double km = 0;
-        for ( Run r : Runsom.getInstance().getUser().getRuns()){
+        for ( Run r : user.getRuns()){
             km += r.getDistance();
         }
         distance.setText(km + " km");
+        gender.setText(user.getGender());
+        height.setText(String.valueOf(user.getHeight()) + " cm");
+        weight.setText(String.valueOf(user.getWeight()) + " kg");
     }
 
 }

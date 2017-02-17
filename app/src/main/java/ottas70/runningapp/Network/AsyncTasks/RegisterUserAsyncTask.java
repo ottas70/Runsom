@@ -82,6 +82,9 @@ public class RegisterUserAsyncTask extends AsyncTask<Void,Void,Void>{
         values.put("username",user.getUsername());
         values.put("email",user.getEmail());
         values.put("password",user.getPassword());
+        values.put("gender","Male");
+        values.put("height",175);
+        values.put("weight",72);
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out,"UTF-8"));
         try {
