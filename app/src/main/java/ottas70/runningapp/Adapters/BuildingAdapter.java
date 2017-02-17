@@ -2,7 +2,6 @@ package ottas70.runningapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -63,9 +62,9 @@ public class BuildingAdapter extends BaseAdapter {
         }
         TextView address, price;
         ImageView romanNumeral;
-        address = (TextView) myView.findViewById(R.id.addressTextView);
+        address = (TextView) myView.findViewById(R.id.usernameTextView);
         price = (TextView) myView.findViewById(R.id.priceTextView);
-        romanNumeral = (ImageView) myView.findViewById(R.id.buildingTypeImageView);
+        romanNumeral = (ImageView) myView.findViewById(R.id.userImageView);
 
         final Building building = buildingList.get(i);
         address.setText(building.getAddress());

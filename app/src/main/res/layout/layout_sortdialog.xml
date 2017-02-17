@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="Corporation"
+                    android:text="Every Building"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
@@ -223,7 +223,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
                     android:textColorHint="@android:color/black"
@@ -252,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     android:textColor="@android:color/black"
                     android:textColorHighlight="@android:color/black"
                     android:textColorHint="@android:color/black"

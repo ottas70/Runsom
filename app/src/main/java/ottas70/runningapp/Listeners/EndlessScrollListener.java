@@ -25,18 +25,21 @@ public class EndlessScrollListener implements AbsListView.OnScrollListener {
     private Context context;
     private List<Building> buildingList;
     private BuildingAdapter adapter;
+    private String query;
 
-    public EndlessScrollListener(Context context, List<Building> buildingList, BuildingAdapter adapter) {
+    public EndlessScrollListener(Context context, List<Building> buildingList, BuildingAdapter adapter, String query) {
         this.context = context;
         this.buildingList = buildingList;
         this.adapter = adapter;
+        this.query = query;
     }
 
-    public EndlessScrollListener(Context context, int visibleThreshold, List<Building> buildingList, BuildingAdapter adapter) {
+    public EndlessScrollListener(Context context, int visibleThreshold, List<Building> buildingList, BuildingAdapter adapter, String query) {
         this.context = context;
         this.visibleThreshold = visibleThreshold;
         this.buildingList = buildingList;
         this.adapter = adapter;
+        this.query = query;
     }
 
     @Override
@@ -69,10 +72,8 @@ public class EndlessScrollListener implements AbsListView.OnScrollListener {
     }
 
     private String makeQuery(int pageNumber) {
-        String query = "SELECT * FROM Buildings " +
-                "JOIN Users ON Buildings.user_id = Users.user_id " +
-                "LIMIT " + (pageNumber * 10) + ",10";
-        return query;
+        String s =  query + " LIMIT " + (pageNumber * 10) + ",10";
+        return s;
     }
 
 }

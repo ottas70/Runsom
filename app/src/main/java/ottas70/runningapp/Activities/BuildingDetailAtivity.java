@@ -58,8 +58,8 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         setContentView(R.layout.activity_building_detail);
 
         arrowBackButton = (ImageView) findViewById(R.id.arrowBackButton);
-        buildingImageView = (ImageView) findViewById(R.id.buildingTypeImageView);
-        addressTextView = (TextView) findViewById(R.id.addressTextView);
+        buildingImageView = (ImageView) findViewById(R.id.userImageView);
+        addressTextView = (TextView) findViewById(R.id.usernameTextView);
         ownerTextView = (TextView) findViewById(R.id.ownerTextView);
         priceTextView = (TextView) findViewById(R.id.priceTextView);
         mapView = (MapView) findViewById(R.id.mapView);

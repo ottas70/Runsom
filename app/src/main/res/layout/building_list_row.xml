@@ -14,7 +14,7 @@
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/buildingTypeImageView"
+            android:id="@+id/userImageView"
             app:srcCompat="@drawable/roman_one"
             android:layout_margin="10dp" />
 
@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/addressTextView"
+                android:id="@+id/usernameTextView"
                 android:text="Nová 641, Dolní Břežany"
                 android:textColor="@android:color/black"
                 android:layout_marginLeft="10dp"
