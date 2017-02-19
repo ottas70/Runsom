@@ -34,7 +34,7 @@ public class EconomyOverviewActivity extends BaseActivity implements SortDialogL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_economy_overview);
 
-        setTitleText("ECONOMY");
+        setTitleText("BUILDING LIST");
         setImage(R.drawable.ic_sort_white_36dp, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +88,9 @@ public class EconomyOverviewActivity extends BaseActivity implements SortDialogL
             builder.append(" WHERE type="+sortInfo.getTypes().get(i));
             if(sortInfo.getRunner() != null){
                 builder.append(" AND username LIKE \"" + sortInfo.getRunner() + "%\"");
+            }
+            if(getIntent().hasExtra("username")){
+                builder.append(" AND username=\"" + getIntent().getStringExtra("username") + "\"");
             }
             if(sortInfo.getMinPrice() != -1){
                 builder.append(" AND price >= "+sortInfo.getMinPrice());

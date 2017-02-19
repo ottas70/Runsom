@@ -117,7 +117,7 @@ public class FetchUserDataAsyncTask extends AsyncTask<Void,Void,User> {
                 int height = jsonObject.getInt("height");
                 int weight = jsonObject.getInt("weight");
 
-                returnedUser = new User(id, username, user.getEmail(), user.getPassword(), money,weight,height,gender);
+                returnedUser = new User(id, username, user.getPassword(),user.getEmail(), money,weight,height,gender);
             }
 
         } catch (IOException e) {
