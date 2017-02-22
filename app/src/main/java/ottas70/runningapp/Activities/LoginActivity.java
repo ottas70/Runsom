@@ -3,8 +3,11 @@ package ottas70.runningapp.Activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
@@ -71,7 +75,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (o == null) {
                     showErrorMessage();
                 } else {
-                    logUserIn((User) o);
+                    User u = (User) o;
+                    logUserIn(u);
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("gender",String.valueOf(u.getGenderInt()));
+                    editor.putString("weight",String.valueOf(u.getWeight()));
+                    editor.putString("height",String.valueOf(u.getHeight()));
+                    editor.commit();
+                    System.out.println();
+
                 }
             }
         });

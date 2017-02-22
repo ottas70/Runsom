@@ -26,11 +26,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:color/transparent"
-        android:id="@+id/image"
+        android:id="@+id/right_image"
         android:layout_weight="1"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="false"
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:color/transparent"
+        android:id="@+id/left_image"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp" />
 
 </RelativeLayout>

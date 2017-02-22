@@ -35,7 +35,7 @@ public class EconomyOverviewActivity extends BaseActivity implements SortDialogL
         setContentView(R.layout.activity_economy_overview);
 
         setTitleText("BUILDING LIST");
-        setImage(R.drawable.ic_sort_white_36dp, new View.OnClickListener() {
+        setRightImage(R.drawable.ic_sort_white_36dp, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sortDialog = new SortDialog();

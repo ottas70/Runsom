@@ -18,6 +18,7 @@ import ottas70.runningapp.Network.AsyncTasks.GetNominatimCoordinatesAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.GetRunsAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.LoadBuildingsAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.RegisterUserAsyncTask;
+import ottas70.runningapp.Network.AsyncTasks.UpdatePersonalInfoAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.UploadRunAsyncTask;
 import ottas70.runningapp.Run;
 import ottas70.runningapp.User;
@@ -118,6 +119,13 @@ public class ServerRequest {
             progressDialog.show();
         }
         new GetNominatimCoordinatesAsyncTask(address, getCallback, progressDialog).execute();
+    }
+
+    public void updatePersonalInfoAsyncTask(boolean showDialog, GetCallback getCallback) {
+        if (showDialog) {
+            progressDialog.show();
+        }
+        new UpdatePersonalInfoAsyncTask(getCallback, progressDialog).execute();
     }
 
 }

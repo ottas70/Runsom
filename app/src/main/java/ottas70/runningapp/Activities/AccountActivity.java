@@ -45,6 +45,14 @@ public class AccountActivity extends BaseActivity {
         setContentView(R.layout.activity_account);
 
         setTitleText("ACCOUNT");
+        setRightImage(R.drawable.ic_settings_white_36dp, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountActivity.this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
         initiateListeners();
 
         username = (TextView) findViewById(R.id.usernameTextView);

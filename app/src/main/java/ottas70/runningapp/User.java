@@ -116,4 +116,11 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public int getGenderInt(){
+        if(gender.equals("Male")){
+            return 1;
+        }
+        return 2;
+    }
 }

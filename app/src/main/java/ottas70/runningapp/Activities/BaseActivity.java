@@ -22,7 +22,8 @@ abstract class BaseActivity extends Activity {
     private ImageView map;
     private ImageView stats;
     private ImageView account;
-    private ImageView image;
+    private ImageView rightImage;
+    private ImageView leftImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,16 @@ abstract class BaseActivity extends Activity {
         title.setText(text);
     }
 
-    protected void setImage(int drawable, View.OnClickListener listener){
-        image = (ImageView) findViewById(R.id.image);
-        image.setImageDrawable(ContextCompat.getDrawable(this, drawable));
-        image.setOnClickListener(listener);
+    protected void setRightImage(int drawable, View.OnClickListener listener){
+        rightImage = (ImageView) findViewById(R.id.right_image);
+        rightImage.setImageDrawable(ContextCompat.getDrawable(this, drawable));
+        rightImage.setOnClickListener(listener);
+    }
+
+    protected void setLeftImage(int drawable, View.OnClickListener listener){
+        leftImage = (ImageView) findViewById(R.id.left_image);
+        leftImage.setImageDrawable(ContextCompat.getDrawable(this, drawable));
+        leftImage.setOnClickListener(listener);
     }
 
     protected void initiateListeners() {
