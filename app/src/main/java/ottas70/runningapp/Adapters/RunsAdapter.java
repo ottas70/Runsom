@@ -15,7 +15,7 @@ import java.util.List;
 
 import ottas70.runningapp.Activities.RunDetailsActivity;
 import ottas70.runningapp.R;
-import ottas70.runningapp.Run;
+import ottas70.runningapp.Models.Run;
 import ottas70.runningapp.RunMapReadyCallback;
 import ottas70.runningapp.Runsom;
 

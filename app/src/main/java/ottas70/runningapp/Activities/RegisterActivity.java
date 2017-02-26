@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Network.ServerRequest;
-import ottas70.runningapp.User;
+import ottas70.runningapp.Models.User;
 
 public class RegisterActivity extends Activity implements View.OnClickListener{
 

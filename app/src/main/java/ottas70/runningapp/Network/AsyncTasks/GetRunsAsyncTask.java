@@ -23,10 +23,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import ottas70.runningapp.Duration;
+import ottas70.runningapp.Models.Duration;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
-import ottas70.runningapp.Run;
+import ottas70.runningapp.Models.Run;
 import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Utils.HttpQueryUtils;
 

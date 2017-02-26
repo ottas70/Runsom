@@ -185,6 +185,178 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:id="@+id/reqirementsLayout">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="REQUIREMENTS"
+                    android:textColor="@android:color/black"
+                    android:textSize="22sp"
+                    android:typeface="monospace" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="TOTAL"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal|bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="OUTSKIRTS"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal|bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="HOUSING ESTATES"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal|bold" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:id="@+id/totalTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/type1TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/type2TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="LUCRATIVE AREA"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal|bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="CENTRE"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal|bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="HISTORIC CENTRE"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal|bold" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:id="@+id/type3TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/type4TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/type5TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="13sp" />
+                    </TableRow>
+
+                </TableLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

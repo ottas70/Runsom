@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 import ottas70.runningapp.Adapters.BuildingAdapter;
-import ottas70.runningapp.Building;
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 
@@ -54,7 +54,7 @@ public class EndlessScrollListener implements AbsListView.OnScrollListener {
         }
         if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
             ServerRequest request = new ServerRequest(context);
-            request.loadBuildingsAsyncTask(makeQuery(currentPage + 1), false, new GetCallback() {
+            request.loadBuildingsAsyncTask(makeQuery(currentPage + 1), null, new GetCallback() {
                 @Override
                 public void done(Object o) {
                     if (o == null)

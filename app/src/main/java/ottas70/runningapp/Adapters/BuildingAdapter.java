@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 import ottas70.runningapp.Activities.BuildingDetailAtivity;
-import ottas70.runningapp.Building;
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;

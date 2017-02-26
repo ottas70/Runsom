@@ -3,6 +3,8 @@ package ottas70.runningapp;
 import android.os.Handler;
 import android.widget.TextView;
 
+import ottas70.runningapp.Models.Duration;
+
 /**
  * Created by Ottas on 27.11.2016.
  */

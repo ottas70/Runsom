@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +25,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import ottas70.runningapp.Building;
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Interfaces.MyDialogListener;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Runsom;
+import ottas70.runningapp.Models.User;
 import ottas70.runningapp.Views.InfoDialog;
 
 public class BuildingDetailAtivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
@@ -43,6 +45,14 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
     private MapView mapView;
     private Button buyButton;
 
+    private TextView total;
+    private TextView type1;
+    private TextView type2;
+    private TextView type3;
+    private TextView type4;
+    private TextView type5;
+    private LinearLayout requirements;
+
     private InfoDialog infoDialog;
 
     private GoogleApiClient googleApiClient;
@@ -51,6 +61,7 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
     private double latitude;
     private double longtitude;
     private Building building;
+    private User user = Runsom.getInstance().getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +76,13 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         mapView = (MapView) findViewById(R.id.mapView);
         buyButton = (Button) findViewById(R.id.buyButton);
         bundle = savedInstanceState;
+        requirements = (LinearLayout) findViewById(R.id.reqirementsLayout);
+        total = (TextView) findViewById(R.id.totalTextView);
+        type1 = (TextView) findViewById(R.id.type1TextView);
+        type2 = (TextView) findViewById(R.id.type2TextView);
+        type3 = (TextView) findViewById(R.id.type3TextView);
+        type4 = (TextView) findViewById(R.id.type4TextView);
+        type5 = (TextView) findViewById(R.id.type5TextView);
 
         building = (Building) getIntent().getSerializableExtra("building");
         addressTextView.setText(building.getAddress());
@@ -75,6 +93,7 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
 
         setImage();
         if (Runsom.getInstance().getUser().getUsername().equals(building.getOwnersName())) {
+            requirements.setVisibility(View.GONE);
             changeButton();
         }
 
@@ -92,10 +111,15 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
             }
         });
 
+        setRequirements();
         createGoogleAPIClient();
     }
 
     private void buyBuilding() {
+        if (!user.isMeetingRequirements(building.getBuildingType())) {
+            notEnoughBuildings();
+            return;
+        }
         if (Runsom.getInstance().getUser().getMoney() >= building.getPrice()) {
             ServerRequest request = new ServerRequest(BuildingDetailAtivity.this);
             request.buyBuildingAsyncTask(building, true, new GetCallback() {
@@ -107,6 +131,7 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
                             Runsom.getInstance().getUser().discountMoney(building.getPrice());
                             building.setOwnersName(Runsom.getInstance().getUser().getUsername());
                             ownerTextView.setText(building.getOwnersName());
+                            user.getBuildings().add(building);
                             changeButton();
                             transactionSuccessful();
                         } else {
@@ -156,6 +181,15 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
         infoDialog.show(getFragmentManager(), "infoDialog");
     }
 
+    private void notEnoughBuildings() {
+        infoDialog = new InfoDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", " YOU HAVE NOT MET THE REQUIREMENTS");
+        bundle.putString("message", " You have to purchase more buildings in order to buy this one");
+        infoDialog.setArguments(bundle);
+        infoDialog.show(getFragmentManager(), "infoDialog");
+    }
+
     private void error() {
         Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
     }
@@ -176,6 +210,37 @@ public class BuildingDetailAtivity extends Activity implements GoogleApiClient.C
                 break;
             case HISTORIC_CENTRE:
                 buildingImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.building_type_5));
+                break;
+
+        }
+    }
+
+    private void setRequirements() {
+        switch (building.getBuildingType()) {
+            case OUTSKIRTS:
+                requirements.setVisibility(View.GONE);
+                break;
+            case HOUSING_ESTATE:
+                type1.setText("8");
+                total.setText("8");
+                break;
+            case LUCRATIVE_AREA:
+                type1.setText("8");
+                type2.setText("4");
+                total.setText("12");
+                break;
+            case CENTER:
+                type1.setText("8");
+                type2.setText("4");
+                type3.setText("3");
+                total.setText("15");
+                break;
+            case HISTORIC_CENTRE:
+                type1.setText("8");
+                type2.setText("4");
+                type3.setText("3");
+                type4.setText("2");
+                total.setText("17");
                 break;
 
         }

@@ -2,10 +2,11 @@ package ottas70.runningapp.Network;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import ottas70.runningapp.Building;
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.AsyncTasks.AddMoneyToUserAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.BuyBuildingAsyncTask;
@@ -20,8 +21,8 @@ import ottas70.runningapp.Network.AsyncTasks.LoadBuildingsAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.RegisterUserAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.UpdatePersonalInfoAsyncTask;
 import ottas70.runningapp.Network.AsyncTasks.UploadRunAsyncTask;
-import ottas70.runningapp.Run;
-import ottas70.runningapp.User;
+import ottas70.runningapp.Models.Run;
+import ottas70.runningapp.Models.User;
 
 /**
  * Created by Ottas on 7.12.2016.
@@ -107,11 +108,8 @@ public class ServerRequest {
         new BuyBuildingAsyncTask(building, getCallback, progressDialog).execute();
     }
 
-    public void loadBuildingsAsyncTask(String query, boolean showDialog, GetCallback getCallback) {
-        if (showDialog) {
-            progressDialog.show();
-        }
-        new LoadBuildingsAsyncTask(query, getCallback, progressDialog).execute();
+    public void loadBuildingsAsyncTask(String query, ProgressBar progressBar, GetCallback getCallback) {
+        new LoadBuildingsAsyncTask(query, getCallback, progressBar).execute();
     }
 
     public void getNominatimCoordinatesAsyncTask(String address, boolean showDialog, GetCallback getCallback) {

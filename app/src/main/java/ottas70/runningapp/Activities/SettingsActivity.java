@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ottas70.runningapp.Fragments.SettingsFragment;
+import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 
 public class SettingsActivity extends Activity {

@@ -1,4 +1,4 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Models;
 
 /**
  * Created by Ottas on 10.12.2016.

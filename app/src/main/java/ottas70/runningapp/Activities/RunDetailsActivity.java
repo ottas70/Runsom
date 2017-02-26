@@ -15,7 +15,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.MapView;
 
 import ottas70.runningapp.R;
-import ottas70.runningapp.Run;
+import ottas70.runningapp.Models.Run;
 import ottas70.runningapp.RunMapReadyCallback;
 import ottas70.runningapp.Runsom;
 
@@ -70,10 +70,7 @@ public class RunDetailsActivity extends Activity implements GoogleApiClient.Conn
         durationTextView.setText(run.getDuration().toString());
         speedTextView.setText(String.valueOf(run.getAverageSpeed()) + " km/h");
         moneyTextView.setText(run.getMoneyEarned() + " $");
-        if (Runsom.getInstance().getUser().getWeight() != -1) {
-            caloriesTextView.setText(run.getCalories());
-        }
-
+        caloriesTextView.setText(String.valueOf(run.getCalories()));
     }
 
     private void createGoogleAPIClient() {

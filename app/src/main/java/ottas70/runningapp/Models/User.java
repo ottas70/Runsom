@@ -1,13 +1,15 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ottas70.runningapp.BuildingType;
 
 /**
  * Created by Ottas on 7.12.2016.
  */
 
-public class User {
+public class User{
 
     private int id;
     private String username;
@@ -19,6 +21,7 @@ public class User {
     private String gender;
 
     private List<Run> runs;
+    private List<Building> buildings;
 
     public User(String email, String password) {
         this.email = email;
@@ -43,6 +46,45 @@ public class User {
         this.height = height;
         this.gender = gender;
         runs = new ArrayList<>();
+    }
+
+    public int getBuildingsCount(BuildingType buildingType){
+        int count = 0;
+        for (Building b : buildings){
+            if(b.getBuildingType() == buildingType){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public boolean isMeetingRequirements(BuildingType buildingType){
+        switch(buildingType){
+            case HOUSING_ESTATE:
+                if(getBuildingsCount(BuildingType.OUTSKIRTS) < 8)return false;
+                break;
+            case LUCRATIVE_AREA:
+                if(getBuildingsCount(BuildingType.OUTSKIRTS) < 8)return false;
+                if(getBuildingsCount(BuildingType.HOUSING_ESTATE) < 4)return false;
+                break;
+            case CENTER:
+                if(getBuildingsCount(BuildingType.OUTSKIRTS) < 8)return false;
+                if(getBuildingsCount(BuildingType.HOUSING_ESTATE) < 4)return false;
+                if(getBuildingsCount(BuildingType.LUCRATIVE_AREA) < 3) return false;
+                break;
+            case HISTORIC_CENTRE:
+                if(getBuildingsCount(BuildingType.OUTSKIRTS) < 8)return false;
+                if(getBuildingsCount(BuildingType.HOUSING_ESTATE) < 4)return false;
+                if(getBuildingsCount(BuildingType.LUCRATIVE_AREA) < 3) return false;
+                if(getBuildingsCount(BuildingType.CENTER) < 2) return false;
+                break;
+
+        }
+        return true;
+    }
+
+    public void addMoney(int money){
+        this.money += money;
     }
 
     public void discountMoney(int price) {
@@ -122,5 +164,13 @@ public class User {
             return 1;
         }
         return 2;
+    }
+
+    public List<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(List<Building> buildings) {
+        this.buildings = buildings;
     }
 }

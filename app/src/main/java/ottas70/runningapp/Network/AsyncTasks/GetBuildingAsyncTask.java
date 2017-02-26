@@ -21,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import ottas70.runningapp.Building;
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.Utils.HttpQueryUtils;

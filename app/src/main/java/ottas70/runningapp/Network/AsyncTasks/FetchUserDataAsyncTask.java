@@ -23,7 +23,7 @@ import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
-import ottas70.runningapp.User;
+import ottas70.runningapp.Models.User;
 import ottas70.runningapp.Utils.HttpQueryUtils;
 
 /**

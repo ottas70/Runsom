@@ -1,4 +1,6 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Models;
+
+import ottas70.runningapp.Runsom;
 
 /**
  * Created by Ottas on 10.12.2016.
@@ -30,8 +32,8 @@ public class Run {
         return "Run " + (Runsom.getInstance().getUser().getRuns().size() + 1);
     }
 
-    public int getCalories() {
-        return (int) (MET_RUNNING * Runsom.getInstance().getUser().getWeight() * duration.getDurationInHours());
+    public double getCalories() {
+        return (MET_RUNNING * Runsom.getInstance().getUser().getWeight() * duration.getDurationInHours() * 1.0);
     }
 
     public Duration getDuration() {

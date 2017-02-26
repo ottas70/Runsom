@@ -2,6 +2,8 @@ package ottas70.runningapp;
 
 import java.util.ArrayList;
 
+import ottas70.runningapp.Models.SortInfo;
+
 public class SortInfoBuilder {
     private ArrayList<Integer> types;
     private boolean every;

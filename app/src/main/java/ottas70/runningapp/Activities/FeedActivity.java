@@ -2,6 +2,8 @@ package ottas70.runningapp.Activities;
 
 import android.os.Bundle;
 
+import ottas70.runningapp.Interfaces.GetCallback;
+import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 
 public class FeedActivity extends BaseActivity {
@@ -13,5 +15,6 @@ public class FeedActivity extends BaseActivity {
 
         setTitleText("FEED");
         initiateListeners();
+
     }
 }

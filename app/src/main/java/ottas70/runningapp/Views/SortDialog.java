@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import ottas70.runningapp.Interfaces.SortDialogListener;
 import ottas70.runningapp.R;
-import ottas70.runningapp.SortInfo;
+import ottas70.runningapp.Models.SortInfo;
 import ottas70.runningapp.SortInfoBuilder;
 
 /**

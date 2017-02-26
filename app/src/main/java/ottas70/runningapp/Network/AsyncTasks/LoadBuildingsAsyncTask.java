@@ -1,8 +1,9 @@
 package ottas70.runningapp.Network.AsyncTasks;
 
-import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import ottas70.runningapp.Building;
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.Utils.HttpQueryUtils;
@@ -35,13 +36,20 @@ import ottas70.runningapp.Utils.HttpQueryUtils;
 public class LoadBuildingsAsyncTask extends AsyncTask<Void, Void, ArrayList<Building>> {
 
     private GetCallback getCallback;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private String query;
 
-    public LoadBuildingsAsyncTask(String query, GetCallback getCallback, ProgressDialog progressDialog) {
+    public LoadBuildingsAsyncTask(String query, GetCallback getCallback, ProgressBar progressBar) {
         this.query = query;
         this.getCallback = getCallback;
-        this.progressDialog = progressDialog;
+        this.progressBar = progressBar;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        if(progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -78,7 +86,9 @@ public class LoadBuildingsAsyncTask extends AsyncTask<Void, Void, ArrayList<Buil
     @Override
     protected void onPostExecute(ArrayList<Building> buildings) {
         super.onPostExecute(buildings);
-        progressDialog.dismiss();
+        if(progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
         getCallback.done(buildings);
     }
 

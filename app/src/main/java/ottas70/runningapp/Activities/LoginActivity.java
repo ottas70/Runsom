@@ -3,7 +3,6 @@ package ottas70.runningapp.Activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,15 +15,17 @@ import android.widget.TextView;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
+import java.util.List;
 
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
 import ottas70.runningapp.Runsom;
-import ottas70.runningapp.User;
+import ottas70.runningapp.Models.User;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
+
 
     Button bLogin;
     EditText etEmail, etPassword;
@@ -45,7 +46,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         bLogin.setOnClickListener(this);
         registerLink.setOnClickListener(this);
 
-        authenticate(new User("yyy@y.y", generateHash("yyyy")));
+        //authenticate(new User("yyy@y.y", generateHash("yyyy")));
 
     }
 
@@ -68,22 +69,37 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void authenticate(User user) {
-        ServerRequest serverRequest = new ServerRequest(this);
-        serverRequest.fetchUserDataAsyncTask(user,true, new GetCallback() {
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+        dialog.setTitle("Processing...");
+        dialog.setMessage("Please wait...");
+        dialog.show();
+        final ServerRequest serverRequest = new ServerRequest(this);
+        serverRequest.fetchUserDataAsyncTask(user,false, new GetCallback() {
             @Override
             public void done(Object o) {
                 if (o == null) {
                     showErrorMessage();
                 } else {
-                    User u = (User) o;
-                    logUserIn(u);
+                    final User u = (User) o;
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("gender",String.valueOf(u.getGenderInt()));
                     editor.putString("weight",String.valueOf(u.getWeight()));
                     editor.putString("height",String.valueOf(u.getHeight()));
                     editor.commit();
-                    System.out.println();
+
+                    String QUERY = "SELECT * FROM Buildings JOIN Users ON Buildings.user_id = Users.user_id " +
+                            "WHERE username=\"" + u.getUsername()+"\"";
+                    serverRequest.loadBuildingsAsyncTask(QUERY, null, new GetCallback() {
+                        @Override
+                        public void done(Object o) {
+                            if(o != null){
+                                u.setBuildings((List<Building>) o);
+                            }
+                            logUserIn(u);
+                        }
+                    });
 
                 }
             }
@@ -98,6 +114,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void logUserIn(final User user) {
+        dialog.dismiss();
         Runsom.getInstance().setUser(user);
         Intent intent = new Intent(LoginActivity.this, RunOverviewActivity.class);
         startActivity(intent);

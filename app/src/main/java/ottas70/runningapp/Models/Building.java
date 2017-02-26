@@ -1,6 +1,8 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Models;
 
 import java.io.Serializable;
+
+import ottas70.runningapp.BuildingType;
 
 /**
  * Created by ottovodvarka on 21.01.17.

@@ -14,6 +14,8 @@ import com.google.maps.android.PolyUtil;
 
 import java.util.List;
 
+import ottas70.runningapp.Models.Run;
+
 /**
  * Created by ottovodvarka on 18.12.16.
  */

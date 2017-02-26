@@ -4,18 +4,19 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import ottas70.runningapp.Adapters.BuildingAdapter;
-import ottas70.runningapp.Building;
+import ottas70.runningapp.Models.Building;
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Interfaces.SortDialogListener;
 import ottas70.runningapp.Listeners.EndlessScrollListener;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
-import ottas70.runningapp.SortInfo;
+import ottas70.runningapp.Models.SortInfo;
 import ottas70.runningapp.SortInfoBuilder;
 import ottas70.runningapp.Views.SortDialog;
 
@@ -23,6 +24,7 @@ public class EconomyOverviewActivity extends BaseActivity implements SortDialogL
 
     private ListView listView;
     private SortDialog sortDialog;
+    private ProgressBar progressBar;
 
     private BuildingAdapter buildingAdapter;
     private ArrayList<Building> buildingList = new ArrayList<>();
@@ -48,6 +50,7 @@ public class EconomyOverviewActivity extends BaseActivity implements SortDialogL
         initiateListeners();
 
         listView = (ListView) findViewById(R.id.buildingList);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         initiateSort();
         createQueryWithoutLimit();
@@ -57,7 +60,7 @@ public class EconomyOverviewActivity extends BaseActivity implements SortDialogL
 
     private void initiateList() {
         ServerRequest request = new ServerRequest(this);
-        request.loadBuildingsAsyncTask(makeQuery(0), false, new GetCallback() {
+        request.loadBuildingsAsyncTask(makeQuery(0), progressBar, new GetCallback() {
             @Override
             public void done(Object o) {
                 if (o == null)

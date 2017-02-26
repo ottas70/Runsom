@@ -195,7 +195,7 @@ public class RunningActivity extends Activity implements MyDialogListener{
                     return false;
                 }
             }
-            if (counter == 5) {
+            if (counter == 3) {
                 return true;
             }
             return false;

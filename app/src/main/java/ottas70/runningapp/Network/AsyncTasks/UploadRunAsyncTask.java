@@ -4,9 +4,13 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -16,7 +20,7 @@ import java.net.URL;
 
 import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Network.ServerRequest;
-import ottas70.runningapp.Run;
+import ottas70.runningapp.Models.Run;
 import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Utils.HttpQueryUtils;
 
@@ -43,11 +47,15 @@ public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
             URL url = new URL(ServerRequest.SERVER_ADRESS + "UploadRun.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
             urlConnection.setConnectTimeout(ServerRequest.CONNECTION_TIMEOUT);
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);
+
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            readStream(in);
 
 
         } catch (MalformedURLException e) {
@@ -86,6 +94,22 @@ public class UploadRunAsyncTask extends AsyncTask<Void,Void,Void> {
             writer.flush();
             writer.close();
             out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readStream(InputStream in) throws UnsupportedEncodingException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            String line;
+            while((line = reader.readLine()) != null){
+                builder.append(line);
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

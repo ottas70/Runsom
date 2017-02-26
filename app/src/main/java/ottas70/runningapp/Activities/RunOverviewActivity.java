@@ -24,7 +24,7 @@ import ottas70.runningapp.Interfaces.GetCallback;
 import ottas70.runningapp.Interfaces.MyLocationListener;
 import ottas70.runningapp.Network.ServerRequest;
 import ottas70.runningapp.R;
-import ottas70.runningapp.Run;
+import ottas70.runningapp.Models.Run;
 import ottas70.runningapp.Runsom;
 import ottas70.runningapp.Services.LocationProviderService;
 

@@ -1,5 +1,7 @@
 package ottas70.runningapp;
 
+import ottas70.runningapp.Models.User;
+
 /**
  * Created by Ottas on 10.12.2016.
  */

@@ -1,4 +1,4 @@
-package ottas70.runningapp;
+package ottas70.runningapp.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
