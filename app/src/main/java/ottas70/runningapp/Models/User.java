@@ -21,7 +21,7 @@ public class User{
     private String gender;
 
     private List<Run> runs;
-    private List<Building> buildings;
+    private List<Building> buildings = new ArrayList<>();
 
     public User(String email, String password) {
         this.email = email;
