@@ -46,7 +46,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         bLogin.setOnClickListener(this);
         registerLink.setOnClickListener(this);
 
-        //authenticate(new User("yyy@y.y", generateHash("yyyy")));
 
     }
 
